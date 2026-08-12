@@ -96,7 +96,7 @@ const hideToC = tocDepth === 0 || reducedHeadings.length === 0;
   </div>
   {
     !hideToC && (
-      <side class="group/whole-toc text-text dark:text-text-dark sticky top-20 mt-14 mb-5 hidden h-fit w-fit max-w-56 grow rounded-lg border border-stone-400 text-left leading-7 lg:block dark:border-stone-700">
+      <side class="group/whole-toc text-text dark:text-text-dark sticky top-24 mt-14 mb-5 hidden h-fit w-fit max-w-56 grow rounded-lg border border-stone-400 text-left leading-7 lg:block dark:border-stone-700">
         <TableOfContents headings={reducedHeadings} {locale} />
       </side>
     )
