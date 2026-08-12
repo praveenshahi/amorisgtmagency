@@ -1,12 +1,53 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>AMORIS AI favicon</title>
   <defs>
-    <linearGradient id="b" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#00D9FF"/><stop offset="48%" stop-color="#4361FF"/><stop offset="100%" stop-color="#8B2CFF"/>
+    <linearGradient id="brand" x1="10%" y1="95%" x2="90%" y2="5%">
+      <stop offset="0%" stop-color="#00D9FF"/>
+      <stop offset="48%" stop-color="#4361FF"/>
+      <stop offset="100%" stop-color="#8B2CFF"/>
     </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="112" fill="#0a0524"/>
-  <g transform="translate(40 45) scale(0.86)">
-    <path d="M55 390 C105 390 125 355 150 305 L245 120 C272 67 330 50 374 75 C397 88 414 110 425 138 L477 272 L417 345 L365 215 C355 190 340 180 322 180 C300 180 285 194 273 218 L203 365 C185 402 151 425 112 425 C89 425 69 417 55 390Z" fill="url(#b)"/>
-    <path d="M125 405 C164 392 198 359 226 319 L398 82 L363 82 L433 18 L421 105 L394 86 L255 324 C220 383 183 424 140 438Z" fill="url(#b)"/>
-  </g>
+
+  <!-- Transparent favicon: abstract A + upward revenue arrow -->
+  <path d="M72 395
+           C108 395 132 372 151 333
+           L235 159
+           C256 115 289 91 327 91
+           C365 91 395 114 412 151
+           L449 232
+           L388 303
+           L355 226
+           C348 210 339 202 325 202
+           C308 202 297 212 287 232
+           L222 367
+           C201 410 166 433 125 433
+           C102 433 84 421 72 395Z"
+        fill="url(#brand)"/>
+
+  <!-- Growth arrow -->
+  <path d="M119 397
+           C153 384 182 354 207 316
+           L369 92
+           L339 92
+           L405 29
+           L394 112
+           L369 93
+           L236 324
+           C207 375 174 411 137 425Z"
+        fill="url(#brand)" filter="url(#glow)"/>
+
+  <!-- AI sparkle -->
+  <path d="M303 237
+           L313 261
+           L337 271
+           L313 281
+           L303 305
+           L293 281
+           L269 271
+           L293 261Z"
+        fill="#F1E8FF"/>
 </svg>
