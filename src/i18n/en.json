@@ -1,21 +1,12 @@
 {
   "nav": {
     "home": "Home",
-    "features": "Features",
-    "docs": "Docs",
-    "docs-installation": "Installation",
-    "docs-configuration": "Configuration",
-    "docs-guide": "Guide",
-    "docs-guide-explainer": "How to actually work with it",
-    "examples": "Examples",
+    "products": "Products",
+    "pricing": "Pricing",
+    "founder": "Founder",
     "blog": "Blog",
     "faq": "FAQ",
-    "events": "Events",
-    "about": "About",
     "contact": "Contact",
-    "pricing": "Pricing",
-    "integration": "Integration",
-    "get-listed": "Get Listed",
     "status": "Status",
     "legal-notice": "Legal Notice",
     "privacy-policy": "Privacy Policy"
@@ -65,15 +56,17 @@
     "subscribe-tool": "Subscribe an email address to the newsletter.",
     "subscribe-email-param": "The email address to subscribe to the newsletter.",
     "generic-error": "An error occurred. Please try again later.",
-    "demo-warn": "Mind that this is not sending anything at this demo!"
+    "demo-warn": "Mind that this is not sending anything at this demo!",
+    "book-audit": "Book a 20-min audit",
+    "see-the-work": "See the work"
   },
   "meta": {
-    "title": "Fallback Title for Stardrive, if not provided by the respective page itself.",
-    "description": "Fallback description for Stardrive, if not provided by the respective page itself.",
-    "og-site-name": "Stardrive - the Astro Boilerplate",
-    "slug": "Stardrive - the Astro Boilerplate",
-    "slogan": "The Astro boilerplate",
-    "sub-slogan": "Create super stable and fast websites in the AI age."
+    "title": "Amoris - AI GTM systems for B2B revenue teams",
+    "description": "Amoris designs and deploys agentic AI systems for B2B go-to-market teams. LangGraph, Clay and n8n, self-hosted and owned by you.",
+    "og-site-name": "Amoris",
+    "slug": "Amoris",
+    "slogan": "AI GTM agency",
+    "sub-slogan": "Agentic automation for B2B revenue teams."
   },
   "i18n": {
     "select-language": "Select your Language",
@@ -94,12 +87,12 @@
       "message": "Ooops. You somehow found a page that does not exist.\nMaybe never existed or was deleted.\n\nPlease check the URL or go back to the main page."
     },
     "home": {
-      "title": "Welcome to Stardrive - the Astro Boilerplate",
-      "description": "Stardrive is a complete Astro boilerplate and template to get your website up and running in no time with all the features you need to win.",
-      "hero-chip": "Latest version",
-      "hero-title": "The power of Astro, but on steroids.",
-      "hero-sub-slogan": "Create super stable and fast websites in the AI age.",
-      "references": "Powered by awesome tech"
+      "title": "AI GTM systems that actually scale",
+      "description": "Amoris designs and deploys agentic AI systems for B2B go-to-market teams - lead enrichment, qualification and CRM handoff as one orchestrated system. LangGraph, Clay, n8n. Self-hosted and owned by you.",
+      "hero-chip": "Amoris AI SDR: research to email in 38 seconds",
+      "hero-title": "AI GTM systems that actually scale",
+      "hero-sub-slogan": "Most teams automate pieces of go-to-market. We build the whole motion as one system - enrichment, qualification and CRM handoff - self-hosted on your infrastructure and owned by you.",
+      "references": "A decade running revenue at"
     },
     "features": {
       "title": "Features",
@@ -123,7 +116,7 @@
     },
     "faq": {
       "title": "FAQ",
-      "description": "Find answers to the most common questions about Astro Stardrive. Yes, it is free and open source.",
+      "description": "Straight answers about what Amoris builds, what it costs, how long it takes and who it is for.",
       "search-placeholder": "Search questions...",
       "filter-all-categories": "All categories",
       "no-results": "No questions match your search."
@@ -133,9 +126,9 @@
       "description": "The story behind Astro Stardrive - built by Jens, who has been crafting websites since the year 2000."
     },
     "contact": {
-      "title": "Contact us",
-      "description": "Get in touch with nobody - this is for demo purposes only - use GitHub for inquiries.",
-      "intro-text": "Have a question, an idea or just want to say hi? Drop us a line and we'll get back to you as soon as we can.",
+      "title": "Contact",
+      "description": "Talk to Amoris about GTM automation. Email, WhatsApp or book twenty minutes directly.",
+      "intro-text": "Tell us what is breaking in your go-to-market motion. We answer within a day, and the first conversation is about your problem, not our deck.",
       "docs-heading": "Don't want to wait?",
       "docs-text": "Most answers are already in our documentation.",
       "docs-cta": "Browse the docs",
@@ -157,8 +150,8 @@
       "tool-message-param": "The content of the message or inquiry."
     },
     "pricing": {
-      "title": "Our Pricing",
-      "description": "Choose the plan that suits your needs. No worries! Stardrive is free - this is for demo purposes only."
+      "title": "Engagement models",
+      "description": "Two ways to build your GTM automation: Done With You on your existing stack, or Done For You end to end. Both ship in six weeks and leave you owning the system."
     },
     "integration": {
       "title": "Integration",
@@ -214,8 +207,6 @@
       "description": "Read our latest articles about Astro, web development and more."
     },
     "events": {
-      "title": "Events",
-      "description": "Discover upcoming events, conferences, and meetups related to Astro Stardrive and web development.",
       "1": "January",
       "2": "February",
       "3": "March",
@@ -228,6 +219,8 @@
       "10": "October",
       "11": "November",
       "12": "December",
+      "title": "Events",
+      "description": "Discover upcoming events, conferences, and meetups related to Astro Stardrive and web development.",
       "select-year": "Select year",
       "when": "When",
       "where": "Where",
@@ -245,6 +238,14 @@
       "option-redirect-title": "Redirect to a web app",
       "option-redirect-text": "Send people straight to your dedicated app or an external signup flow.",
       "demo-note": "This page exists for demo purposes only - there is no working signup form here."
+    },
+    "products": {
+      "title": "Products",
+      "description": "What Amoris ships: the AI automation practice, Amoris AI SDR, and intel-echo - an npm package for auditing where an AI exceeded its mandate."
+    },
+    "founder": {
+      "title": "Praveen Shahi - AI GTM Engineer",
+      "description": "Praveen Shahi is an AI GTM Engineer and the founder of Amoris. Ten years running revenue organisations at Amazon, Meta, Great Learning and Leverage Edu, now building production AI systems for B2B revenue teams."
     }
   },
   "rss": {

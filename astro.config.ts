@@ -11,7 +11,6 @@ import { externalLinking } from './src/plugins/external-linking';
 import { rehypeYoutubePlugin } from './src/plugins/youtube-embed';
 import { themeConfig } from './theme.config';
 import { setOnDemandPrerender, getOnDemandSitemapPages } from './src/utils/on-demand-render';
-import cloudflare from '@astrojs/cloudflare';
 
 // i18n config for sitemap integration
 export const sitemap_i18n = {
@@ -95,26 +94,7 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [
-      tailwindcss(),
-      // The following are workarounds for issues with the Cloudflare adapter and its on-demand SSR runtime (workerd).
-      // See https://docs.astro.build/en/guides/integrations-guide/cloudflare/#some-dependencies-might-need-to-be-pre-compiled for details.
-      //
-      // Custom Plugin: Neutralize `createRequire(import.meta.url)` in fdir (used by astro/loaders -> tinyglobby -> picomatch) to avoid "The argument 'path' ... Received 'undefined'" errors in workerd.
-      {
-        name: 'neutralize-create-require-for-workerd',
-        enforce: 'post',
-        apply: 'build',
-        renderChunk(code) {
-          if (!code.includes('createRequire(import.meta.url)')) return null;
-          return {
-            code: code.replaceAll('createRequire(import.meta.url)', '() => ({ resolve: () => { throw new Error("no require"); }, })'),
-            map: null,
-          };
-        },
-      },
-    ],
-    // Pre-compilation of dependencies that are not compatible with the Cloudflare workerd runtime (on-demand SSR) or that are ESM-only and not pre-bundled by Vite.
+    plugins: [tailwindcss()],
     optimizeDeps: {
       include: ['debug', 'ms', 'reading-time', 'fdir > picomatch', 'expressive-code > postcss'],
     },
@@ -153,9 +133,7 @@ export default defineConfig({
   integrations: [
     setOnDemandPrerender,
     sitemap({
-      i18n: sitemap_i18n,
       customPages: getOnDemandSitemapPages(),
-      customSitemaps: [themeConfig.site.replace(/\/+$/, '') + '/dynamic-events-sitemap.xml'],
     }),
     icon({
       svgoOptions: svgoConfig,
@@ -175,9 +153,4 @@ export default defineConfig({
       },
     }),
   ],
-
-  adapter: cloudflare({
-    imageService: 'cloudflare', // mind to activate Media > Images > Transformations in the Cloudflare dashboard for your Zone/Worker!
-    prerenderEnvironment: 'node', // only applies to prerendering at build time. On-demand SSR always uses the Cloudflare workerd runtime. Node is currently required here because some render-time dependencies call Node-only path/url APIs that are not available in workerd's isolated runtime.
-  }),
 });

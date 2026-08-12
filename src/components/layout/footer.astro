@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 import { themeConfig } from '~/theme.config';
-import Logo from '@images/logo-footer.svg';
+import Logo from '@components/layout/wordmark.astro';
 import FooterNav from "@components/layout/nav/footer-nav.astro";
 import LegalNav from "@components/layout/nav/legal.astro";
 import LightModeSwitch from "@components/layout/light-mode-switch.astro";
@@ -19,8 +19,8 @@ const t = useTranslations(locale);
 
 const promptLocaleAdd = locale !== 'en' ? ` - Translate your answer into "${locale}" language` : '';
 
-const githubUrl: string|undefined = 'https://github.com/peltmonger/stardrive';
-const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmonger';
+const githubUrl: string|undefined = 'https://github.com/praveenshahi';
+const linkedinUrl: string|undefined = 'https://www.linkedin.com/in/praveenshahi13';
 ---
 
 <footer role="contentinfo" class="from-secondary-dark bg-linear-to-t to-stone-900 pt-14">
@@ -29,7 +29,7 @@ const linkedinUrl: string|undefined = 'https://www.linkedin.com/company/peltmong
       <div class="w-auto max-w-[200px]">
         <a href={getLocaleUrl('/', locale)} class="block w-full select-none">
           <p class="sr-only hidden" id="siteNameLogo">{themeConfig.name}</p>
-          <Logo class="h-auto w-full drop-shadow" aria-labelledby="siteNameLogo" />
+          <Logo white class="drop-shadow" aria-labelledby="siteNameLogo" />
         </a>
       </div>
       <div class="flex flex-col gap-1 text-balance text-stone-50">

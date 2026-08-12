@@ -1,0 +1,22 @@
+---
+/**
+ * Amoris wordmark.
+ *
+ * Set as HTML rather than an SVG file so it always renders in the site's own
+ * typeface and inherits theme colour, instead of depending on a font being
+ * available inside an inlined SVG. The leading dot echoes the accent used on
+ * the hero chip and the section eyebrows.
+ */
+interface Props {
+  /** Renders the light-on-dark variant, for the overlay header and the footer. */
+  white?: boolean;
+  class?: string;
+}
+
+const { white = false, class: className = "" } = Astro.props as Props;
+---
+
+<span class:list={['flex items-center gap-2 leading-none select-none', className]}>
+  <span class="bg-primary h-2 w-2 shrink-0 rounded-full" aria-hidden="true"></span>
+  <span class:list={['text-2xl font-bold tracking-tight', white ? 'text-white' : 'text-stone-900 dark:text-white']}>Amoris</span>
+</span>

@@ -1,0 +1,196 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import Reveal from "@components/reveal.astro";
+import { Icon } from "astro-icon/components";
+import { toSafeJsonScript } from "@utils/security";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+
+// intel-echo is a real, published package. Declaring it as SoftwareApplication gives
+// answer engines something concrete and checkable to attach to the Amoris entity.
+const softwareSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "intel-echo",
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Node.js",
+  description: "Audits an AI conversation for where the reasoning exceeded its mandate.",
+  url: "https://www.npmjs.com/package/intel-echo",
+  author: { "@id": "https://amoris.in/founder#person" },
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
+
+const products = [
+  {
+    id: "automation-practice",
+    eyebrow: "Core practice",
+    name: "AI GTM automation",
+    tagline: "The whole go-to-market motion as one orchestrated system.",
+    body: "We audit the motion, design the architecture against your actual workflow, and deploy it self-hosted on your infrastructure. Enrichment, qualification, routing and CRM handoff stop being separate tools held together by manual work.",
+    points: [
+      "LangGraph agents for multi-step qualification, not one-shot prompts",
+      "Clay waterfall enrichment with an LLM pass for intent and personalisation",
+      "n8n for event-driven orchestration across your existing stack",
+      "PostgreSQL for state and memory, so decisions are auditable",
+    ],
+    stack: ["LangGraph", "Clay", "n8n", "PostgreSQL"],
+    cta: { label: "Book the audit", href: "https://calendly.com/praveenshahi13/30min", external: true },
+  },
+  {
+    id: "amoris-ai-sdr",
+    eyebrow: "Flagship product",
+    name: "Amoris AI SDR",
+    tagline: "Research to evidence-backed email in about 38 seconds.",
+    body: "Give it a company name. It researches live, analyses go-to-market fit, forms a commercial hypothesis, writes the email, and then judges its own output against 14 quality criteria. Ready to send, or HOLD with a stated reason. You decide.",
+    points: [
+      "Evidence discipline - every claim traces to a cited source",
+      "HOLD is a feature: it knows when not to send, and says why",
+      "Signal-first, so the argument changes per company and not just the name",
+      "Human in the loop - it drafts, you send, judgment stays with you",
+    ],
+    stack: ["LangGraph", "Live web research", "LLM-as-judge", "PostgreSQL"],
+    cta: { label: "Ask about Amoris AI SDR", href: "https://wa.me/919100933191?text=Tell%20me%20about%20Amoris%20AI%20SDR", external: true },
+  },
+  {
+    id: "intel-echo",
+    eyebrow: "Published, open",
+    name: "intel-echo",
+    tagline: "Audits an AI conversation for where the reasoning exceeded its mandate.",
+    body: "Built out of running agent systems in production, where the failure mode that actually hurts is not a wrong answer but an agent quietly deciding something it was never asked to decide. Published on npm - install it and read the source.",
+    points: [
+      "Live on the npm registry, MIT licensed",
+      "Came directly out of production agent work, not a side experiment",
+      "Runnable demo hosted on this domain",
+    ],
+    stack: ["Node.js", "npm", "Reasoning observability"],
+    cta: { label: "View on npm", href: "https://www.npmjs.com/package/intel-echo", external: true },
+    secondaryCta: { label: "Live demo", href: "/intel-echo/", external: true },
+  },
+  {
+    id: "intel-echo-gtm",
+    eyebrow: "Applied tooling",
+    name: "Intel Echo GTM",
+    tagline: "The messaging loop, instrumented.",
+    body: "The go-to-market companion to intel-echo: a running view of how messaging behaves once it meets real buyers, so positioning changes are driven by evidence rather than opinion.",
+    points: ["Runs on this domain", "Built alongside live outbound work"],
+    stack: ["Messaging analysis", "GTM instrumentation"],
+    cta: { label: "Open Intel Echo GTM", href: "/intel-echo-gtm/", external: true },
+  },
+];
+
+const offerings = [
+  {
+    id: "done-with-you",
+    name: "Done With You",
+    tagline: "Deploy on your existing stack",
+    body: "We work with your team to design and deploy on the infrastructure you already run. You keep the tech decisions. We bring the architecture, the GTM logic, the training and the handover.",
+    highlights: ["Your existing tools", "Your engineers stay in the loop", "The shorter engagement"],
+  },
+  {
+    id: "done-for-you",
+    name: "Done For You",
+    tagline: "Full system design and deployment",
+    body: "We design the complete stack, build it, deploy it self-hosted in your environment, and hand you ownership. No infrastructure decisions to make up front, and no lock-in afterwards.",
+    highlights: ["Production-grade stack", "Full ownership at handover", "End-to-end support"],
+  },
+];
+
+const pricingUrl = getLocaleUrl('pricing', locale);
+---
+
+<Layout title={t('pages.products.title')} description={t('pages.products.description')}>
+  <script is:inline type="application/ld+json" set:html={toSafeJsonScript(softwareSchema)} />
+
+  <Headline text="Products" />
+
+  <section class="mb-16 max-w-3xl">
+    <p class="text-lg leading-relaxed text-stone-700 dark:text-stone-200">
+      Amoris builds custom GTM automation and ships tooling out of what that work teaches. Everything below is either running in production for a client or published where you can check it yourself.
+    </p>
+  </section>
+
+  <!-- ── Products ── -->
+  <section aria-label="What Amoris ships" class="mb-16 flex flex-col gap-5">
+    {
+      products.map((product, i) => (
+        <Reveal as="article" delay={i * 50} from="up" id={product.id} class="scroll-mt-28">
+          <div class="flex h-full flex-col gap-5 rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+            <div class="flex flex-col gap-2">
+              <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-[0.2em] uppercase">{product.eyebrow}</span>
+              <h2 class="text-2xl font-bold">{product.name}</h2>
+              <p class="text-lg text-stone-700 dark:text-stone-200">{product.tagline}</p>
+            </div>
+
+            <p class="max-w-3xl leading-relaxed text-stone-600 dark:text-stone-300">{product.body}</p>
+
+            <ul class="m-0 flex list-none flex-col gap-2 p-0">
+              {product.points.map((point) => (
+                <li class="m-0 flex gap-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+                  <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+
+            <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+              {product.stack.map((s) => (
+                <li class="m-0 rounded-full border border-stone-300 px-3 py-1 font-mono text-xs text-stone-500 dark:border-stone-600 dark:text-stone-400">{s}</li>
+              ))}
+            </ul>
+
+            <div class="mt-auto flex flex-wrap gap-3 pt-2">
+              <a href={product.cta.href} target={product.cta.external ? '_blank' : undefined} rel={product.cta.external ? 'noopener' : undefined} class="btn-primary">
+                {product.cta.label}
+              </a>
+              {product.secondaryCta && (
+                <a href={product.secondaryCta.href} target="_blank" rel="noopener" class="btn-subtle rounded px-4 py-[0.43rem]">
+                  {product.secondaryCta.label}
+                </a>
+              )}
+            </div>
+          </div>
+        </Reveal>
+      ))
+    }
+  </section>
+
+  <!-- ── Engagement models ── -->
+  <section aria-labelledby="products-offerings-heading">
+    <h2 id="products-offerings-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Two ways to work together</h2>
+    <p class="mb-8 max-w-2xl text-stone-600 dark:text-stone-300">
+      Both models run the same methodology and both ship in six weeks. What changes is who makes the infrastructure decisions.
+    </p>
+
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      {
+        offerings.map((offering, i) => (
+          <Reveal delay={i * 70} from={i === 0 ? 'left' : 'right'}>
+            <div id={offering.id} class="border-primary/30 flex h-full scroll-mt-28 flex-col gap-4 rounded-xl border-2 bg-white p-6 sm:p-8 dark:bg-stone-900">
+              <div class="flex flex-col gap-1">
+                <h3 class="text-xl font-bold">{offering.name}</h3>
+                <p class="text-primary dark:text-primary-light text-sm font-semibold">{offering.tagline}</p>
+              </div>
+              <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{offering.body}</p>
+              <ul class="m-0 flex list-none flex-col gap-2 p-0">
+                {offering.highlights.map((h) => (
+                  <li class="m-0 flex gap-2 text-sm text-stone-600 dark:text-stone-300">
+                    <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href={`${pricingUrl}#${offering.id}`} class="btn-subtle group mt-auto w-fit rounded px-4 py-[0.43rem]">
+                <span>What is included</span>
+                <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
+              </a>
+            </div>
+          </Reveal>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,241 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import Reveal from "@components/reveal.astro";
+import { Icon } from "astro-icon/components";
+import { toSafeJsonScript } from "@utils/security";
+import { useTranslations } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+
+/*
+  Person is the highest-value schema on the site: it is what makes Praveen findable
+  as an entity rather than as a string. `sameAs` is what ties this page to the
+  existing profiles and builds entity confidence across search and answer engines.
+*/
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://amoris.in/founder#person",
+  name: "Praveen Shahi",
+  jobTitle: "AI GTM Engineer",
+  description:
+    "Praveen Shahi is an AI GTM Engineer and the founder of Amoris. He spent ten years running revenue organisations at Amazon, Meta, Great Learning and Leverage Edu, then learned to build production AI systems, and now designs and deploys agentic automation for B2B go-to-market teams.",
+  url: "https://amoris.in/founder",
+  image: "https://amoris.in/founder.png",
+  email: "mailto:shahi@amoris.in",
+  telephone: "+91-91009-33191",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bengaluru",
+    addressCountry: "IN",
+  },
+  worksFor: { "@id": "https://amoris.in/#organization" },
+  knowsAbout: [
+    "AI GTM engineering",
+    "Agentic automation",
+    "LangGraph",
+    "Clay",
+    "n8n",
+    "Retrieval-augmented generation",
+    "Go-to-market strategy",
+    "Revenue operations",
+    "B2B sales automation",
+  ],
+  sameAs: [
+    "https://www.linkedin.com/in/praveenshahi13",
+    "https://github.com/praveenshahi",
+    "https://www.npmjs.com/package/intel-echo",
+  ],
+};
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://amoris.in/founder#profilepage",
+  url: "https://amoris.in/founder",
+  name: "Praveen Shahi - AI GTM Engineer",
+  mainEntity: { "@id": "https://amoris.in/founder#person" },
+};
+
+const story = [
+  {
+    years: "2014-2023",
+    title: "Operator",
+    paras: [
+      "I spent ten years running revenue organisations - at Amazon, at Meta, and in sales leadership at Great Learning and Leverage Edu. Not advising on revenue. Carrying it.",
+      "At Great Learning I led a 150-person sales organisation doing $120K+ per month in net-new revenue, and built the go-to-market motion into LATAM and Africa. At CrunchPrep I scaled the business to Rs 3.5Cr ARR and built a 30-member team from scratch. In both cases the job was designing the operating process, not adding headcount to a problem.",
+      "That decade taught me the thing most AI builders never learn: which levers actually move revenue, and which ones just look busy.",
+    ],
+  },
+  {
+    years: "2023-2025",
+    title: "The pivot",
+    paras: [
+      "In 2023 I stopped waiting for engineering. I learned to build.",
+      "I shipped orbisojas - a consciousness-and-AI platform with a multi-prompt architecture, real paying clients and live payments - entirely solo. Product, prompts, payment flow, deployment. No engineering team, no hand-off, no ticket queue.",
+      "It taught me what production actually costs. Not the demo. The reliability, the cost per call, the thing that breaks at 2am. That is a different education from building a prototype.",
+    ],
+  },
+  {
+    years: "2025-2026",
+    title: "Field proof",
+    paras: [
+      "Then I took it into the field. At MsgKart I built go-to-market from zero - an AI automation SaaS selling to non-technical buyers, which is the hardest version of the problem.",
+      "I designed the outbound stack end to end: Clay for waterfall enrichment, LLMs for personalisation, n8n for orchestration. We closed the first clients with one SDR and zero ad spend. I also built the SPIN and MEDDIC playbook for selling AI to buyers who do not care what a model is.",
+      "That is the proof the two halves connect. The stack worked because the GTM judgment shaped it, and the GTM worked because I could build the stack.",
+    ],
+  },
+  {
+    years: "2026-now",
+    title: "AI GTM Engineer",
+    paras: [
+      "Today I run Amoris and ship LangGraph and n8n agent systems for B2B revenue teams. I also publish what I learn - intel-echo, an npm package for auditing where an AI's reasoning exceeded its mandate, came directly out of running these systems in production.",
+      "Most GTM engineers configure tools. I architect the systems and know which levers matter. I sell AI, and I build the AI I sell.",
+      "That combination is rare, and it is the entire reason this works.",
+    ],
+  },
+];
+
+const openTo = [
+  "Founding GTM hire - build the entire motion from zero",
+  "AI GTM Engineer - architect the automation layer for a revenue team",
+  "Technical advisory and fractional GTM",
+  "Remote-first, working globally",
+];
+
+const notAFit = [
+  "Pure engineering roles - I want to own the revenue layer too",
+  "Enterprise sales execution - I build the systems, not just operate them",
+  "Roles requiring full-time presence in a specific city",
+];
+
+const links = [
+  { label: "GitHub", value: "github.com/praveenshahi", note: "LangGraph, n8n, intel-echo, the AI SDR agent", href: "https://github.com/praveenshahi", icon: "simple-icons:github" },
+  { label: "LinkedIn", value: "in/praveenshahi13", note: "Full work history and recommendations", href: "https://www.linkedin.com/in/praveenshahi13", icon: "simple-icons:linkedin" },
+  { label: "npm", value: "intel-echo", note: "Published package - install it and read the source", href: "https://www.npmjs.com/package/intel-echo", icon: "simple-icons:npm" },
+  { label: "Email", value: "shahi@amoris.in", note: "Fastest way to reach me", href: "mailto:shahi@amoris.in", icon: "heroicons:envelope" },
+  { label: "Phone", value: "+91 91009 33191", note: "Bengaluru, IST", href: "tel:+919100933191", icon: "heroicons:phone" },
+  { label: "Calendar", value: "Book 30 minutes", note: "No deck. We talk about the actual problem.", href: "https://calendly.com/praveenshahi13/30min", icon: "heroicons:calendar-days" },
+];
+---
+
+<Layout title={t('pages.founder.title')} description={t('pages.founder.description')}>
+  <script is:inline type="application/ld+json" set:html={toSafeJsonScript(personSchema)} />
+  <script is:inline type="application/ld+json" set:html={toSafeJsonScript(profilePageSchema)} />
+
+  <Headline text="Founder" />
+
+  <!-- ── Intro ── -->
+  <section class="mb-16 flex flex-col items-start gap-8 sm:flex-row sm:gap-10">
+    <Reveal from="left" class="shrink-0">
+      <img
+        src="/founder.png"
+        alt="Praveen Shahi, founder of Amoris and AI GTM Engineer"
+        width="200"
+        height="200"
+        loading="eager"
+        decoding="async"
+        class="border-primary/30 h-40 w-40 rounded-2xl border-2 object-cover sm:h-50 sm:w-50"
+      />
+    </Reveal>
+    <Reveal from="right" class="flex flex-col gap-4">
+      <h2 class="text-3xl font-bold sm:text-4xl">
+        Praveen Shahi <span class="text-primary dark:text-primary-light block sm:inline">- AI GTM Engineer</span>
+      </h2>
+      <p class="text-lg leading-relaxed text-stone-700 dark:text-stone-200">
+        I spent ten years running revenue organisations at Amazon, Meta, Great Learning and Leverage Edu. Then I learned to build the AI systems that make revenue scale.
+      </p>
+      <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+        Today I run Amoris, an AI GTM agency, and ship LangGraph and n8n orchestration systems. The combination is rare: I have carried a revenue number for a decade, and I ship production AI. Most GTM engineers configure tools. I architect the systems and know which levers matter.
+      </p>
+      <div class="mt-2 flex flex-wrap gap-4">
+        <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="btn-primary">Book 30 minutes</a>
+        <a href="mailto:shahi@amoris.in" class="btn-subtle rounded px-4 py-[0.43rem]">shahi@amoris.in</a>
+      </div>
+    </Reveal>
+  </section>
+
+  <!-- ── Story ── -->
+  <section aria-labelledby="founder-story-heading" class="mb-16">
+    <h2 id="founder-story-heading" class="mb-8 text-2xl font-bold sm:text-3xl">Four beats, in order.</h2>
+    <ol class="m-0 flex list-none flex-col gap-5 p-0">
+      {
+        story.map((beat, i) => (
+          <Reveal as="li" delay={i * 60} from="up" class="m-0">
+            <article class="flex flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 sm:flex-row sm:gap-8 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+              <div class="flex shrink-0 flex-col gap-1 sm:w-44">
+                <span class="text-primary dark:text-primary-light font-mono text-sm tabular-nums">{beat.years}</span>
+                <h3 class="text-xl font-bold">{beat.title}</h3>
+              </div>
+              <div class="flex flex-col gap-3 text-stone-600 dark:text-stone-300">
+                {beat.paras.map((p) => <p class="leading-relaxed">{p}</p>)}
+              </div>
+            </article>
+          </Reveal>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- ── Fit ── -->
+  <section aria-labelledby="founder-fit-heading" class="mb-16">
+    <h2 id="founder-fit-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Actively building Amoris. Open to the right role.</h2>
+    <p class="mb-8 max-w-2xl text-stone-600 dark:text-stone-300">
+      I run Amoris full time and take on client work. I am also open to a founding GTM or AI GTM engineering seat at a Series A or B company - if it is the kind of role where I would own both the systems and the number.
+    </p>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <Reveal from="left">
+        <div class="border-primary/30 flex h-full flex-col gap-4 rounded-xl border-2 bg-white p-6 dark:bg-stone-900">
+          <h3 class="flex items-center gap-2 text-lg font-bold">
+            <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-green-600 dark:text-green-400" aria-hidden="true" />
+            Open to
+          </h3>
+          <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            {openTo.map((i) => <li class="m-0">{i}</li>)}
+          </ul>
+        </div>
+      </Reveal>
+      <Reveal from="right">
+        <div class="flex h-full flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+          <h3 class="flex items-center gap-2 text-lg font-bold">
+            <Icon name="heroicons:x-circle" class="h-6 w-6 shrink-0 text-stone-400" aria-hidden="true" />
+            Not a fit
+          </h3>
+          <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            {notAFit.map((i) => <li class="m-0">{i}</li>)}
+          </ul>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ── Links ── -->
+  <section aria-labelledby="founder-links-heading">
+    <h2 id="founder-links-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Everything is verifiable.</h2>
+    <p class="mb-8 max-w-2xl text-stone-600 dark:text-stone-300">Every claim on this page has something behind it you can click.</p>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        links.map((link, i) => (
+          <Reveal delay={i * 50} from="up">
+            <a
+              href={link.href}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener' : undefined}
+              class="hover:border-primary dark:hover:border-primary-light flex h-full flex-col gap-1 rounded-xl border border-stone-300 bg-white p-6 no-underline transition-all hover:shadow-lg dark:border-stone-700 dark:bg-stone-900"
+            >
+              <span class="flex items-center gap-2 font-mono text-xs tracking-widest text-stone-500 uppercase dark:text-stone-400">
+                <Icon name={link.icon} class="h-4 w-4 shrink-0" aria-hidden="true" />
+                {link.label}
+              </span>
+              <span class="text-primary dark:text-primary-light text-lg font-semibold">{link.value}</span>
+              <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{link.note}</span>
+            </a>
+          </Reveal>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

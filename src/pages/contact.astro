@@ -1,49 +1,99 @@
 ---
 import Layout from "@layouts/default.astro";
 import Headline from "@components/headline.astro";
-import ContactForm from "@components/contact/contact-form.astro";
-import ContactMap from "@components/contact/contact-map.astro";
+import Reveal from "@components/reveal.astro";
 import { Icon } from "astro-icon/components";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 import { themeConfig } from '~/theme.config';
 
 const locale = themeConfig.i18n.defaultLocale;
 const t = useTranslations(locale);
+
+const channels = [
+  {
+    label: "Book the audit",
+    value: "20 minutes, no deck",
+    note: "The fastest useful conversation. We look at your actual motion and you keep the written map either way.",
+    href: "https://calendly.com/praveenshahi13/30min",
+    icon: "heroicons:calendar-days",
+    primary: true,
+  },
+  {
+    label: "WhatsApp",
+    value: "+91 91009 33191",
+    note: "Quickest for a short question. Usually answered same day, IST hours.",
+    href: "https://wa.me/919100933191?text=Hi%20Praveen%20-%20a%20question%20about%20Amoris%20GTM%20automation",
+    icon: "simple-icons:whatsapp",
+  },
+  {
+    label: "Email",
+    value: "shahi@amoris.in",
+    note: "Best for anything with detail attached. Answered within a day.",
+    href: "mailto:shahi@amoris.in",
+    icon: "heroicons:envelope",
+  },
+  {
+    label: "LinkedIn",
+    value: "in/praveenshahi13",
+    note: "Full work history, and fine for a first message if that is easier.",
+    href: "https://www.linkedin.com/in/praveenshahi13",
+    icon: "simple-icons:linkedin",
+  },
+];
+
+const faqUrl = getLocaleUrl('faq', locale);
 ---
 
 <Layout title={t('pages.contact.title')} description={t('pages.contact.description')}>
-  <Headline text={t('pages.contact.title')} class="pb-10" />
+  <Headline text="Contact" />
 
-  <p class="mb-10 max-w-2xl text-lg text-stone-600 dark:text-stone-300">{t('pages.contact.intro-text')}</p>
+  <p class="mb-12 max-w-2xl text-lg leading-relaxed text-stone-700 dark:text-stone-200">
+    {t('pages.contact.intro-text')}
+  </p>
 
-  <div class="flex flex-col justify-between gap-12 lg:flex-row lg:gap-16">
-    <!-- Contact form / Docs -->
-    <div class="flex max-w-xl flex-col gap-12 lg:flex-1">
-      <ContactForm {locale} />
-      <div class="flex flex-col gap-3">
-        <h3 class="text-lg font-semibold">{t('pages.contact.docs-heading')}</h3>
-        <p>
-          {t('pages.contact.docs-text')}<br />
-          <a href={getLocaleUrl('docs', locale)} class="flex items-center gap-1 self-start hover:gap-2">
-            <span>{t('pages.contact.docs-cta')}</span>
-            <Icon name="heroicons:arrow-right" class="h-4 w-4" aria-hidden="true" />
+  <section aria-label="Ways to get in touch" class="mb-16 grid grid-cols-1 gap-5 sm:grid-cols-2">
+    {
+      channels.map((channel, i) => (
+        <Reveal delay={i * 60} from="up">
+          <a
+            href={channel.href}
+            target={channel.href.startsWith('http') ? '_blank' : undefined}
+            rel={channel.href.startsWith('http') ? 'noopener' : undefined}
+            class:list={[
+              'flex h-full flex-col gap-2 rounded-xl bg-white p-6 no-underline transition-all hover:-translate-y-1 hover:shadow-lg dark:bg-stone-900',
+              channel.primary ? 'border-primary border-2' : 'hover:border-primary dark:hover:border-primary-light border border-stone-300 dark:border-stone-700',
+            ]}
+          >
+            <span class="flex items-center gap-2 font-mono text-xs tracking-widest text-stone-500 uppercase dark:text-stone-400">
+              <Icon name={channel.icon} class="h-4 w-4 shrink-0" aria-hidden="true" />
+              {channel.label}
+            </span>
+            <span class="text-primary dark:text-primary-light text-lg font-semibold">{channel.value}</span>
+            <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{channel.note}</span>
           </a>
-        </p>
-      </div>
-    </div>
+        </Reveal>
+      ))
+    }
+  </section>
 
-    <!-- Address -->
-    <aside class="flex flex-col gap-8 border-t border-stone-300 pt-12 lg:w-80 lg:shrink-0 lg:border-t-0 lg:pt-0 dark:border-stone-700">
-      <div class="flex flex-col gap-1 text-stone-600 dark:text-stone-300">
-        <h3 class="text-lg font-semibold">{t('pages.contact.address-heading')}</h3>
-        <address class="pt-1 text-sm not-italic">
-          <strong>ACME Inc.</strong><br />
-          Beta-Str. 10a<br />
-          85774 Unterf&ouml;hring<br />
-          Germany
-        </address>
-        <ContactMap {locale} />
-      </div>
-    </aside>
-  </div>
+  <section class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+    <div class="flex flex-col gap-2 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+      <h2 class="text-lg font-bold">Where we are</h2>
+      <address class="text-sm leading-relaxed text-stone-600 not-italic dark:text-stone-300">
+        Amoris<br />
+        Bengaluru, India<br />
+        Working remote-first, globally
+      </address>
+    </div>
+    <div class="flex flex-col gap-2 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+      <h2 class="text-lg font-bold">Rather read first?</h2>
+      <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+        Most of what people ask before a first call is already answered - what we build, what it costs, how long it takes and who it is not for.
+      </p>
+      <a href={faqUrl} class="btn-subtle group mt-auto w-fit rounded px-4 py-[0.43rem]">
+        <span>Read the FAQ</span>
+        <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
+      </a>
+    </div>
+  </section>
 </Layout>

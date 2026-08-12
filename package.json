@@ -1,9 +1,9 @@
 {
-  "name": "stardrive",
+  "name": "amoris",
   "version": "1.5.1",
   "stardriveVersion": "1.5.1",
   "private": true,
-  "description": "The Astro boilerplate to create super stable and fast websites in the AI age",
+  "description": "amoris.in - AI GTM agency site",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -11,24 +11,18 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "prebuild": "npm run sync-version",
-    "postbuild": "scripts/postbuild.js",
+    "postbuild": "node scripts/postbuild.js",
     "purge:cloudflare": "node scripts/purgeCloudflareCache.js",
     "check": "npm run check:astro && npm run check:type && npm run check:eslint && npm run check:prettier",
     "check:astro": "astro check",
     "check:type": "npm run generate-types && tsc --noEmit",
     "check:eslint": "eslint .",
     "check:prettier": "prettier --check .",
-    "fix": "npm run sync-version && npm run fix:eslint && npm run fix:prettier",
+    "fix": "npm run fix:eslint && npm run fix:prettier",
     "fix:eslint": "eslint --fix .",
     "fix:prettier": "prettier -w .",
     "generate-types": "wrangler types",
-    "test": "npm run check:astro",
-    "sync-version": "node scripts/syncVersion.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/peltmonger/stardrive.git"
+    "test": "npm run check:astro"
   },
   "keywords": [
     "astro",
@@ -43,22 +37,12 @@
     "ai"
   ],
   "author": {
-    "name": "Peltmonger Ventures GmbH",
-    "url": "https://peltmonger.com/"
+    "name": "Praveen Shahi",
+    "url": "https://amoris.in/founder"
   },
-  "maintainers": [
-    {
-      "name": "Jens Kuerschner",
-      "url": "https://jekuer.com/"
-    }
-  ],
   "license": "MIT",
-  "funding": "https://github.com/peltmonger/stardrive?sponsor=1",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/peltmonger/stardrive/issues"
-  },
-  "homepage": "https://astro-stardrive.com/",
+  "homepage": "https://amoris.in",
   "dependencies": {
     "@astrojs/cloudflare": "^14.2.1",
     "@astrojs/rss": "^4.0.19",
@@ -69,9 +53,6 @@
     "astro": "^7.2.1",
     "astro-expressive-code": "^0.44.1",
     "astro-icon": "^1.1.5",
-    "leaflet": "^1.9.4",
-    "pmtiles": "^4.5.0",
-    "protomaps-leaflet": "^5.1.0",
     "sanitize-html": "^2.17.6",
     "slot-text": "^0.3.4",
     "tailwindcss": "^4.3.3",
@@ -86,7 +67,6 @@
     "@iconify-json/fa7-brands": "^1.2.4",
     "@iconify-json/heroicons": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.93",
-    "@types/leaflet": "^1.9.22",
     "@types/sanitize-html": "^2.16.1",
     "@typescript-eslint/parser": "^8.67.0",
     "astro-compress": "^2.4.3",
