@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import Reveal from "@components/reveal.astro";
+import References from "@components/layout/references.astro";
 import { getLocaleUrl } from "@utils/i18n";
 import { themeConfig } from "~/theme.config";
 
@@ -135,6 +136,34 @@ const sdrFeatures = [
     text: "It researches and drafts. You send. Judgment stays where it belongs.",
   },
 ];
+
+/*
+  Build layer first, then the GTM tools we connect to - the ordering carries both
+  categories in one row. Everything here is either already named in the site copy or
+  reachable through n8n, so the row is a claim we can stand behind.
+*/
+const tools = [
+  { name: "simple-icons:openai", label: "OpenAI" },
+  { name: "simple-icons:anthropic", label: "Anthropic" },
+  { name: "simple-icons:langgraph", label: "LangGraph" },
+  { name: "simple-icons:n8n", label: "n8n" },
+  { name: "simple-icons:postgresql", label: "PostgreSQL" },
+  { label: "Clay" },
+  { name: "simple-icons:hubspot", label: "HubSpot" },
+  { name: "simple-icons:salesforce", label: "Salesforce" },
+  { name: "simple-icons:slack", label: "Slack" },
+  { name: "simple-icons:gmail", label: "Gmail" },
+  { name: "simple-icons:googlesheets", label: "Google Sheets" },
+  { name: "simple-icons:notion", label: "Notion" },
+  { name: "simple-icons:airtable", label: "Airtable" },
+  { name: "simple-icons:zapier", label: "Zapier" },
+  { name: "simple-icons:make", label: "Make" },
+  { name: "simple-icons:calendly", label: "Calendly" },
+  { name: "simple-icons:twilio", label: "Twilio" },
+  { name: "simple-icons:stripe", label: "Stripe" },
+];
+
+const mcpWhatsApp = 'https://wa.me/919100933191?text=' + encodeURIComponent('I would like early access to the Amoris AI SDR MCP server.');
 
 const productsUrl = getLocaleUrl('products', locale);
 const pricingUrl = getLocaleUrl('pricing', locale);
@@ -305,6 +334,17 @@ const founderUrl = getLocaleUrl('founder', locale);
       </Reveal>
     </section>
   </div>
+
+  <!-- ── What we build on, and what we plug into ── -->
+  <References marks={tools} label="Powered by, and plugs into your stack" reverse>
+    <p class="mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 pb-10 text-center text-sm text-white/60">
+      <span>An MCP server for the Amoris AI SDR is coming.</span>
+      <a href={mcpWhatsApp} target="_blank" rel="noopener" class="group inline-flex items-center gap-1 font-semibold text-white underline underline-offset-4 hover:text-white/80">
+        Ask about early access
+        <Icon name="heroicons:arrow-right" class="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
+      </a>
+    </p>
+  </References>
 
   <!-- ── Flagship product ── -->
   <div class="graph-paper-bg-inner">

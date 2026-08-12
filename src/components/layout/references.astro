@@ -1,53 +1,52 @@
 ---
 import { Icon } from "astro-icon/components";
-import { useTranslations } from "@utils/i18n";
 
-interface Props {
-  locale: string;
-  slogan?: boolean;
-  hideSloganMobile?: boolean;
+export interface Mark {
+  /** simple-icons name, e.g. "simple-icons:openai". Omit for a typographic wordmark. */
+  name?: string;
+  label: string;
 }
 
-const { locale, slogan = true, hideSloganMobile = false } = Astro.props;
-const t = useTranslations(locale);
+interface Props {
+  marks: Mark[];
+  /** Sits above the track. Long enough sentences are fine here - it is not a narrow rail. */
+  label: string;
+  /** Scrolls right-to-left instead, so two marquees on one page do not look mechanical. */
+  reverse?: boolean;
+  class?: string;
+}
+
+const { marks, label, reverse = false, class: className = '' } = Astro.props as Props;
 
 /*
-  These are the places Praveen ran revenue and built systems - employers, not clients.
-  Amazon and Meta use their official brand marks, bundled locally via simple-icons, so
-  there is no CDN left to break. Great Learning and Leverage Edu publish no open mark,
-  so they are set as typographic wordmarks at the same optical weight.
+  Brand marks come from @iconify-json/simple-icons, which is a local dependency -
+  they are inlined at build time, so there is no CDN request that can fail. Anything
+  without an official mark in that set (Clay, Great Learning, Leverage Edu) is set as
+  a wordmark at the same optical weight, which keeps the row consistent.
 
-  The marquee is pure CSS: the set is rendered twice in the markup and the track is
-  translated by exactly -50%, so the second copy lands where the first began. No
-  JavaScript means nothing to initialise, and the logos are still in the HTML for
-  crawlers and for anyone with scripts disabled.
+  Pure CSS marquee: the set is rendered twice and the track is translated by exactly
+  -50%, so the second copy lands where the first began. Nothing to initialise, and the
+  names stay in the HTML for crawlers and for anyone with scripts off.
+
+  Duration scales with the item count (~8s per item, matching the original 32s for four)
+  so a long row and a short row move at the same perceived speed rather than the long
+  one racing past.
 */
-const marks = [
-  { type: "icon", name: "simple-icons:amazon", label: "Amazon" },
-  { type: "icon", name: "simple-icons:meta", label: "Meta" },
-  { type: "word", label: "Great Learning" },
-  { type: "word", label: "Leverage Edu" },
-];
+const duration = marks.length * 8;
 ---
 
-<div class="bg-stone-800 select-none">
-  {
-    slogan && !hideSloganMobile && (
-      <p class="mx-auto m-0 w-fit px-6 pt-8 pb-1 text-center text-sm font-semibold text-balance text-white md:hidden">{t('pages.home.references')}</p>
-    )
-  }
+<div class:list={['bg-stone-800 select-none', className]}>
+  {/* No `m-0` here: it would zero the auto margins and pin the box left once the
+      viewport passes max-w-2xl. `text-pretty` rather than `text-balance` - balance
+      equalises line lengths, which chops a running sentence into four short lines on
+      a phone. */}
+  <p class="mx-auto max-w-2xl px-6 pt-9 pb-1 text-center text-sm font-semibold text-pretty text-white/90 sm:text-base">
+    {label}
+  </p>
 
-  <div class="relative flex w-full items-center justify-center overflow-hidden py-10">
-    {
-      slogan && (
-        <div class="hidden shrink-0 items-center gap-3 pr-6 pl-10 text-left md:flex">
-          <Icon name="heroicons:check-badge" class="h-9 w-9 shrink-0 text-green-400" aria-hidden="true" />
-          <span class="max-w-32 text-xs font-semibold text-balance text-white lg:max-w-36 lg:text-sm">{t('pages.home.references')}</span>
-        </div>
-      )
-    }
+  <div class="relative flex w-full items-center justify-center overflow-hidden pt-4 pb-10">
     <div class="marquee relative w-full overflow-hidden">
-      <div class="marquee-track">
+      <div class="marquee-track" style={`--marquee-duration:${duration}s;`} data-reverse={reverse ? 'true' : undefined}>
         {
           [0, 1].map((copy) => (
             <div class="marquee-set" aria-hidden={copy === 1 ? 'true' : undefined}>
@@ -66,13 +65,19 @@ const marks = [
       <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-stone-800 to-transparent" aria-hidden="true"></div>
     </div>
   </div>
+
+  <slot />
 </div>
 
 <style>
   .marquee-track {
     display: flex;
     width: max-content;
-    animation: marquee-scroll 32s linear infinite;
+    animation: marquee-scroll var(--marquee-duration, 32s) linear infinite;
+  }
+
+  .marquee-track[data-reverse] {
+    animation-direction: reverse;
   }
 
   .marquee:hover .marquee-track {
@@ -83,8 +88,6 @@ const marks = [
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    /* Each item carries half the gap on both sides, so the seam between the two
-       copies is spaced exactly like every other gap. */
     gap: 5rem;
     padding: 0 2.5rem;
   }
@@ -106,13 +109,11 @@ const marks = [
   }
 
   @media (prefers-reduced-motion: reduce) {
+    /* Without motion the second copy is redundant, so hide it and wrap the set instead. */
     .marquee-track {
       animation: none;
-    }
-    /* Without motion the second copy is redundant, so hide it and centre the set. */
-    .marquee-track {
-      justify-content: center;
       width: 100%;
+      justify-content: center;
     }
     .marquee-set[aria-hidden='true'] {
       display: none;
