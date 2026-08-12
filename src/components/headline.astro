@@ -5,12 +5,19 @@ interface Props {
   text: string;
   class?: string;
   icon?: string;
+  /**
+   * Renders the label as the page's <h1>. Use on utility pages (legal, 404, blog
+   * taxonomy) where the label really is the heading. Marketing pages leave this
+   * off and supply their own keyword-bearing <h1> in the content instead.
+   */
+  h1?: boolean;
   /** Set if background color is different to the global one */
   backgroundColor?: string;
   backgroundColorDark?: string;
 }
 
-const { text, class: className = "", backgroundColor, backgroundColorDark } = Astro.props;
+const { text, class: className = "", h1 = false, backgroundColor, backgroundColorDark } = Astro.props;
+const Label = h1 ? 'h1' : 'p';
 ---
 
 <div class:list={['relative mb-5', className]}>
@@ -20,10 +27,10 @@ const { text, class: className = "", backgroundColor, backgroundColorDark } = As
     </div>
     <div class="fade-overlay absolute top-0 right-0 h-full w-32" style={`--fade-to: var(--color-${backgroundColor || 'background'}); --fade-to-dark: var(--color-${backgroundColorDark || 'background-dark'})`}></div>
   </div>
-  <h1 class="flex items-center gap-1 pt-9 text-3xl font-bold italic opacity-60 select-none sm:gap-2 sm:pt-14 sm:text-5xl">
+  <Label class="flex items-center gap-1 pt-9 text-3xl font-bold italic opacity-60 select-none sm:gap-2 sm:pt-14 sm:text-5xl">
     {Astro.props.icon && <Icon name={Astro.props.icon} class="mt-0.5 h-7 w-7 sm:mt-1 sm:h-10 sm:w-10" />}
     {text}
-  </h1>
+  </Label>
 </div>
 
 <style>

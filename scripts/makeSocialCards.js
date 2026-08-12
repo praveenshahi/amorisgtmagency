@@ -13,7 +13,9 @@ import sharp from 'sharp';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const out = resolve(__dirname, '../public/images');
 
-const PRIMARY = '#f26430';
+const CYAN = '#00D9FF';
+const BLUE = '#4361FF';
+const VIOLET = '#8B2CFF';
 
 /** Escapes the five XML entities so copy can contain & and quotes safely. */
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
@@ -29,21 +31,31 @@ function card({ width, height, headline, sub }) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <defs>
     <radialGradient id="glow" cx="28%" cy="34%" r="70%">
-      <stop offset="0%" stop-color="#2a0a52"/>
-      <stop offset="55%" stop-color="#0d0322"/>
-      <stop offset="100%" stop-color="#050109"/>
+      <stop offset="0%" stop-color="#231063"/>
+      <stop offset="55%" stop-color="#0a0524"/>
+      <stop offset="100%" stop-color="#04020c"/>
     </radialGradient>
-    <radialGradient id="ember" cx="74%" cy="76%" r="46%">
-      <stop offset="0%" stop-color="${PRIMARY}" stop-opacity="0.30"/>
-      <stop offset="100%" stop-color="${PRIMARY}" stop-opacity="0"/>
+    <radialGradient id="ember" cx="76%" cy="74%" r="48%">
+      <stop offset="0%" stop-color="${VIOLET}" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="${VIOLET}" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="cyan" cx="16%" cy="82%" r="42%">
+      <stop offset="0%" stop-color="${CYAN}" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="${CYAN}" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rule" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="${CYAN}"/>
+      <stop offset="50%" stop-color="${BLUE}"/>
+      <stop offset="100%" stop-color="${VIOLET}"/>
+    </linearGradient>
   </defs>
 
   <rect width="${width}" height="${height}" fill="url(#glow)"/>
   <rect width="${width}" height="${height}" fill="url(#ember)"/>
+  <rect width="${width}" height="${height}" fill="url(#cyan)"/>
 
   <g transform="translate(${pad}, ${pad + markSize * 0.4})">
-    <circle cx="${markSize * 0.32}" cy="${-markSize * 0.32}" r="${markSize * 0.3}" fill="${PRIMARY}"/>
+    <circle cx="${markSize * 0.32}" cy="${-markSize * 0.32}" r="${markSize * 0.3}" fill="url(#rule)"/>
     <text x="${markSize}" y="0" font-family="Geist, Inter, Helvetica, Arial, sans-serif" font-size="${markSize}" font-weight="700" fill="#ffffff" letter-spacing="-0.5">Amoris</text>
   </g>
 
@@ -57,7 +69,7 @@ function card({ width, height, headline, sub }) {
     <text x="${pad}" y="${height - pad}" font-size="${subSize}" font-weight="500" fill="#ffffff" fill-opacity="0.55">${esc(sub)}</text>
   </g>
 
-  <rect x="0" y="${height - 10}" width="${width}" height="10" fill="${PRIMARY}"/>
+  <rect x="0" y="${height - 10}" width="${width}" height="10" fill="url(#rule)"/>
 </svg>`;
 }
 

@@ -9,8 +9,8 @@ export const themeConfig: ThemeConfig = {
   // `import.meta.env?.` is guarded because this file is also imported from `ec.config.mjs`,
   // which Node loads as plain ESM where `import.meta.env` is not defined (only Vite injects it).
   site: import.meta.env?.SITE_OVERRIDE || 'https://amoris.in',
-  primaryColor: '#f26430', // mind to also update the Tailwind config if you change this!
-  themeColor: '#50168a',
+  primaryColor: '#4361ff', // keep in sync with src/styles/tailwind.config.css
+  themeColor: '#8b2cff',
   generateWebmanifest: true,
   name: 'Amoris — AI GTM Agency',
   shortName: 'Amoris',

@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import { getLocaleUrl } from "@utils/i18n";
 import MainNav from "@components/layout/nav/main-nav.astro";
-import Logo from '@components/layout/wordmark.astro';
+import Logo from '@components/layout/logo.astro';
 import { themeConfig } from '~/theme.config';
 
 interface Props {
@@ -41,16 +41,16 @@ const { locale, button, tabIndex = 0, shrink = true, isHome, ctaButton, github, 
       </a>
     ) : isHome ? (
       <span aria-hidden="true">
-        <Logo class:list={['header-logo-dark h-10 w-fit touch-none select-none', logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'block dark:hidden']} />
-        <Logo white class:list={['touch-none^ header-logo-white h-10 w-fit select-none', logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'hidden dark:block']} />
+        <Logo surface="light" class:list={['header-logo-dark h-10 w-fit touch-none select-none', logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'block dark:hidden']} />
+        <Logo surface="dark" class:list={['touch-none^ header-logo-white h-10 w-fit select-none', logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'hidden dark:block']} />
       </span>
     ) : (
       <a href={getLocaleUrl('/', locale)} class="block w-fit select-none" tabindex={tabIndex}>
         <p class="sr-only hidden" id="siteNameLogo">
           {themeConfig.name}
         </p>
-        <Logo aria-labelledby="siteNameLogo" class:list={['header-logo-dark h-10 w-fit', logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'block dark:hidden']} />
-        <Logo white aria-labelledby="siteNameLogo" class:list={['header-logo-white h-10 w-fit', logoTheme === 'light' ? 'hidden' : logoTheme === 'dark' ? 'block' : 'hidden dark:block']} />
+        <Logo surface="light" aria-labelledby="siteNameLogo" class:list={['header-logo-dark h-10 w-fit', logoTheme === 'dark' ? 'hidden' : logoTheme === 'light' ? 'block' : 'block dark:hidden']} />
+        <Logo surface="dark" aria-labelledby="siteNameLogo" class:list={['header-logo-white h-10 w-fit', logoTheme === 'light' ? 'hidden' : logoTheme === 'dark' ? 'block' : 'hidden dark:block']} />
       </a>
     )
   }

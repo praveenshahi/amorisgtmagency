@@ -88,7 +88,7 @@
     },
     "home": {
       "title": "AI GTM systems that actually scale",
-      "description": "Amoris designs and deploys agentic AI systems for B2B go-to-market teams - lead enrichment, qualification and CRM handoff as one orchestrated system. LangGraph, Clay, n8n. Self-hosted and owned by you.",
+      "description": "Amoris designs and deploys agentic AI systems for B2B go-to-market teams. LangGraph, Clay and n8n, self-hosted and owned by you. Live in six weeks.",
       "hero-chip": "Amoris AI SDR: research to email in 38 seconds",
       "hero-title": "AI GTM systems that actually scale",
       "hero-sub-slogan": "Most teams automate pieces of go-to-market. We build the whole motion as one system - enrichment, qualification and CRM handoff - self-hosted on your infrastructure and owned by you.",
@@ -241,11 +241,11 @@
     },
     "products": {
       "title": "Products",
-      "description": "What Amoris ships: the AI automation practice, Amoris AI SDR, and intel-echo - an npm package for auditing where an AI exceeded its mandate."
+      "description": "What Amoris ships: AI GTM automation, the Amoris AI SDR, and intel-echo, an npm package that audits where an AI exceeded its mandate."
     },
     "founder": {
       "title": "Praveen Shahi - AI GTM Engineer",
-      "description": "Praveen Shahi is an AI GTM Engineer and the founder of Amoris. Ten years running revenue organisations at Amazon, Meta, Great Learning and Leverage Edu, now building production AI systems for B2B revenue teams."
+      "description": "Praveen Shahi is an AI GTM Engineer and founder of Amoris. Ten years running revenue at Amazon, Meta and Great Learning, now shipping production AI."
     }
   },
   "rss": {

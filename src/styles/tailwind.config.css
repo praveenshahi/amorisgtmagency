@@ -20,19 +20,22 @@
   --color-white: #fff;
   --color-black: #000;
   /* Colors: Branding */
-  --color-primary: #f26430;
-  --color-primary-light: #f79461;
-  --color-primary-dark: #c24b1f;
-  --color-primary-darker: #6b2810;
-  --color-primary-contrast: #000;
+  /* Brand palette, taken from the logo gradient: cyan #00D9FF -> blue #4361FF -> violet #8B2CFF */
+  --color-primary: #4361ff;
+  --color-primary-light: #7d92ff;
+  --color-primary-dark: #2a44d4;
+  --color-primary-darker: #16215e;
+  --color-primary-contrast: #fff;
   --color-primary-light-contrast: #000;
   --color-primary-dark-contrast: #fff;
-  --color-secondary: #50168a;
-  --color-secondary-light: #7b3fb2;
-  --color-secondary-dark: #3e0f63;
+  --color-secondary: #8b2cff;
+  --color-secondary-light: #a95cff;
+  --color-secondary-dark: #5c14b3;
   --color-secondary-contrast: #fff;
   --color-secondary-light-contrast: #000;
   --color-secondary-dark-contrast: #fff;
+  /* Highlight from the same gradient, used sparingly for accents on dark surfaces */
+  --color-accent: #00d9ff;
   --color-brand: var(--color-primary);
   /* Colors: Utility */
   --color-background: var(--color-stone-50);

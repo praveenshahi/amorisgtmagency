@@ -1,0 +1,147 @@
+---
+/**
+ * The Amoris logo.
+ *
+ * Inlined as SVG rather than an <img> so it inherits the page's font and can
+ * swap the wordmark colour per surface. The supplied artwork is built for dark
+ * backgrounds - its wordmark gradient runs from pale cyan to lilac, which is
+ * close to invisible on white - so `surface` picks a wordmark treatment that
+ * actually has contrast where the logo sits.
+ *
+ * Every gradient and filter id is suffixed with a per-instance uid: the header
+ * renders two copies (light and dark) and the footer a third, and duplicate ids
+ * in one document make every instance resolve against whichever came first.
+ */
+interface Props {
+  /** Background the logo sits on. Drives the wordmark colour. */
+  surface?: 'light' | 'dark';
+  /** Mark only, no wordmark - for tight spaces. */
+  markOnly?: boolean;
+  /** Adds the AUTOMATE / ENGAGE / CLOSE REVENUE line. Only legible at large sizes. */
+  tagline?: boolean;
+  class?: string;
+  title?: string;
+}
+
+const { surface = 'dark', markOnly = false, tagline = false, class: className = '', title = 'Amoris — AI GTM Agency' } = Astro.props as Props;
+
+const uid = Math.random().toString(36).slice(2, 8);
+const id = (name: string) => `${name}-${uid}`;
+
+// Only the mark is drawn when markOnly, so the viewBox tightens around it.
+const viewBox = markOnly ? '40 80 520 500' : tagline ? '0 0 1600 700' : '0 40 1600 560';
+
+// On white the pale artwork gradient disappears, so the wordmark switches to a
+// deep navy and the sub-lockup to the brand blue/violet.
+const wordFill = surface === 'dark' ? `url(#${id('text')})` : '#111a3a';
+const aiFill = surface === 'dark' ? `url(#${id('ai')})` : '#2a44d4';
+const gtmFill = surface === 'dark' ? '#A98CFF' : '#6b21c9';
+const agencyFill = surface === 'dark' ? '#D4DDF2' : '#5b6784';
+const ruleFill = surface === 'dark' ? '#8CA7D8' : '#c3cbdd';
+const taglineFill = surface === 'dark' ? '#DDE8FA' : '#5b6784';
+const chipIcon = surface === 'dark' ? '#E9F7FF' : '#E9F7FF';
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} class={className} role="img" aria-label={title}>
+  <defs>
+    <linearGradient id={id('brand')} x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00D9FF"></stop>
+      <stop offset="48%" stop-color="#4361FF"></stop>
+      <stop offset="100%" stop-color="#8B2CFF"></stop>
+    </linearGradient>
+    <linearGradient id={id('text')} x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B8EFFF"></stop>
+      <stop offset="45%" stop-color="#D9E8FF"></stop>
+      <stop offset="72%" stop-color="#9B8CFF"></stop>
+      <stop offset="100%" stop-color="#C76BFF"></stop>
+    </linearGradient>
+    <linearGradient id={id('ai')} x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4D6CFF"></stop>
+      <stop offset="100%" stop-color="#00D9FF"></stop>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(70 105)">
+    <!-- abstract A / revenue arrow -->
+    <path
+      d="M55 390 C105 390 125 355 150 305 L245 120 C272 67 330 50 374 75
+             C397 88 414 110 425 138 L477 272 L417 345 L365 215
+             C355 190 340 180 322 180 C300 180 285 194 273 218 L203 365
+             C185 402 151 425 112 425 C89 425 69 417 55 390Z"
+      fill={`url(#${id('brand')})`}></path>
+    <!-- upward growth ribbon -->
+    <path
+      d="M125 405 C164 392 198 359 226 319 L398 82
+             L363 82 L433 18 L421 105 L394 86
+             L255 324 C220 383 183 424 140 438Z"
+      fill={`url(#${id('brand')})`}></path>
+    <!-- network feeds -->
+    <g fill="none" stroke={`url(#${id('brand')})`} stroke-width="6" stroke-linecap="round">
+      <path d="M0 150 H85 L130 175"></path>
+      <path d="M0 235 H65 L130 205"></path>
+      <path d="M0 320 H85 L130 235"></path>
+    </g>
+    <g fill="#00D9FF">
+      <circle cx="130" cy="175" r="7"></circle>
+      <circle cx="130" cy="205" r="7"></circle>
+      <circle cx="130" cy="235" r="7"></circle>
+    </g>
+    <g fill="#08152F" stroke="#3E6CFF" stroke-width="2">
+      <rect x="-8" y="120" width="52" height="52" rx="13"></rect>
+      <rect x="-8" y="205" width="52" height="52" rx="13"></rect>
+      <rect x="-8" y="290" width="52" height="52" rx="13"></rect>
+    </g>
+    <!-- data source -->
+    <g fill="none" stroke={chipIcon} stroke-width="4">
+      <ellipse cx="18" cy="133" rx="12" ry="5"></ellipse>
+      <path d="M6 133v15c0 3 5 6 12 6s12-3 12-6v-15"></path>
+      <path d="M6 141c0 3 5 6 12 6s12-3 12-6"></path>
+    </g>
+    <!-- person -->
+    <circle cx="18" cy="219" r="7" fill={chipIcon}></circle>
+    <path d="M6 245c1-10 7-15 12-15s11 5 12 15" fill="none" stroke={chipIcon} stroke-width="4" stroke-linecap="round"></path>
+    <!-- target -->
+    <circle cx="18" cy="316" r="11" fill="none" stroke={chipIcon} stroke-width="3"></circle>
+    <circle cx="18" cy="316" r="4" fill={chipIcon}></circle>
+    <path d="M18 299v8M18 325v8M1 316h8M27 316h8" stroke={chipIcon} stroke-width="3" stroke-linecap="round"></path>
+  </g>
+
+  {
+    !markOnly && (
+      <g transform="translate(560 270)">
+        <text x="0" y="110" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="154" font-weight="700" letter-spacing="3" fill={wordFill}>
+          AMORIS
+        </text>
+        <path d="M365 47 l8 19 19 8-19 8-8 19-8-19-19-8 19-8z" fill="#9C4DFF" />
+        <rect x="665" y="-8" width="3" height="135" rx="1.5" fill={ruleFill} />
+        <text x="705" y="55" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="68" font-weight="800" fill={aiFill}>
+          AI
+        </text>
+        <text x="707" y="105" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="44" font-weight="700" letter-spacing="5" fill={gtmFill}>
+          GTM
+        </text>
+        <text x="709" y="143" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="29" font-weight="500" letter-spacing="7" fill={agencyFill}>
+          AGENCY
+        </text>
+      </g>
+    )
+  }
+
+  {
+    !markOnly && tagline && (
+      <g transform="translate(570 470)">
+        <text x="0" y="0" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="27" font-weight="500" letter-spacing="11" fill={taglineFill}>
+          AUTOMATE
+        </text>
+        <circle cx="245" cy="-9" r="7" fill="#00CFFF" />
+        <text x="275" y="0" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="27" font-weight="500" letter-spacing="11" fill={taglineFill}>
+          ENGAGE
+        </text>
+        <circle cx="515" cy="-9" r="7" fill="#8D35FF" />
+        <text x="545" y="0" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="27" font-weight="500" letter-spacing="11" fill={taglineFill}>
+          CLOSE REVENUE
+        </text>
+      </g>
+    )
+  }
+</svg>
