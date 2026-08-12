@@ -1,0 +1,153 @@
+---
+import { Icon } from "astro-icon/components";
+import Reveal from "@components/reveal.astro";
+import References from "@components/layout/references.astro";
+import { useTranslations } from "@utils/i18n";
+import { themeConfig } from "~/theme.config";
+
+interface Props {
+  locale?: string;
+  /**
+   * Breaks the band out to full viewport width. Needed on pages whose layout wraps
+   * content in a centred container - without it the dark marquee band stops short of
+   * the screen edges instead of spanning it.
+   */
+  fullBleed?: boolean;
+}
+
+const { locale = themeConfig.i18n.defaultLocale, fullBleed = false } = Astro.props as Props;
+const t = useTranslations(locale);
+
+// Where Praveen ran revenue and built systems - employers, not clients.
+const employers = [
+  { name: "simple-icons:amazon", label: "Amazon" },
+  { name: "simple-icons:meta", label: "Meta" },
+  { label: "Great Learning" },
+  { label: "Leverage Edu" },
+];
+
+/*
+  The marquee says where he worked. The cards say why that matters: each company maps
+  to a pattern, and each pattern maps to something Amoris ships. `icon` is a
+  simple-icons name where an official mark exists; otherwise the company name is set
+  as a wordmark, matching the marquee treatment.
+*/
+const patterns = [
+  {
+    company: "Amazon",
+    icon: "simple-icons:amazon",
+    learned: "Infrastructure at scale",
+    detail: "Systems built for reliability, cost per call, and the thing that breaks at 2am - not the demo.",
+    applied: "LangGraph reasoning chains with real error handling and state that survives failure.",
+  },
+  {
+    company: "Meta",
+    icon: "simple-icons:meta",
+    learned: "Growth loops and measurement",
+    detail: "Every funnel instrumented. Nothing shipped on a hunch, everything measured to basis points.",
+    applied: "Clay enrichment waterfalls and qualification logic scored on evidence, not guesses.",
+  },
+  {
+    company: "Great Learning",
+    learned: "Revenue operations at scale",
+    detail: "A 150-person sales organisation doing $120K+ per month in net-new, expanded into LATAM and Africa.",
+    applied: "An audit method that finds where revenue leaks, and process design that scales without new headcount.",
+  },
+  {
+    company: "Leverage Edu",
+    learned: "Go-to-market and revenue models",
+    detail: "Complex buyers, long cycles, and a motion built from zero to repeatable revenue.",
+    applied: "SPIN and MEDDIC playbooks wired into the automation, so outbound argues instead of spamming.",
+  },
+];
+
+const bleed = fullBleed ? 'relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2' : '';
+---
+
+<div class={bleed}>
+  <References marks={employers} label={t('pages.home.references')} />
+
+  <div class="graph-paper-bg-outer">
+    <div class="container mx-auto py-20">
+      <section aria-labelledby="patterns-heading">
+        <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
+          <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Why these patterns matter</span>
+          <h2 id="patterns-heading" class="max-w-3xl text-3xl font-bold text-balance sm:text-4xl">Most GTM engineers configure tools. We architect the systems.</h2>
+          <p class="max-w-2xl text-stone-600 dark:text-stone-300">
+            Ten years carrying a revenue number, then three years shipping production AI. Each place taught a pattern, and every pattern is in what Amoris builds.
+          </p>
+        </Reveal>
+
+        <ul class="m-0 grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2">
+          {
+            patterns.map((p, i) => (
+              <Reveal as="li" delay={i * 70} from="up" class="m-0">
+                <article class="group relative flex h-full flex-col gap-4 overflow-hidden rounded-xl border border-stone-300 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-xl dark:border-stone-700 dark:bg-stone-900">
+                  <div class="bg-primary absolute inset-x-0 top-0 h-1" />
+                  <div class="flex h-8 items-center gap-2.5 text-xl font-semibold tracking-tight">
+                    {p.icon && <Icon name={p.icon} class="h-6 w-6 shrink-0" aria-hidden="true" />}
+                    {p.company}
+                  </div>
+                  <h3 class="text-lg font-bold">{p.learned}</h3>
+                  <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{p.detail}</p>
+                  <p class="mt-auto border-t border-stone-200 pt-4 text-sm leading-relaxed text-stone-700 dark:border-stone-700 dark:text-stone-200">
+                    <span class="text-primary dark:text-primary-light font-semibold">Applied: </span>
+                    {p.applied}
+                  </p>
+                </article>
+              </Reveal>
+            ))
+          }
+        </ul>
+
+        <Reveal class="mt-8 flex justify-center">
+          <a href="#story" class="btn-subtle group rounded px-4 py-[0.43rem]">
+            <span>Read the full story</span>
+            <Icon name="heroicons:arrow-down" class="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5" aria-hidden="true" />
+          </a>
+        </Reveal>
+      </section>
+    </div>
+  </div>
+</div>
+
+<style>
+  .graph-paper-bg-outer {
+    position: relative;
+  }
+
+  .graph-paper-bg-outer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: linear-gradient(rgba(212, 212, 212, 0.69) 2px, transparent 2px), linear-gradient(90deg, rgba(212, 212, 212, 0.69) 2px, transparent 2px), linear-gradient(rgba(212, 212, 212, 0.69) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 212, 212, 0.69) 1px, rgba(247, 247, 252, 0) 1px);
+    background-size:
+      100px 100px,
+      100px 100px,
+      20px 20px,
+      20px 20px;
+    background-position:
+      -2px -2px,
+      -2px -2px,
+      -1px -1px,
+      -1px -1px;
+    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.6) 100%);
+    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.6) 100%);
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  /* In dark mode the light grid lines would be too bright, so dim them. */
+  :global(.dark) .graph-paper-bg-outer::before {
+    background-image: linear-gradient(rgba(80, 80, 80, 0.3) 2px, transparent 2px), linear-gradient(90deg, rgba(80, 80, 80, 0.3) 2px, transparent 2px), linear-gradient(rgba(80, 80, 80, 0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(80, 80, 80, 0.22) 1px, rgba(247, 247, 252, 0) 1px);
+  }
+
+  .graph-paper-bg-outer > * {
+    position: relative;
+    z-index: 1;
+  }
+</style>

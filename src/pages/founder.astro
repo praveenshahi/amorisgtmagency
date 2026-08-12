@@ -2,6 +2,7 @@
 import Layout from "@layouts/default.astro";
 import Headline from "@components/headline.astro";
 import Reveal from "@components/reveal.astro";
+import Patterns from "@components/patterns.astro";
 import { Icon } from "astro-icon/components";
 import { toSafeJsonScript } from "@utils/security";
 import { useTranslations } from "@utils/i18n";
@@ -158,27 +159,8 @@ const links = [
     </Reveal>
   </section>
 
-  <!-- ── Story ── -->
-  <section aria-labelledby="founder-story-heading" class="mb-16">
-    <h2 id="founder-story-heading" class="mb-8 text-2xl font-bold sm:text-3xl">Four beats, in order.</h2>
-    <ol class="m-0 flex list-none flex-col gap-5 p-0">
-      {
-        story.map((beat, i) => (
-          <Reveal as="li" delay={i * 60} from="up" class="m-0">
-            <article class="flex flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 sm:flex-row sm:gap-8 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
-              <div class="flex shrink-0 flex-col gap-1 sm:w-44">
-                <span class="text-primary dark:text-primary-light font-mono text-sm tabular-nums">{beat.years}</span>
-                <h3 class="text-xl font-bold">{beat.title}</h3>
-              </div>
-              <div class="flex flex-col gap-3 text-stone-600 dark:text-stone-300">
-                {beat.paras.map((p) => <p class="leading-relaxed">{p}</p>)}
-              </div>
-            </article>
-          </Reveal>
-        ))
-      }
-    </ol>
-  </section>
+  <!-- ── Where the patterns come from ── -->
+  <Patterns fullBleed />
 
   <!-- ── Fit ── -->
   <section aria-labelledby="founder-fit-heading" class="mb-16">
@@ -210,6 +192,28 @@ const links = [
         </div>
       </Reveal>
     </div>
+  </section>
+
+  <!-- ── Story ── -->
+  <section id="story" aria-labelledby="founder-story-heading" class="mb-16 scroll-mt-28">
+    <h2 id="founder-story-heading" class="mb-8 text-2xl font-bold sm:text-3xl">Four beats, in order.</h2>
+    <ol class="m-0 flex list-none flex-col gap-5 p-0">
+      {
+        story.map((beat, i) => (
+          <Reveal as="li" delay={i * 60} from="up" class="m-0">
+            <article class="flex flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 sm:flex-row sm:gap-8 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+              <div class="flex shrink-0 flex-col gap-1 sm:w-44">
+                <span class="text-primary dark:text-primary-light font-mono text-sm tabular-nums">{beat.years}</span>
+                <h3 class="text-xl font-bold">{beat.title}</h3>
+              </div>
+              <div class="flex flex-col gap-3 text-stone-600 dark:text-stone-300">
+                {beat.paras.map((p) => <p class="leading-relaxed">{p}</p>)}
+              </div>
+            </article>
+          </Reveal>
+        ))
+      }
+    </ol>
   </section>
 
   <!-- ── Links ── -->

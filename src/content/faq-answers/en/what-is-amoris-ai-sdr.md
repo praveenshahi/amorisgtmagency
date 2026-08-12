@@ -6,7 +6,7 @@ category: 'products'
 llmsTxt: true
 ---
 
-Amoris AI SDR is a research-to-email system. You give it a company name; it researches that company live, analyses the go-to-market fit, forms a commercial hypothesis, writes an evidence-backed outbound email, and then judges its own draft against 14 quality criteria. That whole loop takes about 38 seconds.
+Amoris AI SDR turns leads into qualified meetings. You give it a company name; it researches that company live, analyses the go-to-market fit, forms a commercial hypothesis, writes an evidence-backed outbound email, and then judges its own draft against 14 quality criteria before you ever see it.
 
 Four things make it behave differently from most AI sales tooling:
 
