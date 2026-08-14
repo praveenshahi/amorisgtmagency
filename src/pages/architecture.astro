@@ -2,6 +2,7 @@
 import Layout from "@layouts/default.astro";
 import Headline from "@components/headline.astro";
 import Reveal from "@components/reveal.astro";
+import ArchitectureDiagram from "@components/architecture-diagram.astro";
 import { Icon } from "astro-icon/components";
 import { useTranslations, getLocaleUrl } from "@utils/i18n";
 import { themeConfig } from '~/theme.config';
@@ -56,104 +57,10 @@ const dataUrl = getLocaleUrl('data-and-ip', locale);
   <section aria-labelledby="pipeline-heading" class="mb-16">
     <h2 id="pipeline-heading" class="mb-3 text-2xl font-bold sm:text-3xl">The pipeline</h2>
     <p class="mb-8 max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
-      Two decision points can end the run early. That is the part worth understanding, because it is the opposite of how most tools in this category behave.
+      Evidence collection, commercial reasoning, message generation and quality control are separate, inspectable stages. The quality gate can end a run before anything is sent - the opposite of how most tools in this category behave.
     </p>
 
-    <Reveal>
-      <div class="rounded-xl border border-stone-300 bg-white p-2 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
-        <svg
-          class="arch-diagram mx-auto block h-auto w-full max-w-[340px]"
-          viewBox="0 0 324 552"
-          role="img"
-          aria-labelledby="arch-title arch-desc"
-        >
-          <title id="arch-title">The Amoris research pipeline, with two HOLD exits</title>
-          <desc id="arch-desc">
-            An account enters research, which produces evidence. Reasoning either forms a hypothesis or exits to HOLD. If it continues, a draft is written and judged, which either returns READY or exits to a second HOLD. READY goes to human review, and only then to an optional manual send.
-          </desc>
-
-          <defs>
-            <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" class="arch-arrowhead" />
-            </marker>
-            <marker id="arch-arrow-stop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" class="arch-arrowhead-stop" />
-            </marker>
-          </defs>
-
-          <g class="arch-step">
-            <rect x="6" y="8" width="152" height="44" rx="8" />
-            <text x="18" y="30">Account</text>
-            <text x="18" y="44" class="arch-sub">a name and a site</text>
-          </g>
-          <line x1="82" y1="52" x2="82" y2="72" class="arch-line" marker-end="url(#arch-arrow)" />
-
-          <g class="arch-step">
-            <rect x="6" y="76" width="152" height="44" rx="8" />
-            <text x="18" y="98">Research</text>
-            <text x="18" y="112" class="arch-sub">live, per account</text>
-          </g>
-          <line x1="82" y1="120" x2="82" y2="140" class="arch-line" marker-end="url(#arch-arrow)" />
-
-          <g class="arch-step">
-            <rect x="6" y="144" width="152" height="44" rx="8" />
-            <text x="18" y="166">Evidence</text>
-            <text x="18" y="180" class="arch-sub">claim + source</text>
-          </g>
-          <line x1="82" y1="188" x2="82" y2="208" class="arch-line" marker-end="url(#arch-arrow)" />
-
-          <g class="arch-step arch-decision">
-            <rect x="6" y="212" width="152" height="44" rx="8" />
-            <text x="18" y="234">Reason</text>
-            <text x="18" y="248" class="arch-sub">signal to hypothesis</text>
-          </g>
-          <line x1="158" y1="234" x2="176" y2="234" class="arch-line-stop" marker-end="url(#arch-arrow-stop)" />
-          <g class="arch-hold">
-            <rect x="180" y="212" width="138" height="44" rx="8" />
-            <text x="192" y="234">HOLD</text>
-            <text x="192" y="248" class="arch-sub-stop">evidence too thin</text>
-          </g>
-          <text x="249" y="270" class="arch-note">run ends here</text>
-
-          <line x1="82" y1="256" x2="82" y2="276" class="arch-line" marker-end="url(#arch-arrow)" />
-
-          <g class="arch-step arch-decision">
-            <rect x="6" y="280" width="152" height="44" rx="8" />
-            <text x="18" y="302">Draft &amp; judge</text>
-            <text x="18" y="316" class="arch-sub">14 checks</text>
-          </g>
-          <line x1="158" y1="302" x2="176" y2="302" class="arch-line-stop" marker-end="url(#arch-arrow-stop)" />
-          <g class="arch-hold">
-            <rect x="180" y="280" width="138" height="44" rx="8" />
-            <text x="192" y="302">HOLD</text>
-            <text x="192" y="316" class="arch-sub-stop">claim untraceable</text>
-          </g>
-          <text x="249" y="338" class="arch-note">run ends here</text>
-
-          <line x1="82" y1="324" x2="82" y2="344" class="arch-line" marker-end="url(#arch-arrow)" />
-
-          <g class="arch-step arch-ready">
-            <rect x="6" y="348" width="152" height="44" rx="8" />
-            <text x="18" y="370">READY</text>
-            <text x="18" y="384" class="arch-sub">reasoning attached</text>
-          </g>
-          <line x1="82" y1="392" x2="82" y2="412" class="arch-line" marker-end="url(#arch-arrow)" />
-
-          <g class="arch-step arch-human">
-            <rect x="6" y="416" width="152" height="44" rx="8" />
-            <text x="18" y="438">You review</text>
-            <text x="18" y="452" class="arch-sub">the decision point</text>
-          </g>
-          <line x1="82" y1="460" x2="82" y2="480" class="arch-line arch-line-dashed" marker-end="url(#arch-arrow)" />
-
-          <g class="arch-step arch-optional">
-            <rect x="6" y="484" width="152" height="44" rx="8" stroke-dasharray="4 3" />
-            <text x="18" y="506">Send</text>
-            <text x="18" y="520" class="arch-sub">optional, manual</text>
-          </g>
-        </svg>
-      </div>
-    </Reveal>
+    <ArchitectureDiagram />
 
     <p class="mt-4 text-center text-sm text-stone-500 dark:text-stone-400">
       Nothing continues past a HOLD. There is no queue it lands in, and no setting that overrides it into sending.
@@ -237,7 +144,7 @@ const dataUrl = getLocaleUrl('data-and-ip', locale);
           It is an evaluation mechanism, not an oracle. Two limits are worth stating plainly, because they affect how much weight the output deserves.
         </p>
         <p class="leading-relaxed text-stone-600 dark:text-stone-300">
-          <strong class="text-stone-900 dark:text-white">Writing and judging happen in the same pass.</strong> The model that produced the draft is the one assessing it, which means it has no outside vantage point on its own work. In testing this has been observed to matter - it is the known weak point of the design, and it is the reason a person still reads the output.
+          <strong class="text-stone-900 dark:text-white">Separation matters, and it is worth asking about.</strong> An evaluator that shares a pass with the writer has no outside vantage point on its own work. Separating them is what makes a quality gate meaningful rather than decorative, and it is a fair thing to probe on a first call.
         </p>
         <p class="leading-relaxed text-stone-600 dark:text-stone-300">
           <strong class="text-stone-900 dark:text-white">A READY is not a verdict on the account.</strong> It says the reasoning survived the checks. It does not say the company will reply, will buy, or has the problem the hypothesis proposes.

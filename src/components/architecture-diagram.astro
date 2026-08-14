@@ -1,0 +1,656 @@
+---
+/*
+  The Amoris delivery architecture - the system built with and for clients.
+
+  Rendered inside a forced-dark band: the styling is built on white-alpha borders
+  and fills, so it needs a dark ground to exist against. The site has a light mode,
+  and without this wrapper the whole diagram would be invisible there.
+*/
+
+const stages = [
+  {
+    number: "01",
+    title: "Input",
+    subtitle: "n8n trigger",
+    description: "Company, lead and campaign context enter the system.",
+    nodes: ["Company / Lead", "CRM / Campaign"],
+  },
+  {
+    number: "02",
+    title: "Research",
+    subtitle: "Evidence collection",
+    description: "Agents gather observable signals before reasoning.",
+    nodes: ["Web Research", "Enrichment", "Context Loader"],
+  },
+  {
+    number: "03",
+    title: "Reason",
+    subtitle: "Commercial intelligence",
+    description: "Evidence becomes a bounded GTM hypothesis.",
+    nodes: ["ICP Fit", "GTM Motion", "Problem Hypothesis"],
+  },
+  {
+    number: "04",
+    title: "Compose",
+    subtitle: "Message generation",
+    description: "The system turns the hypothesis into an outreach draft.",
+    nodes: ["Message Writer", "CTA Selection"],
+  },
+  {
+    number: "05",
+    title: "Judge",
+    subtitle: "Independent evaluation",
+    description: "A separate evaluator tests the output against the quality rubric.",
+    nodes: ["14 Quality Checks", "Evidence Validation"],
+  },
+];
+
+const decisions = [
+  { label: "READY", description: "Passes quality gate", className: "ready" },
+  { label: "HOLD", description: "Requires revision or review", className: "hold" },
+];
+---
+
+<div class="architecture-band">
+  <section class="architecture" aria-labelledby="architecture-title">
+    <div class="architecture-header">
+      <div>
+        <span class="eyebrow">SYSTEM ARCHITECTURE</span>
+        <h2 id="architecture-title">
+          Research first.<br />
+          Reason second. <span>Send last.</span>
+        </h2>
+      </div>
+
+      <p>Amoris separates evidence collection, commercial reasoning, message generation and quality control into inspectable stages.</p>
+    </div>
+
+    <div class="system">
+      <!-- Infrastructure -->
+      <div class="infrastructure">
+        <div class="infra-label">
+          <span class="infra-dot"></span>
+          INFRASTRUCTURE
+        </div>
+
+        <div class="infra-items">
+          <div class="infra-item"><strong>n8n</strong><span>Orchestration</span></div>
+          <div class="infra-item"><strong>LangGraph</strong><span>Reasoning state machine</span></div>
+          <div class="infra-item"><strong>PostgreSQL</strong><span>Durable state</span></div>
+          <div class="infra-item"><strong>Clay</strong><span>Enrichment</span></div>
+        </div>
+      </div>
+
+      <!-- Main flow -->
+      <div class="flow">
+        <div class="flow-line" aria-hidden="true"></div>
+
+        {
+          stages.map((stage, index) => (
+            <div class={`stage stage-${index + 1}`}>
+              <div class="stage-number">{stage.number}</div>
+
+              <div class="stage-card">
+                <div class="stage-top">
+                  <div>
+                    <span class="stage-subtitle">{stage.subtitle}</span>
+                    <h3>{stage.title}</h3>
+                  </div>
+                  <span class="stage-index">{stage.number}</span>
+                </div>
+
+                <p>{stage.description}</p>
+
+                <div class="stage-nodes">{stage.nodes.map((node) => <span>{node}</span>)}</div>
+              </div>
+
+              {index < stages.length - 1 && (
+                <div class="connector" aria-hidden="true">
+                  <span />
+                </div>
+              )}
+            </div>
+          ))
+        }
+
+        <!-- Decision -->
+        <div class="decision">
+          <div class="decision-connector" aria-hidden="true"></div>
+
+          <div class="decision-label">
+            <span>QUALITY GATE</span>
+            <strong>Independent decision</strong>
+          </div>
+
+          <div class="decision-grid">
+            {
+              decisions.map((decision) => (
+                <div class={`decision-card ${decision.className}`}>
+                  <div class="decision-icon">{decision.className === 'ready' ? '✓' : '!'}</div>
+                  <div>
+                    <strong>{decision.label}</strong>
+                    <span>{decision.description}</span>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Human layer -->
+      <div class="human-layer">
+        <div class="human-line" aria-hidden="true"></div>
+
+        <div class="human-card">
+          <div class="human-icon">H</div>
+          <div>
+            <span>HUMAN CONTROL</span>
+            <strong>Review before execution</strong>
+            <p>Approved outputs can flow back into CRM, campaigns and downstream GTM workflows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  /* Dark ground. The diagram is drawn in white-alpha, so it needs this in both themes. */
+  .architecture-band {
+    position: relative;
+    left: 50%;
+    width: 100vw;
+    max-width: 100vw;
+    transform: translateX(-50%);
+    background: #080808;
+    color: #fff;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    .architecture-band {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .architecture {
+    position: relative;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 7rem 0;
+    overflow: hidden;
+  }
+
+  .architecture-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.7fr);
+    gap: 5rem;
+    align-items: end;
+    margin-bottom: 4rem;
+  }
+
+  .eyebrow,
+  .infra-label,
+  .decision-label span,
+  .human-card span {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    font-weight: 600;
+    opacity: 0.55;
+  }
+
+  .architecture h2 {
+    margin: 0.9rem 0 0;
+    max-width: 750px;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+    font-weight: 500;
+  }
+
+  .architecture h2 span {
+    opacity: 0.42;
+  }
+
+  .architecture-header > p {
+    max-width: 430px;
+    margin: 0 0 0.25rem auto;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.55;
+  }
+
+  .system {
+    position: relative;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  /* Infrastructure */
+  .infrastructure {
+    position: relative;
+    z-index: 3;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.025);
+    border-radius: 18px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 3rem;
+    backdrop-filter: blur(12px);
+  }
+
+  .infra-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .infra-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.7;
+  }
+
+  .infra-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .infra-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .infra-item strong {
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .infra-item span {
+    font-size: 0.65rem;
+    opacity: 0.45;
+  }
+
+  /* Main flow */
+  .flow {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .flow-line {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 31px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  }
+
+  .stage {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .stage-number {
+    position: relative;
+    z-index: 2;
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 1.3rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    background: #080808;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.65rem;
+    opacity: 0.7;
+  }
+
+  .stage-card {
+    height: 100%;
+    margin: 0 0.35rem;
+    padding: 1.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 15px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  }
+
+  .stage-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .stage-subtitle {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  .stage-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .stage-index {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.55rem;
+    opacity: 0.3;
+  }
+
+  .stage-card p {
+    min-height: 66px;
+    margin: 1rem 0 1.1rem;
+    font-size: 0.72rem;
+    line-height: 1.55;
+    opacity: 0.5;
+  }
+
+  .stage-nodes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .stage-nodes span {
+    display: block;
+    padding: 0.55rem 0.65rem;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.035);
+    font-size: 0.62rem;
+    opacity: 0.7;
+  }
+
+  .connector {
+    position: absolute;
+    z-index: 5;
+    right: -7px;
+    top: 31px;
+    width: 14px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .connector span {
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 5px;
+    height: 5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    transform: rotate(45deg);
+  }
+
+  /* Decision */
+  .decision {
+    width: min(500px, 90%);
+    margin: 2.5rem auto 0;
+    text-align: center;
+  }
+
+  .decision-connector {
+    width: 1px;
+    height: 32px;
+    margin: 0 auto 1.2rem;
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .decision-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .decision-label strong {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .decision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .decision-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+    padding: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .decision-icon {
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    font-size: 0.65rem;
+  }
+
+  .decision-card div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .decision-card strong {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .decision-card span {
+    font-size: 0.58rem;
+    opacity: 0.4;
+  }
+
+  .ready .decision-icon {
+    opacity: 0.8;
+  }
+
+  .hold .decision-icon {
+    opacity: 0.55;
+  }
+
+  /* Human layer */
+  .human-layer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.2rem;
+  }
+
+  .human-line {
+    position: absolute;
+    height: 34px;
+    width: 1px;
+    margin-top: -2.2rem;
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .human-card {
+    width: min(620px, 90%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .human-icon {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    font-family: ui-monospace, monospace;
+    font-size: 0.65rem;
+  }
+
+  .human-card > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .human-card strong {
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  .human-card p {
+    margin: 0;
+    font-size: 0.62rem;
+    line-height: 1.5;
+    opacity: 0.42;
+  }
+
+  @media (max-width: 900px) {
+    .architecture-header {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .architecture-header > p {
+      margin-left: 0;
+    }
+
+    .infra-items {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .flow {
+      display: block;
+    }
+
+    .flow-line {
+      left: 31px;
+      right: auto;
+      top: 31px;
+      bottom: 31px;
+      width: 1px;
+      height: auto;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 62px 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stage-number {
+      margin: 0;
+    }
+
+    .stage-card {
+      margin: 0;
+    }
+
+    .connector {
+      left: 31px;
+      right: auto;
+      top: auto;
+      bottom: -8px;
+      width: 1px;
+      height: 16px;
+    }
+
+    .connector span {
+      right: auto;
+      bottom: 0;
+      top: auto;
+      left: -2px;
+      transform: rotate(135deg);
+    }
+
+    .decision {
+      margin-top: 2rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .architecture {
+      padding: 5rem 0;
+    }
+
+    .architecture-header {
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .architecture h2 {
+      font-size: 2.6rem;
+    }
+
+    .infrastructure {
+      padding: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .infra-items {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .stage {
+      grid-template-columns: 48px 1fr;
+      gap: 0.7rem;
+    }
+
+    .stage-number {
+      width: 48px;
+      height: 48px;
+    }
+
+    .flow-line {
+      left: 24px;
+    }
+
+    .connector {
+      left: 24px;
+    }
+
+    .stage-card {
+      padding: 1rem;
+    }
+
+    .stage-card p {
+      min-height: auto;
+      margin-bottom: 0.8rem;
+    }
+
+    .decision-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
