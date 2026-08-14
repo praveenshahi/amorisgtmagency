@@ -11,109 +11,107 @@ interface Props {
 
 const { locale = themeConfig.i18n.defaultLocale } = Astro.props;
 
+/*
+  Copy discipline for this file, from the pre-copy contradiction audit:
+  - The research layer is deployed. The outbound reasoning layer is built but in
+    private testing. Both states are stated, never blurred.
+  - No reply rates, pipeline figures or client outcomes appear here. None have been
+    measured for this system, and there are no client engagements yet.
+  - First person. Amoris is a founder-led practice, not a staffed company.
+*/
+
+const pipeline = [
+  {
+    n: "01",
+    label: "Research",
+    icon: "heroicons:magnifying-glass",
+    text: "Live web research on one account, returned as a structured read: what the company actually did, said, built or hired for, with the source behind each observation.",
+  },
+  {
+    n: "02",
+    label: "Reason",
+    icon: "heroicons:light-bulb",
+    text: "The strongest signal becomes a commercial interpretation and one testable hypothesis, matched against real experience. If nothing credible connects, it stops here.",
+  },
+  {
+    n: "03",
+    label: "Judge",
+    icon: "heroicons:scale",
+    text: "The draft is checked against 14 quality checks covering whether claims trace to evidence, whether inference is marked as inference, and whether anything about the company was invented.",
+  },
+  {
+    n: "04",
+    label: "You decide",
+    icon: "heroicons:hand-raised",
+    text: "Output is a file you read. Nothing is connected to your inbox and nothing is sent. Sending is optional, manual and yours.",
+  },
+];
+
+const refusals = [
+  {
+    title: "It will not manufacture confidence",
+    text: "If the evidence does not support a commercial argument, it stops and says why. It does not produce a message because a message was expected.",
+  },
+  {
+    title: "It will not present a guess as a fact",
+    text: "Anything resting on inference is written as curiosity, not diagnosis. The output keeps the two apart on purpose.",
+  },
+  {
+    title: "It does not know who will buy",
+    text: "It assesses whether there is a defensible reason to start a conversation. That is a smaller and more honest question than intent scoring.",
+  },
+  {
+    title: "It does not replace your judgement",
+    text: "It removes the research and first-draft work. The decision to contact someone stays with the person whose name is on the message.",
+  },
+];
+
 const phases = [
   {
     n: "01",
     label: "Audit",
     icon: "heroicons:magnifying-glass",
-    question: "Where is your pipeline actually leaking?",
+    question: "Where is the motion actually losing time?",
     answer:
-      "We map the go-to-market motion end to end: how leads arrive, where qualification happens or fails, and where people are doing work a system should do. You get a written map of the problems either way - the audit stands on its own.",
-    duration: "1-2 hours",
+      "I map the go-to-market motion end to end: how accounts arrive, where qualification happens or fails, and where people are doing work a system should do. The output is a written diagnostic you keep.",
+    duration: "2-3 days",
   },
   {
     n: "02",
     label: "Design",
     icon: "heroicons:squares-plus",
-    question: "How do you build something you actually own?",
+    question: "How do you build something you can keep?",
     answer:
-      "We design the orchestrated system against your workflow: LangGraph for reasoning, Clay for enrichment, n8n for orchestration, PostgreSQL for state. Every decision traces back to a problem from the audit. You review it, and you own the architecture.",
-    duration: "1-2 weeks",
+      "I design the system against your workflow and your existing stack, and the design traces back to problems named in the audit. You review it before anything gets built.",
+    duration: "Scoped from the audit",
   },
   {
     n: "03",
     label: "Deploy",
     icon: "heroicons:rocket-launch",
-    question: "What keeps it working after launch?",
+    question: "What happens after it ships?",
     answer:
-      "It ships self-hosted on your infrastructure and runs continuously. We measure against production data, tune the logic, and hand over documentation and training. Not a project that ends - a system your team keeps.",
-    duration: "2-4 weeks, then ongoing",
-  },
-];
-
-const cases = [
-  {
-    headline: "Scaling outbound with zero new headcount",
-    problem: "B2B SaaS with three SDRs and no qualification process. Forty percent of leads were lost on the first call to a profile that was never a fit.",
-    solution: "A LangGraph voice agent plus a Clay enrichment layer. Qualification, call logging and CRM sync stopped being manual.",
-    result: "Sixty percent more qualified leads. SDR time moved from qualification to strategy. No new hires, same budget.",
-    metric: "60% more qualified",
-  },
-  {
-    headline: "Turning raw lists into qualified opportunities",
-    problem: "List imports were manual and error-prone. No waterfall enrichment, and cold outreach was bouncing hard.",
-    solution: "Multi-step Clay enrichment - company size, tech stack, recent funding - feeding an n8n webhook that scores into the CRM.",
-    result: "Ninety percent data accuracy and a 3.5x cold reply rate. List quality turned into an advantage instead of a tax.",
-    metric: "3.5x reply rate",
-  },
-  {
-    headline: "Building the automation layer from scratch",
-    problem: "A growing startup running twelve disconnected tools with no data flowing between them and no GTM infrastructure.",
-    solution: "End-to-end orchestration: LangGraph for multi-step qualification, n8n for routing, PostgreSQL for conversation memory.",
-    result: "One source of truth and 10x faster qualification, self-hosted and owned outright by the customer.",
-    metric: "10x faster",
-  },
-];
-
-const stack = [
-  {
-    name: "LangGraph",
-    icon: "heroicons:cpu-chip",
-    text: "Multi-step reasoning chains for qualification logic. Not one-shot API calls - agents that reason, adapt and refine.",
-  },
-  {
-    name: "Clay + LLM waterfall",
-    icon: "heroicons:funnel",
-    text: "Deterministic enrichment first, then an LLM for intent signals and personalisation. Highest accuracy at the lowest cost per record.",
-  },
-  {
-    name: "n8n orchestration",
-    icon: "heroicons:arrows-right-left",
-    text: "Real-time triggers and event-driven workflows that connect the whole GTM stack without a pile of custom glue code.",
-  },
-];
-
-const sdrFeatures = [
-  {
-    title: "Evidence discipline",
-    text: "Every claim traces to a cited source. A hypothesis is framed as curiosity, never as a diagnosis it cannot support.",
-  },
-  {
-    title: "HOLD is a feature",
-    text: "Most AI sales tools always send. This one knows when not to, and tells you why it stopped.",
-  },
-  {
-    title: "Signal-first, not template-first",
-    text: "The argument changes per company, not just the merge field with their name in it.",
-  },
-  {
-    title: "Human in the loop",
-    text: "It researches and drafts. You send. Judgment stays where it belongs.",
+      "It runs on your infrastructure. I tune it against real usage, then hand over documentation and training so your team can change it without me.",
+    duration: "Scoped from the audit",
   },
 ];
 
 /*
-  Build layer first, then the GTM tools we connect to - the ordering carries both
-  categories in one row. Everything here is either already named in the site copy or
-  reachable through n8n, so the row is a claim we can stand behind.
+  Two categories, deliberately kept apart. The research engine runs on the first
+  group. The second group is what I build and integrate with on client engagements -
+  it is not what the research engine is made of.
 */
-const tools = [
+const engineTools = [
+  { name: "simple-icons:langgraph", label: "LangGraph" },
   { name: "simple-icons:openai", label: "OpenAI" },
   { name: "simple-icons:anthropic", label: "Anthropic" },
-  { name: "simple-icons:langgraph", label: "LangGraph" },
+  { name: "simple-icons:fastapi", label: "FastAPI" },
+];
+
+const deliveryTools = [
   { name: "simple-icons:n8n", label: "n8n" },
-  { name: "simple-icons:postgresql", label: "PostgreSQL" },
   { label: "Clay" },
+  { name: "simple-icons:postgresql", label: "PostgreSQL" },
   { name: "simple-icons:hubspot", label: "HubSpot" },
   { name: "simple-icons:salesforce", label: "Salesforce" },
   { name: "simple-icons:slack", label: "Slack" },
@@ -124,99 +122,208 @@ const tools = [
   { name: "simple-icons:zapier", label: "Zapier" },
   { name: "simple-icons:make", label: "Make" },
   { name: "simple-icons:calendly", label: "Calendly" },
-  { name: "simple-icons:twilio", label: "Twilio" },
-  { name: "simple-icons:stripe", label: "Stripe" },
 ];
 
-const mcpWhatsApp = 'https://wa.me/919100933191?text=' + encodeURIComponent('I would like early access to the Amoris AI SDR MCP server.');
+const mcpWhatsApp = 'https://wa.me/919100933191?text=' + encodeURIComponent('I would like early access to the Amoris research engine MCP server.');
+const auditWhatsApp = 'https://wa.me/919100933191?text=' + encodeURIComponent('I am interested in the paid GTM Audit.');
 
 const productsUrl = getLocaleUrl('products', locale);
 const pricingUrl = getLocaleUrl('pricing', locale);
+const founderUrl = getLocaleUrl('founder', locale);
+const architectureUrl = getLocaleUrl('architecture', locale);
 ---
 
 <section class="home-content flex flex-col overflow-x-clip">
-  <!-- ── What we build on, and what we plug into ── -->
-  <References marks={tools} label="Powered by, and plugs into your stack" reverse>
-    <p class="mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 pb-10 text-center text-sm text-white/60">
-      <span>An MCP server for the Amoris AI SDR is coming.</span>
-      <a href={mcpWhatsApp} target="_blank" rel="noopener" class="group inline-flex items-center gap-1 font-semibold text-white underline underline-offset-4 hover:text-white/80">
-        Ask about early access
-        <Icon name="heroicons:arrow-right" class="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
-      </a>
-    </p>
-  </References>
+  <!-- ── The decision problem ── -->
+  <div class="container mx-auto py-20">
+    <section aria-labelledby="home-problem-heading">
+      <Reveal class="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+        <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">The problem</span>
+        <h2 id="home-problem-heading" class="text-3xl font-bold text-balance sm:text-4xl">Outbound rarely fails at sending. It fails at deciding what to say.</h2>
+        <p class="text-lg leading-relaxed text-stone-600 dark:text-stone-300">
+          Finding the one thing worth saying about an account takes real time and real judgement. It is the step that scales worst, so it is the step that gets skipped - and skipping it is what turns outbound into volume nobody wants to receive.
+        </p>
+        <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+          Amoris is a founder-led AI GTM practice run by Praveen Shahi. It starts at that decision, not at the send button.
+        </p>
+      </Reveal>
+    </section>
+  </div>
 
-  <!-- ── Flagship product ── -->
+  <!-- ── The wedge: evidence-led research ── -->
   <div class="graph-paper-bg-inner">
     <div class="container mx-auto py-20">
-      <section id="amoris-ai-sdr" aria-labelledby="home-sdr-heading">
+      <section id="research-engine" aria-labelledby="home-engine-heading" class="scroll-mt-28">
         <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
-          <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Flagship product</span>
-          <h2 id="home-sdr-heading" class="text-3xl font-bold sm:text-4xl">Amoris AI SDR</h2>
+          <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">The wedge</span>
+          <h2 id="home-engine-heading" class="max-w-3xl text-3xl font-bold text-balance sm:text-4xl">Evidence-led account research, and a system that knows when to stop.</h2>
           <p class="max-w-2xl text-stone-600 dark:text-stone-300">
-            Give it a company name. It researches live, forms a commercial hypothesis, writes an evidence-backed email and judges its own output before you ever see it. Then you decide: send or skip.
+            Give it one company. It researches the account live, works out whether there is a defensible reason to start a conversation, and hands you a read you can act on. The research is worth having whether or not anything gets sent.
           </p>
         </Reveal>
 
-        <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-          <Reveal from="left">
-            <ol class="m-0 flex h-full list-none flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
-              <li class="m-0 flex gap-4">
-                <span class="bg-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-mono text-xs font-bold text-white">1</span>
-                <span class="flex flex-col gap-1">
-                  <span class="font-bold">Research</span>
-                  <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">Live web research per company, returned as structured GTM analysis with evidence URLs attached.</span>
-                </span>
-              </li>
-              <li class="m-0 flex gap-4">
-                <span class="bg-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-mono text-xs font-bold text-white">2</span>
-                <span class="flex flex-col gap-1">
-                  <span class="font-bold">Reason</span>
-                  <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">Forms a testable hypothesis about their motion, matches it against real experience, and writes the email.</span>
-                </span>
-              </li>
-              <li class="m-0 flex gap-4">
-                <span class="bg-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-mono text-xs font-bold text-white">3</span>
-                <span class="flex flex-col gap-1">
-                  <span class="font-bold">Judge</span>
-                  <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">Independently scores its own draft against 14 quality criteria. Ready to send, or HOLD with a stated reason.</span>
-                </span>
-              </li>
-            </ol>
-          </Reveal>
+        <ol class="m-0 grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2">
+          {
+            pipeline.map((step, i) => (
+              <Reveal as="li" delay={i * 60} from="up" class="m-0">
+                <article class="flex h-full flex-col gap-3 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+                  <div class="flex items-center gap-3">
+                    <span class="text-primary dark:text-primary-light font-mono text-2xl font-bold tabular-nums">{step.n}</span>
+                    <span class="flex items-center gap-2 text-lg font-bold">
+                      <Icon name={step.icon} class="text-primary dark:text-primary-light h-5 w-5 shrink-0" aria-hidden="true" />
+                      {step.label}
+                    </span>
+                  </div>
+                  <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{step.text}</p>
+                </article>
+              </Reveal>
+            ))
+          }
+        </ol>
 
-          <Reveal from="right">
-            <div class="border-primary/30 from-primary-light/10 to-secondary-light/10 dark:from-primary-darker/30 dark:to-secondary-dark/20 flex h-full flex-col gap-4 rounded-xl border-2 bg-linear-to-br via-white p-6 sm:p-8 dark:via-stone-900">
-              <h3 class="text-lg font-bold">Why it is different</h3>
-              <ul class="m-0 flex list-none flex-col gap-3 p-0">
-                {
-                  sdrFeatures.map((f) => (
-                    <li class="m-0 flex gap-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-                      <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-                      <span>
-                        <span class="font-semibold text-stone-900 dark:text-white">{f.title}. </span>
-                        {f.text}
-                      </span>
-                    </li>
-                  ))
-                }
-              </ul>
-              <a href="https://wa.me/919100933191?text=Tell%20me%20about%20Amoris%20AI%20SDR" target="_blank" rel="noopener" class="btn-primary mt-auto w-fit">Ask about Amoris AI SDR</a>
+        <!-- HOLD -->
+        <Reveal class="mt-8">
+          <div class="border-primary/30 from-primary-light/10 to-secondary-light/10 dark:from-primary-darker/30 dark:to-secondary-dark/20 rounded-xl border-2 bg-linear-to-br via-white p-6 sm:p-8 dark:via-stone-900">
+            <div class="flex flex-col gap-3">
+              <h3 class="flex items-center gap-2 text-xl font-bold">
+                <Icon name="heroicons:hand-raised" class="text-primary dark:text-primary-light h-6 w-6 shrink-0" aria-hidden="true" />
+                HOLD is the point, not the exception
+              </h3>
+              <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+                The pipeline can stop at two places. It stops before writing anything if the evidence will not support a credible commercial argument. It stops after writing if a claim about the company cannot be traced back to the research. Either way it tells you which, and why.
+              </p>
+              <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+                A HOLD is not a failure state. It usually says something true about the account or about the list it came from. Most tools in this category are built to always produce a message - which is exactly how outbound stops being worth reading.
+              </p>
+              <p class="text-sm text-stone-500 dark:text-stone-400">
+                HOLD is a quality gate, not a correctness guarantee. It reduces the chance of sending something unsupported. It cannot tell you a message is right.
+              </p>
             </div>
+          </div>
+        </Reveal>
+
+        <!-- Refusals -->
+        <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          {
+            refusals.map((r, i) => (
+              <Reveal delay={i * 60} from="up">
+                <div class="flex h-full flex-col gap-2 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+                  <h3 class="flex items-start gap-2 text-base font-bold">
+                    <Icon name="heroicons:x-circle" class="mt-0.5 h-5 w-5 shrink-0 text-stone-400" aria-hidden="true" />
+                    {r.title}
+                  </h3>
+                  <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{r.text}</p>
+                </div>
+              </Reveal>
+            ))
+          }
+        </div>
+
+        <Reveal class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href={architectureUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
+            <span>How it works, in detail</span>
+            <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
+          </a>
+        </Reveal>
+      </section>
+    </div>
+  </div>
+
+  <!-- ── What exists today ── -->
+  <div class="container mx-auto py-20">
+    <section aria-labelledby="home-status-heading">
+      <Reveal class="mb-10 flex flex-col items-center gap-3 text-center">
+        <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Where this actually is</span>
+        <h2 id="home-status-heading" class="text-3xl font-bold sm:text-4xl">Built today, and being extended.</h2>
+        <p class="max-w-2xl text-stone-600 dark:text-stone-300">
+          Stated plainly, because you will ask on the first call anyway.
+        </p>
+      </Reveal>
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <Reveal from="left">
+          <div class="flex h-full flex-col gap-3 rounded-xl border-2 border-green-600/40 bg-white p-6 sm:p-8 dark:bg-stone-900">
+            <h3 class="flex items-center gap-2 text-lg font-bold">
+              <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-green-600 dark:text-green-400" aria-hidden="true" />
+              Running
+            </h3>
+            <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+              <li class="m-0">The research and account-analysis layer, deployed and reachable as an API</li>
+              <li class="m-0">Evidence captured with the source behind each observation</li>
+              <li class="m-0"><a href="https://www.npmjs.com/package/intel-echo" target="_blank" rel="noopener">intel-echo</a>, published on npm - auditing where an AI's reasoning exceeded its mandate</li>
+            </ul>
+          </div>
+        </Reveal>
+        <Reveal from="right">
+          <div class="flex h-full flex-col gap-3 rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+            <h3 class="flex items-center gap-2 text-lg font-bold">
+              <Icon name="heroicons:beaker" class="h-6 w-6 shrink-0 text-stone-400" aria-hidden="true" />
+              In private testing
+            </h3>
+            <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+              <li class="m-0">The outbound reasoning layer - hypothesis, message angle, the judge and HOLD</li>
+              <li class="m-0">Built and running locally, tested against a small number of real accounts</li>
+              <li class="m-0">Not yet deployed alongside the research layer, and not sold as a finished product</li>
+            </ul>
+            <p class="mt-auto pt-2 text-sm text-stone-500 dark:text-stone-400">
+              If you want to see it, the honest version is a live run on one of your accounts rather than a demo.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Paid GTM Audit ── -->
+  <div class="graph-paper-bg-inner">
+    <div class="container mx-auto py-20">
+      <section id="gtm-audit" aria-labelledby="home-audit-heading" class="scroll-mt-28">
+        <div class="border-primary/30 mx-auto flex max-w-3xl flex-col gap-5 rounded-2xl border-2 bg-white p-6 sm:p-10 dark:bg-stone-900">
+          <Reveal class="flex flex-col gap-3">
+            <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Where an engagement starts</span>
+            <h2 id="home-audit-heading" class="text-3xl font-bold sm:text-4xl">The GTM Audit</h2>
+            <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span class="text-primary dark:text-primary-light text-3xl font-bold">₹15,000</span>
+              <span class="text-stone-500 dark:text-stone-400">· 2-3 days · written diagnostic</span>
+            </p>
+            <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+              A paid, written diagnostic of your go-to-market motion. It names where the workflow bottlenecks, where research and qualification are breaking down, which parts are genuinely worth automating, and what a sensible first pilot would cover.
+            </p>
+            <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+              <li class="m-0 flex gap-2">
+                <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                <span>You keep the document, and it is useful whether or not anything follows.</span>
+              </li>
+              <li class="m-0 flex gap-2">
+                <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                <span>It is a diagnostic, not an implementation. Building is scoped separately.</span>
+              </li>
+              <li class="m-0 flex gap-2">
+                <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                <span>No revenue promises. It tells you where the time goes and what to do about it.</span>
+              </li>
+            </ul>
+            <div class="mt-2 flex flex-wrap gap-3">
+              <a href={auditWhatsApp} target="_blank" rel="noopener" class="btn-primary">Book the GTM Audit</a>
+              <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="btn-subtle rounded px-4 py-[0.43rem]">Free intro call first</a>
+            </div>
+            <p class="text-sm text-stone-500 dark:text-stone-400">
+              The intro call is free and short. Its only job is to work out whether an audit is worth doing at all.
+            </p>
           </Reveal>
         </div>
       </section>
     </div>
   </div>
 
-  <!-- ── How we work ── -->
+  <!-- ── The wider practice ── -->
   <div class="container mx-auto py-20">
-    <section aria-labelledby="home-process-heading">
+    <section aria-labelledby="home-practice-heading">
       <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
-        <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">How we build it</span>
-        <h2 id="home-process-heading" class="text-3xl font-bold sm:text-4xl">Three phases. One system you own.</h2>
+        <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">The wider practice</span>
+        <h2 id="home-practice-heading" class="text-3xl font-bold sm:text-4xl">Research is the wedge. The systems work is broader.</h2>
         <p class="max-w-2xl text-stone-600 dark:text-stone-300">
-          The phases run concurrently, which is how a production system lands in six weeks instead of six months.
+          Beyond the research engine, I design and build the automation layer around a revenue team - on the stack you already run.
         </p>
       </Reveal>
 
@@ -245,7 +352,7 @@ const pricingUrl = getLocaleUrl('pricing', locale);
         }
       </ol>
 
-      <Reveal class="mt-8 flex justify-center">
+      <Reveal class="mt-8 flex flex-wrap justify-center gap-3">
         <a href={pricingUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
           <span>Compare the two engagement models</span>
           <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
@@ -254,87 +361,29 @@ const pricingUrl = getLocaleUrl('pricing', locale);
     </section>
   </div>
 
-  <!-- ── Results ── -->
-  <div class="graph-paper-bg-inner">
-    <div class="container mx-auto py-20">
-      <section aria-labelledby="home-cases-heading">
-        <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
-          <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Results in production</span>
-          <h2 id="home-cases-heading" class="text-3xl font-bold sm:text-4xl">Real systems, running now.</h2>
-          <p class="max-w-2xl text-stone-600 dark:text-stone-300">
-            Client names are withheld under agreement. The problems, the builds and the numbers are not.
-          </p>
-        </Reveal>
+  <!-- ── What the engine runs on ── -->
+  <References marks={engineTools} label="What the research engine runs on" />
 
-        <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {
-            cases.map((c, i) => (
-              <Reveal delay={i * 70} from="up">
-                <article class="flex h-full flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
-                  <h3 class="text-lg font-bold text-balance">{c.headline}</h3>
-                  <div class="flex flex-col gap-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-                    <p>
-                      <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-wider uppercase">Problem<br /></span>
-                      {c.problem}
-                    </p>
-                    <p>
-                      <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-wider uppercase">Build<br /></span>
-                      {c.solution}
-                    </p>
-                    <p>
-                      <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-wider uppercase">Result<br /></span>
-                      {c.result}
-                    </p>
-                  </div>
-                  <span class="border-primary/30 text-primary dark:text-primary-light mt-auto w-fit rounded-full border px-3 py-1 font-mono text-xs font-semibold">{c.metric}</span>
-                </article>
-              </Reveal>
-            ))
-          }
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- ── Stack ── -->
-  <div class="container mx-auto py-20">
-    <section aria-labelledby="home-stack-heading">
-      <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
-        <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Production-grade architecture</span>
-        <h2 id="home-stack-heading" class="text-3xl font-bold sm:text-4xl">The stack that scales.</h2>
-        <p class="max-w-2xl text-stone-600 dark:text-stone-300">
-          Named explicitly, because you should be able to check the work and hire against it later.
-        </p>
-      </Reveal>
-
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          stack.map((s, i) => (
-            <Reveal delay={i * 70} from="up">
-              <article class="flex h-full flex-col gap-3 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
-                <span class="bg-primary-light/15 text-primary dark:bg-primary-darker dark:text-primary-light flex h-11 w-11 items-center justify-center rounded-lg">
-                  <Icon name={s.icon} class="h-6 w-6" aria-hidden="true" />
-                </span>
-                <h3 class="text-lg font-bold">{s.name}</h3>
-                <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{s.text}</p>
-              </article>
-            </Reveal>
-          ))
-        }
-      </div>
-
-      <Reveal class="mt-6 text-center text-sm text-stone-500 dark:text-stone-400">
-        <p>PostgreSQL for state and memory. Retell and ElevenLabs for voice. All of it self-hosted on your infrastructure and owned by you.</p>
-      </Reveal>
-    </section>
-  </div>
+  <!-- ── What I build and integrate with ── -->
+  <References marks={deliveryTools} label="What I build with, and integrate into, on client engagements" reverse>
+    <p class="mx-auto flex max-w-2xl flex-wrap items-center justify-center gap-x-2 gap-y-1 px-6 pb-10 text-center text-sm text-white/60">
+      <span>An MCP server for the research engine is coming.</span>
+      <a href={mcpWhatsApp} target="_blank" rel="noopener" class="group inline-flex items-center gap-1 font-semibold text-white underline underline-offset-4 hover:text-white/80">
+        Ask about early access
+        <Icon name="heroicons:arrow-right" class="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
+      </a>
+    </p>
+  </References>
 
   <!-- ── Fit ── -->
   <div class="container mx-auto py-20">
     <section aria-labelledby="home-fit-heading">
       <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
         <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Who this is for</span>
-        <h2 id="home-fit-heading" class="text-3xl font-bold sm:text-4xl">We would rather tell you early.</h2>
+        <h2 id="home-fit-heading" class="max-w-3xl text-3xl font-bold text-balance sm:text-4xl">Built for teams where outbound still carries someone's name.</h2>
+        <p class="max-w-2xl text-stone-600 dark:text-stone-300">
+          Not a stage or a headcount band. What matters is whether the quality of the message still matters to the person sending it.
+        </p>
       </Reveal>
 
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -345,10 +394,12 @@ const pricingUrl = getLocaleUrl('pricing', locale);
               A fit
             </h3>
             <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-              <li class="m-0">Series A or B B2B SaaS, roughly 5 to 50 people</li>
-              <li class="m-0">An outbound motion that works but will not scale</li>
-              <li class="m-0">No dedicated GTM infrastructure yet</li>
-              <li class="m-0">Willing to own the system after handover</li>
+              <li class="m-0">Founders still doing their own outbound</li>
+              <li class="m-0">Lean GTM teams where one person carries research and messaging</li>
+              <li class="m-0">Teams where the sender's own name is on the message</li>
+              <li class="m-0">Teams that draft more than they send, because quality is the constraint</li>
+              <li class="m-0">Account research and commercial judgement still done by hand</li>
+              <li class="m-0">High-value B2B, where one good conversation is worth the work</li>
             </ul>
           </div>
         </Reveal>
@@ -359,11 +410,14 @@ const pricingUrl = getLocaleUrl('pricing', locale);
               Not a fit
             </h3>
             <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
-              <li class="m-0">Pre-product companies with no motion to automate</li>
-              <li class="m-0">Enterprises needing procurement-length timelines</li>
-              <li class="m-0">Teams looking for a no-code tool rather than a systems partner</li>
-              <li class="m-0">Anyone wanting to outsource judgment entirely</li>
+              <li class="m-0">Teams that want volume regardless of whether the evidence supports the message</li>
+              <li class="m-0">Anyone looking for autonomous sending - the send stays manual by design</li>
+              <li class="m-0">Teams wanting a sequencer, a CRM or a data enrichment tool</li>
+              <li class="m-0">Anyone who wants to hand over the judgement entirely</li>
             </ul>
+            <p class="mt-auto pt-2 text-sm text-stone-500 dark:text-stone-400">
+              That first line is the real exclusion. Everything else is a scope question.
+            </p>
           </div>
         </Reveal>
       </div>
@@ -375,20 +429,24 @@ const pricingUrl = getLocaleUrl('pricing', locale);
     <div class="cta-band border-primary/20 from-primary-light/10 to-secondary-light/10 dark:from-primary-darker/30 dark:to-secondary-dark/20 relative overflow-hidden rounded-2xl border-4 bg-linear-to-br via-white px-6 py-12 text-center sm:px-12 dark:via-stone-900">
       <div class="cta-glow pointer-events-none absolute inset-0" aria-hidden="true"></div>
       <div class="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-4">
-        <h2 class="text-3xl font-bold text-balance sm:text-4xl">Start with the audit. Keep the map either way.</h2>
+        <h2 class="text-3xl font-bold text-balance sm:text-4xl">Start with the audit, or just start with a call.</h2>
         <p class="max-w-xl text-stone-600 dark:text-stone-300">
-          Twenty minutes on your actual motion - no deck, no discovery theatre. You leave with a written view of where the pipeline leaks, whether or not we build it.
+          The intro call is free and exists to find out whether any of this applies to you. The audit is paid, takes two to three days, and leaves you with a written diagnostic either way.
         </p>
         <div class="mt-2 flex flex-wrap items-center justify-center gap-4">
-          <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="btn-primary group">
-            Book the audit
+          <a href={auditWhatsApp} target="_blank" rel="noopener" class="btn-primary group">
+            Book the GTM Audit
             <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
           </a>
+          <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="btn-subtle rounded px-4 py-[0.43rem]">Free intro call</a>
           <a href={productsUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
-            <span>See what we ship</span>
+            <span>See what exists</span>
             <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
           </a>
         </div>
+        <p class="text-sm text-stone-500 dark:text-stone-400">
+          Or read the <a href={founderUrl}>background behind it</a>.
+        </p>
       </div>
     </div>
   </div>
@@ -426,20 +484,17 @@ const pricingUrl = getLocaleUrl('pricing', locale);
       -2px -2px,
       -1px -1px,
       -1px -1px;
-  }
-
-  /* In dark mode the light grid lines would be too bright, so dim them. */
-  :global(.dark) .graph-paper-bg-inner::before {
-    background-image: linear-gradient(rgba(80, 80, 80, 0.3) 2px, transparent 2px), linear-gradient(90deg, rgba(80, 80, 80, 0.3) 2px, transparent 2px), linear-gradient(rgba(80, 80, 80, 0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(80, 80, 80, 0.22) 1px, rgba(247, 247, 252, 0) 1px);
-  }
-
-  .graph-paper-bg-inner::before {
     mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 75%);
     -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 75%);
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
     mask-repeat: no-repeat;
     -webkit-mask-repeat: no-repeat;
+  }
+
+  /* In dark mode the light grid lines would be too bright, so dim them. */
+  :global(.dark) .graph-paper-bg-inner::before {
+    background-image: linear-gradient(rgba(80, 80, 80, 0.3) 2px, transparent 2px), linear-gradient(90deg, rgba(80, 80, 80, 0.3) 2px, transparent 2px), linear-gradient(rgba(80, 80, 80, 0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(80, 80, 80, 0.22) 1px, rgba(247, 247, 252, 0) 1px);
   }
 
   .graph-paper-bg-inner > * {

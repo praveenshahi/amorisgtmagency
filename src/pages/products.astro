@@ -30,7 +30,7 @@ const products = [
     eyebrow: "Core practice",
     name: "AI GTM automation",
     tagline: "The whole go-to-market motion as one orchestrated system.",
-    body: "We audit the motion, design the architecture against your actual workflow, and deploy it self-hosted on your infrastructure. Enrichment, qualification, routing and CRM handoff stop being separate tools held together by manual work.",
+    body: "I audit the motion, design the architecture against your actual workflow, and deploy it on your infrastructure. Enrichment, qualification, routing and CRM handoff stop being separate tools held together by manual work. Engagements start with the paid GTM Audit.",
     points: [
       "LangGraph agents for multi-step qualification, not one-shot prompts",
       "Clay waterfall enrichment with an LLM pass for intent and personalisation",
@@ -38,22 +38,24 @@ const products = [
       "PostgreSQL for state and memory, so decisions are auditable",
     ],
     stack: ["LangGraph", "Clay", "n8n", "PostgreSQL"],
-    cta: { label: "Book the audit", href: "https://calendly.com/praveenshahi13/30min", external: true },
+    cta: { label: "Book the GTM Audit", href: "/pricing#gtm-audit", external: false },
   },
   {
-    id: "amoris-ai-sdr",
-    eyebrow: "Flagship product",
-    name: "Amoris AI SDR",
-    tagline: "AI that turns leads into qualified meetings.",
-    body: "Give it a company name. It researches live, analyses go-to-market fit, forms a commercial hypothesis, writes the email, and then judges its own output against 14 quality criteria. Ready to send, or HOLD with a stated reason. You decide.",
+    id: "research-engine",
+    eyebrow: "The wedge",
+    name: "Amoris research engine",
+    tagline: "Evidence-led account research, and a system that knows when to stop.",
+    body: "Give it one company. It researches the account live, works out whether there is a defensible commercial reason to start a conversation, and returns a structured read with the source behind each observation. If outreach is warranted it drafts a message and checks its own draft against 14 quality checks. The research is worth having either way, and sending stays manual.",
     points: [
-      "Evidence discipline - every claim traces to a cited source",
-      "HOLD is a feature: it knows when not to send, and says why",
+      "Evidence discipline - claims about the company must trace back to the research",
+      "HOLD stops the pipeline: before writing if the evidence is too thin, and after writing if a claim cannot be traced",
       "Signal-first, so the argument changes per company and not just the name",
-      "Human in the loop - it drafts, you send, judgment stays with you",
+      "Nothing is connected to your inbox and nothing is sent automatically",
     ],
-    stack: ["LangGraph", "Live web research", "LLM-as-judge", "PostgreSQL"],
-    cta: { label: "Ask about Amoris AI SDR", href: "https://wa.me/919100933191?text=Tell%20me%20about%20Amoris%20AI%20SDR", external: true },
+    stack: ["LangGraph", "Tavily", "OpenAI / Anthropic", "FastAPI"],
+    status: "Research layer running. Outbound reasoning layer built and in private testing against a small number of real accounts - not yet deployed alongside it, and not sold as a finished product.",
+    cta: { label: "How it works, in detail", href: "/architecture", external: false },
+    secondaryCta: { label: "Ask about a live run", href: "https://wa.me/919100933191?text=" + encodeURIComponent("Can you run the research engine on one of my target accounts?"), external: true },
   },
   {
     id: "intel-echo",
@@ -87,15 +89,15 @@ const offerings = [
     id: "done-with-you",
     name: "Done With You",
     tagline: "Deploy on your existing stack",
-    body: "We work with your team to design and deploy on the infrastructure you already run. You keep the tech decisions. We bring the architecture, the GTM logic, the training and the handover.",
+    body: "I work with your team to design and deploy on the infrastructure you already run. You keep the tech decisions. I bring the architecture, the GTM logic, the training and the handover.",
     highlights: ["Your existing tools", "Your engineers stay in the loop", "The shorter engagement"],
   },
   {
     id: "done-for-you",
     name: "Done For You",
     tagline: "Full system design and deployment",
-    body: "We design the complete stack, build it, deploy it self-hosted in your environment, and hand you ownership. No infrastructure decisions to make up front, and no lock-in afterwards.",
-    highlights: ["Production-grade stack", "Full ownership at handover", "End-to-end support"],
+    body: "I design the complete stack, build it, and deploy it self-hosted in your environment. No infrastructure decisions to make up front. What is built for you is yours; the underlying engine is licensed to you for internal use, with no lock-in.",
+    highlights: ["Designed end to end", "Runs on your infrastructure", "Documented for handover"],
   },
 ];
 
@@ -110,7 +112,7 @@ const pricingUrl = getLocaleUrl('pricing', locale);
   <section class="mb-16 max-w-3xl">
     <h1 class="mb-4 text-3xl font-bold sm:text-4xl">AI GTM automation for B2B revenue teams</h1>
     <p class="text-lg leading-relaxed text-stone-700 dark:text-stone-200">
-      Amoris builds custom GTM automation and ships tooling out of what that work teaches. Everything below is either running in production for a client or published where you can check it yourself.
+      Amoris is a founder-led AI GTM practice run by Praveen Shahi. Below is what exists today, with its actual status stated rather than implied - what is deployed, what is in testing, and what is published where you can check it yourself.
     </p>
   </section>
 
@@ -127,6 +129,13 @@ const pricingUrl = getLocaleUrl('pricing', locale);
             </div>
 
             <p class="max-w-3xl leading-relaxed text-stone-600 dark:text-stone-300">{product.body}</p>
+
+            {product.status && (
+              <p class="border-primary/30 max-w-3xl border-l-2 pl-4 text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+                <span class="text-primary dark:text-primary-light font-semibold">Status: </span>
+                {product.status}
+              </p>
+            )}
 
             <ul class="m-0 flex list-none flex-col gap-2 p-0">
               {product.points.map((point) => (
@@ -163,7 +172,7 @@ const pricingUrl = getLocaleUrl('pricing', locale);
   <section aria-labelledby="products-offerings-heading">
     <h2 id="products-offerings-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Two ways to work together</h2>
     <p class="mb-8 max-w-2xl text-stone-600 dark:text-stone-300">
-      Both models run the same methodology and both ship in six weeks. What changes is who makes the infrastructure decisions.
+      Both models run the same methodology and both ship in six weeks. What changes is who makes the infrastructure decisions. Either way, an engagement starts with the paid GTM Audit.
     </p>
 
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">

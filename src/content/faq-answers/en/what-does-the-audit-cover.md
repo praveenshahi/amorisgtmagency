@@ -1,13 +1,22 @@
 ---
 publishDate: 2026-08-13
 draft: false
-question: 'What does the audit actually cover'
+question: 'What does the GTM Audit cover'
 category: 'engagement'
 llmsTxt: true
 ---
 
-The audit maps your go-to-market motion end to end: how leads arrive, where qualification happens or quietly fails, where people are doing repetitive work a system should do, and where your current tools create bottlenecks.
+The GTM Audit is a **paid, written diagnostic — ₹15,000, delivered in about two to three days.**
 
-It takes one to two hours of your time. You get back a written map of the problems and the opportunities, ranked.
+It maps the go-to-market motion end to end and names four things:
 
-**The audit stands on its own.** You get the map whether or not you hire us for the build, and several teams have taken it and fixed the first two problems themselves.
+- Where the workflow bottlenecks, and what that costs in time
+- Where research and qualification are breaking down or being redone by hand
+- Which parts are genuinely worth handing to a system, and which are a process problem wearing an automation costume
+- What a sensible first pilot would actually cover
+
+**You keep the document.** It is written to be useful on its own, whether or not anything follows.
+
+Two things it deliberately is not. It is **not an implementation** — building is scoped separately, informed by what the audit finds. And it makes **no revenue promises**; it tells you where the time goes and what to do about it.
+
+Separate from this, there is a **free intro call**. It is short, and its only job is to work out whether an audit is worth doing at all. Some conversations end there, which is a fine outcome.

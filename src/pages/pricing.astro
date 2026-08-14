@@ -9,6 +9,16 @@ import { themeConfig } from '~/theme.config';
 const locale = themeConfig.i18n.defaultLocale;
 const t = useTranslations(locale);
 
+const auditIncludes = [
+  "A written diagnostic you keep, useful on its own whether or not anything follows",
+  "Where the workflow bottlenecks, and what that costs in time",
+  "Where research and qualification are breaking down or being redone by hand",
+  "Which parts are genuinely worth handing to a system",
+  "A recommended scope for a first pilot",
+];
+
+const auditWhatsApp = 'https://wa.me/919100933191?text=' + encodeURIComponent('I am interested in the paid GTM Audit.');
+
 const modes = [
   {
     id: "done-with-you",
@@ -38,7 +48,7 @@ const modes = [
       "Eight weeks of post-launch iteration",
       "Training and documentation",
     ],
-    meaning: "Amoris designs and builds it. You own everything at handover. Zero vendor lock-in.",
+    meaning: "Amoris designs and builds it. What is built for you is yours; the underlying engine is licensed to you for internal use. No lock-in.",
     featured: true,
   },
 ];
@@ -50,9 +60,62 @@ const faqUrl = getLocaleUrl('faq', locale);
   <Headline text="Engagement" />
 
   <section class="mb-14 max-w-3xl">
-    <h1 class="mb-4 text-3xl font-bold sm:text-4xl">Two ways to build your GTM automation</h1>
+    <h1 class="mb-4 text-3xl font-bold sm:text-4xl">Start with the audit, then pick how it gets built</h1>
     <p class="text-lg leading-relaxed text-stone-700 dark:text-stone-200">
-      Whether you bring the infrastructure or want it handled, both engagements ship in six weeks and leave you owning the system. The methodology is identical - what changes is who makes the tech decisions.
+      Every engagement starts the same way: a paid, written diagnostic of your go-to-market motion. What follows is scoped from what it finds, and you choose how closely you want to work.
+    </p>
+  </section>
+
+  <!-- ── Where every engagement starts ── -->
+  <section id="gtm-audit" aria-labelledby="pricing-audit-heading" class="mb-16 scroll-mt-28">
+    <Reveal>
+      <div class="border-primary/40 flex flex-col gap-5 rounded-2xl border-2 bg-white p-6 sm:p-10 dark:bg-stone-900">
+        <div class="flex flex-col gap-2">
+          <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-[0.2em] uppercase">Step one</span>
+          <h2 id="pricing-audit-heading" class="text-2xl font-bold sm:text-3xl">The GTM Audit</h2>
+          <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span class="text-primary dark:text-primary-light text-3xl font-bold">₹15,000</span>
+            <span class="text-stone-500 dark:text-stone-400">· 2-3 days · written diagnostic</span>
+          </p>
+        </div>
+
+        <p class="max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
+          A paid diagnostic of how your go-to-market motion actually runs. It names where the workflow bottlenecks, where research and qualification break down, which parts are genuinely worth handing to a system, and what a sensible first pilot would cover.
+        </p>
+
+        <ul class="m-0 flex list-none flex-col gap-2 p-0">
+          {
+            auditIncludes.map((item) => (
+              <li class="m-0 flex gap-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+                <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="flex flex-col gap-1 border-t border-stone-200 pt-4 dark:border-stone-700">
+          <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-widest uppercase">What it is not</span>
+          <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            It is a diagnostic, not an implementation - building is scoped separately. It makes no revenue promises. It tells you where the time goes and what to do about it.
+          </p>
+        </div>
+
+        <div class="mt-2 flex flex-wrap gap-3">
+          <a href={auditWhatsApp} target="_blank" rel="noopener" class="btn-primary">Book the GTM Audit</a>
+          <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="btn-subtle rounded px-4 py-[0.43rem]">Free intro call first</a>
+        </div>
+        <p class="text-sm text-stone-500 dark:text-stone-400">
+          The intro call is free and short. Its only job is to work out whether an audit is worth doing at all.
+        </p>
+      </div>
+    </Reveal>
+  </section>
+
+  <section class="mb-8 max-w-3xl">
+    <h2 class="mb-3 text-2xl font-bold sm:text-3xl">Then, two ways to build</h2>
+    <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+      Both ship in six weeks and run the same methodology. What changes is who makes the infrastructure decisions.
     </p>
   </section>
 
@@ -110,15 +173,15 @@ const faqUrl = getLocaleUrl('faq', locale);
   <section class="mb-16">
     <div class="border-primary/20 from-primary-light/10 to-secondary-light/10 dark:from-primary-darker/30 dark:to-secondary-dark/20 rounded-2xl border-4 bg-linear-to-br via-white px-6 py-10 sm:px-12 dark:via-stone-900">
       <div class="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
-        <h2 class="text-2xl font-bold sm:text-3xl">Why there is no price on this page</h2>
+        <h2 class="text-2xl font-bold sm:text-3xl">Why the build price is not listed</h2>
         <p class="leading-relaxed text-stone-600 dark:text-stone-300">
-          Two things move the number: which model you pick, and how much of the stack already exists. Quoting before the audit would be guessing, and you would be paying for the guess.
+          Two things move it: which model you pick, and how much of the stack already exists. Quoting a build before anyone has looked at the motion is guessing, and you would be paying for the guess.
         </p>
         <p class="leading-relaxed text-stone-600 dark:text-stone-300">
-          So start with the audit. It takes an hour or two, you get a written map of where the pipeline leaks, and that map is yours whether or not we build anything.
+          So the audit comes first. Two to three days, a written diagnostic, and it is yours whether or not anything gets built.
         </p>
         <div class="mt-2 flex flex-wrap items-center justify-center gap-4">
-          <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="btn-primary">Book the audit</a>
+          <a href={auditWhatsApp} target="_blank" rel="noopener" class="btn-primary">Book the GTM Audit</a>
           <a href="https://wa.me/919100933191?text=I%20am%20interested%20in%20Amoris%20GTM%20automation.%20Which%20model%20fits%3F" target="_blank" rel="noopener" class="btn-subtle rounded px-4 py-[0.43rem]">WhatsApp</a>
           <a href="mailto:shahi@amoris.in" class="btn-subtle rounded px-4 py-[0.43rem]">shahi@amoris.in</a>
         </div>

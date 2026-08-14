@@ -18,7 +18,7 @@ const linkClass = "unstyle-link group-hover:text-text-dark/60 hover:text-text-da
     {!isHome ? <a class={linkClass} href={getLocaleUrl('/', locale)}>{t('nav.home')}</a> : ''}
     <a class={linkClass} href={getLocaleUrl('products', locale)}>{t('nav.products')}</a>
     <a class={linkClass} href={getLocaleUrl('pricing', locale)}>{t('nav.pricing')}</a>
-    <a class={linkClass} href={getLocaleUrl('products#amoris-ai-sdr', locale)}>Amoris AI SDR</a>
+    <a class={linkClass} href={getLocaleUrl('products#research-engine', locale)}>Research engine</a>
   </div>
   <div class="xs:items-start group flex flex-col items-center">
     <h3>{t('labels.company')}</h3>
@@ -28,6 +28,8 @@ const linkClass = "unstyle-link group-hover:text-text-dark/60 hover:text-text-da
   </div>
   <div class="xs:items-start group flex flex-col items-center">
     <h3>{t('labels.resources')}</h3>
+    <a class={linkClass} href={getLocaleUrl('architecture', locale)}>{t('nav.architecture')}</a>
+    <a class={linkClass} href={getLocaleUrl('data-and-ip', locale)}>{t('nav.data-and-ip')}</a>
     <a class={linkClass} href={getLocaleUrl('faq', locale)}>{t('nav.faq')}</a>
     <a class={`${linkClass} external-link`} href="/intel-echo/" target="_blank" rel="noopener">Intel Echo</a>
     <a class={`${linkClass} external-link`} href="https://www.npmjs.com/package/intel-echo" target="_blank" rel="noopener">npm: intel-echo</a>

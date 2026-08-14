@@ -9,7 +9,9 @@
     "contact": "Contact",
     "status": "Status",
     "legal-notice": "Legal Notice",
-    "privacy-policy": "Privacy Policy"
+    "privacy-policy": "Privacy Policy",
+    "architecture": "Architecture",
+    "data-and-ip": "Data & IP"
   },
   "labels": {
     "ad": "Ad",
@@ -57,8 +59,9 @@
     "subscribe-email-param": "The email address to subscribe to the newsletter.",
     "generic-error": "An error occurred. Please try again later.",
     "demo-warn": "Mind that this is not sending anything at this demo!",
-    "book-audit": "Book a 20-min audit",
-    "see-the-work": "See the work"
+    "book-audit": "Book the GTM Audit",
+    "see-the-work": "See what exists",
+    "intro-call": "Free intro call"
   },
   "meta": {
     "title": "Amoris - AI GTM systems for B2B revenue teams",
@@ -87,11 +90,11 @@
       "message": "Ooops. You somehow found a page that does not exist.\nMaybe never existed or was deleted.\n\nPlease check the URL or go back to the main page."
     },
     "home": {
-      "title": "AI GTM systems that actually scale",
-      "description": "Amoris designs and deploys agentic AI systems for B2B go-to-market teams. LangGraph, Clay and n8n, self-hosted and owned by you. Live in six weeks.",
-      "hero-chip": "AI That Turns Leads Into Qualified Meetings",
-      "hero-title": "AI GTM systems that actually scale",
-      "hero-sub-slogan": "Most teams automate pieces of go-to-market. We build the whole motion as one system - enrichment, qualification and CRM handoff - self-hosted on your infrastructure and owned by you.",
+      "title": "AI GTM systems that start at the decision",
+      "description": "Amoris is a founder-led AI GTM practice. Evidence-led account research and reasoning for B2B teams, built on LangGraph. The research layer runs today; the outbound reasoning layer is in private testing.",
+      "hero-chip": "Evidence-led GTM research, with a system that can say HOLD",
+      "hero-title": "AI GTM systems that start at the decision",
+      "hero-sub-slogan": "Outbound rarely fails at sending. It fails at deciding what to say. Amoris researches one account at a time, works out whether there is a defensible reason to reach out, and leaves the send decision with you.",
       "references": "A decade of finding patterns, designing systems and driving revenue"
     },
     "features": {
@@ -241,11 +244,19 @@
     },
     "products": {
       "title": "Products",
-      "description": "What Amoris ships: AI GTM automation, the Amoris AI SDR, and intel-echo, an npm package that audits where an AI exceeded its mandate."
+      "description": "What Amoris ships: the evidence-led research engine, AI GTM automation, and intel-echo, an npm package that audits where an AI exceeded its mandate."
     },
     "founder": {
       "title": "Praveen Shahi - AI GTM Engineer",
       "description": "Praveen Shahi is an AI GTM Engineer and founder of Amoris. Ten years running revenue at Amazon, Meta and Great Learning, now shipping production AI."
+    },
+    "architecture": {
+      "title": "Architecture",
+      "description": "How the Amoris research engine works: research, evidence, reasoning, the judge, and the HOLD that stops the pipeline when evidence does not support outreach."
+    },
+    "data-and-ip": {
+      "title": "Data & IP",
+      "description": "What access Amoris asks for, what it will not ask for, and who owns what after an engagement."
     }
   },
   "rss": {

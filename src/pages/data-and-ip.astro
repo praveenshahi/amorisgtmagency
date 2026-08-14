@@ -1,0 +1,158 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import Reveal from "@components/reveal.astro";
+import { Icon } from "astro-icon/components";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+
+/*
+  Category level only. The internal IP classification this is derived from is not for
+  client distribution, so no component names, file paths, prospect names or
+  engagement-specific detail appear here.
+
+  Retention: there is no formal retention policy today. That is stated as a gap
+  rather than filled with an invented number.
+*/
+
+const willNotRequest = [
+  "Credentials for systems the work does not touch",
+  "Admin or unrestricted access where scoped access does the job",
+  "Customer data that is not needed to answer the question in front of us",
+  "Access that outlives the stage of work it was granted for",
+];
+
+const ownership = [
+  {
+    label: "Yours",
+    icon: "heroicons:user",
+    title: "What gets built for you",
+    body: "The ICP schema built for your market, your qualification and scoring logic, prompts tuned to your buyers' language, research outputs and account files compiled from your list, workflow documentation, and evaluation results run against your accounts. These vest in you on payment.",
+    featured: true,
+  },
+  {
+    label: "Licensed to you",
+    icon: "heroicons:key",
+    title: "Amoris pre-existing IP",
+    body: "The engine and the methodology that existed before your engagement began: the pipeline architecture, the early-stop design, the evidence-traceability rules, and the outbound methodology behind them. Anything deployed to you comes with a perpetual, irrevocable, royalty-free licence for your internal use. You can keep running it indefinitely. You do not acquire ownership of it.",
+  },
+  {
+    label: "Stays general",
+    icon: "heroicons:arrow-path",
+    title: "Methodology and learning",
+    body: "Working on your problem sharpens how the work is done. That generalised improvement travels to later engagements. Nothing confidential, nothing client-specific, and nothing identifying ever travels with it.",
+  },
+];
+
+const pricingUrl = getLocaleUrl('pricing', locale);
+---
+
+<Layout title={t('pages.data-and-ip.title')} description={t('pages.data-and-ip.description')}>
+  <Headline text="Data & IP" />
+
+  <section class="mb-16 max-w-3xl">
+    <h1 class="mb-4 text-3xl font-bold sm:text-4xl">What access is asked for, and who owns what</h1>
+    <p class="text-lg leading-relaxed text-stone-700 dark:text-stone-200">
+      Handing an outside party access to your go-to-market systems is a real decision. This page sets out how access is scoped, what will never be asked for, and how ownership is divided - so it is agreed in advance rather than argued afterwards.
+    </p>
+  </section>
+
+  <!-- ── Staged access ── -->
+  <section aria-labelledby="staged-heading" class="mb-16">
+    <h2 id="staged-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Access is staged</h2>
+    <p class="mb-6 max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
+      Access is requested for the stage of work actually underway, not for the engagement as a whole. An audit needs to understand how the motion runs; it does not need production credentials. A build needs more, and only then.
+    </p>
+    <Reveal>
+      <div class="flex flex-col gap-3 rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+        <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+          In practice that means each stage starts with a conversation about the narrowest access that lets the work proceed, and access granted for an earlier stage is not assumed to carry into a later one.
+        </p>
+      </div>
+    </Reveal>
+  </section>
+
+  <!-- ── What is never requested ── -->
+  <section aria-labelledby="not-requested-heading" class="mb-16">
+    <h2 id="not-requested-heading" class="mb-3 text-2xl font-bold sm:text-3xl">What will not be requested</h2>
+    <p class="mb-6 max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
+      If any of these comes up, it is reasonable to push back and ask why.
+    </p>
+    <ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
+      {
+        willNotRequest.map((item, i) => (
+          <Reveal as="li" delay={i * 50} from="up" class="m-0">
+            <div class="flex h-full items-start gap-3 rounded-xl border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+              <Icon name="heroicons:x-circle" class="mt-0.5 h-5 w-5 shrink-0 text-stone-400" aria-hidden="true" />
+              <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{item}</span>
+            </div>
+          </Reveal>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ── Retention ── -->
+  <section aria-labelledby="retention-heading" class="mb-16">
+    <h2 id="retention-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Retention</h2>
+    <Reveal>
+      <div class="flex flex-col gap-3 rounded-xl border-2 border-amber-500/40 bg-white p-6 sm:p-8 dark:bg-stone-900">
+        <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+          <strong class="text-stone-900 dark:text-white">There is no formal retention policy in place today.</strong> Rather than publish a number that nothing currently enforces, here is the actual position: material shared during an engagement is held for as long as the work requires it, and can be deleted on request at any point.
+        </p>
+        <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+          If you need a defined retention period, say so before work starts and it goes in the engagement schedule as a commitment rather than an assumption.
+        </p>
+      </div>
+    </Reveal>
+  </section>
+
+  <!-- ── Ownership ── -->
+  <section aria-labelledby="ownership-heading" class="mb-16">
+    <h2 id="ownership-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Ownership, in three categories</h2>
+    <p class="mb-6 max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
+      The short version: what gets built <em>for</em> you is yours, the engine it runs on is licensed to you, and no client-specific information ever leaves with it. The boundary is put in writing before build work starts.
+    </p>
+    <div class="grid grid-cols-1 gap-5">
+      {
+        ownership.map((o, i) => (
+          <Reveal delay={i * 60} from="up">
+            <div
+              class:list={[
+                'flex h-full flex-col gap-3 rounded-xl bg-white p-6 sm:p-8 dark:bg-stone-900',
+                o.featured ? 'border-primary border-2' : 'border border-stone-300 dark:border-stone-700',
+              ]}
+            >
+              <div class="flex flex-wrap items-center gap-3">
+                <span class="border-primary/30 text-primary dark:text-primary-light flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-xs font-semibold tracking-wide uppercase">
+                  <Icon name={o.icon} class="h-4 w-4 shrink-0" aria-hidden="true" />
+                  {o.label}
+                </span>
+                <h3 class="text-lg font-bold">{o.title}</h3>
+              </div>
+              <p class="leading-relaxed text-stone-600 dark:text-stone-300">{o.body}</p>
+            </div>
+          </Reveal>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="max-w-3xl">
+    <h2 class="mb-3 text-2xl font-bold sm:text-3xl">Questions before you share anything</h2>
+    <p class="mb-6 leading-relaxed text-stone-600 dark:text-stone-300">
+      Reasonable to want this settled before an engagement rather than during one. The intro call is free, and this is a fair thing to spend it on.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="btn-primary">Free intro call</a>
+      <a href="mailto:shahi@amoris.in" class="btn-subtle rounded px-4 py-[0.43rem]">shahi@amoris.in</a>
+      <a href={pricingUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
+        <span>How engagements are structured</span>
+        <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
+      </a>
+    </div>
+  </section>
+</Layout>

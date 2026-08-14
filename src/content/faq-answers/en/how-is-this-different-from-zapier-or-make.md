@@ -8,6 +8,6 @@ llmsTxt: true
 
 Zapier and Make are no-code connectors between off-the-shelf tools. They move data from A to B, and they are good at it.
 
-Amoris builds the reasoning layer that does not exist yet - LangGraph agents that qualify a lead by weighing evidence, enrichment waterfalls that decide what to look up next, workflows shaped around your specific motion.
+Amoris builds the reasoning layer that does not exist yet - agents that qualify an account by weighing evidence, and workflows shaped around your specific motion rather than a template.
 
-The short version: we are not connecting tools you already have. We are building the GTM infrastructure underneath them, from first principles, and handing it to you.
+The short version: this is not about connecting tools you already have. It is the reasoning layer underneath them, built from first principles and handed to you.

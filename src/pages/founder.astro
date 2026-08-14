@@ -100,6 +100,17 @@ const story = [
   },
 ];
 
+/*
+  Moved off the homepage, where they were presented as Amoris client results. They
+  are not: they pre-date Amoris. Attribution to a specific engagement is unconfirmed,
+  so they are grouped as outcomes of the pre-Amoris outbound period.
+*/
+const priorOutcomes = [
+  { metric: "3.5x", label: "cold reply rate", note: "after enrichment and research replaced list-blasting" },
+  { metric: "60%+", label: "more qualified leads", note: "once qualification moved ahead of the first call" },
+  { metric: "10x", label: "faster qualification", note: "when the research step stopped being manual" },
+];
+
 const openTo = [
   "Founding GTM hire - build the entire motion from zero",
   "AI GTM Engineer - architect the automation layer for a revenue team",
@@ -114,7 +125,7 @@ const notAFit = [
 ];
 
 const links = [
-  { label: "GitHub", value: "github.com/praveenshahi", note: "LangGraph, n8n, intel-echo, the AI SDR agent", href: "https://github.com/praveenshahi", icon: "simple-icons:github" },
+  { label: "GitHub", value: "github.com/praveenshahi", note: "LangGraph, n8n, intel-echo, the research engine", href: "https://github.com/praveenshahi", icon: "simple-icons:github" },
   { label: "LinkedIn", value: "in/praveenshahi13", note: "Full work history and recommendations", href: "https://www.linkedin.com/in/praveenshahi13", icon: "simple-icons:linkedin" },
   { label: "npm", value: "intel-echo", note: "Published package - install it and read the source", href: "https://www.npmjs.com/package/intel-echo", icon: "simple-icons:npm" },
   { label: "Email", value: "shahi@amoris.in", note: "Fastest way to reach me", href: "mailto:shahi@amoris.in", icon: "heroicons:envelope" },
@@ -214,6 +225,27 @@ const links = [
         ))
       }
     </ol>
+  </section>
+
+  <!-- ── Prior outcomes ── -->
+  <section aria-labelledby="founder-outcomes-heading" class="mb-16">
+    <h2 id="founder-outcomes-heading" class="mb-3 text-2xl font-bold sm:text-3xl">What that work produced</h2>
+    <p class="mb-8 max-w-2xl text-stone-600 dark:text-stone-300">
+      From building outbound systems before Amoris existed. These are not Amoris client results - Amoris has not run a client engagement yet - and they are not a forecast of what any future engagement produces.
+    </p>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+      {
+        priorOutcomes.map((o, i) => (
+          <Reveal delay={i * 60} from="up">
+            <div class="flex h-full flex-col gap-1 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+              <span class="text-primary dark:text-primary-light text-3xl font-bold">{o.metric}</span>
+              <span class="font-semibold">{o.label}</span>
+              <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{o.note}</span>
+            </div>
+          </Reveal>
+        ))
+      }
+    </div>
   </section>
 
   <!-- ── Links ── -->

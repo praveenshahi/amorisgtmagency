@@ -6,12 +6,12 @@ category: 'general'
 llmsTxt: true
 ---
 
-Amoris builds agentic AI systems for B2B go-to-market teams. In practice that means the whole outbound motion as one orchestrated system rather than a stack of disconnected tools:
+Two related things, and it is worth keeping them apart.
 
-- **Lead enrichment** - waterfall enrichment through Clay, then an LLM pass for intent signals and personalisation.
-- **Qualification** - LangGraph agents that reason across multiple steps instead of making one-shot API calls.
-- **Orchestration** - n8n for event-driven routing between your CRM, your data and the agents.
-- **State and memory** - PostgreSQL, so conversations and decisions survive restarts and can be audited later.
-- **Voice** - Retell or ElevenLabs where a call is the right channel.
+**The research engine.** An evidence-led system that researches one account at a time, decides whether there is a defensible reason to start a conversation, and can stop when there isn't. It runs on LangGraph, with Tavily for live web research and an LLM provider for the reasoning, exposed as an API. The research layer is deployed; the outbound reasoning layer is in private testing.
 
-Everything is self-hosted on your own infrastructure. You own the workflows, the prompts, the database and the code.
+**The wider automation practice.** Designing and building the GTM automation layer around a revenue team, on the stack that team already runs — n8n for orchestration, Clay for enrichment, PostgreSQL for state, and integration into whatever the CRM and comms tooling happens to be.
+
+The first is the sharp end and the reason to start a conversation. The second is the broader engagement most teams end up needing.
+
+Everything is built to be handed over: it runs on your infrastructure, and it is documented so your team can change it without Amoris.

@@ -110,7 +110,7 @@ export const themeConfig: ThemeConfig = {
   llms: {
     autoGeneration: true,
     intro:
-      'Amoris is an AI GTM agency. We design and deploy agentic automation for B2B go-to-market teams: lead enrichment, qualification, outbound and CRM handoff as one orchestrated system. The stack is LangGraph for multi-step reasoning, Clay for waterfall enrichment, n8n for webhook orchestration and PostgreSQL for state. Systems are self-hosted on your own infrastructure and fully owned by you, with no platform lock-in. Two engagement models are offered, Done With You and Done For You, and both ship in six weeks. Founded by Praveen Shahi, an AI GTM Engineer who spent ten years running revenue organisations at Amazon, Meta, Great Learning and Leverage Edu before building production AI systems.',
+      "Amoris is a founder-led AI GTM practice run by Praveen Shahi. Its wedge is evidence-led GTM research: given one company, the system researches that account live, decides whether there is a defensible commercial reason to start a conversation, and can HOLD - stopping the pipeline when the evidence does not support outreach. Every factual claim traces back to a cited source, inference is written as curiosity rather than diagnosis, and nothing is ever sent automatically; the send decision stays with the person whose name is on the message. The engine is built on LangGraph with live web research. The research layer is deployed and running; the outbound reasoning layer, including the judge and HOLD, is built and in private testing against a small number of real accounts, and is not sold as a finished product. Alongside this, Amoris designs and builds the wider GTM automation layer for revenue teams on the stack they already run. Engagements start with a paid GTM Audit at Rs 15,000: a written diagnostic delivered in two to three days, which the client keeps whether or not anything follows. Amoris is built for teams where outbound still carries someone's name.",
     excludePagesPattern: [],
     includePages: [],
     addArticles: 'all',
@@ -119,5 +119,5 @@ export const themeConfig: ThemeConfig = {
   },
 
   askAiTrigger:
-    'I am looking at Amoris (amoris.in), an AI GTM agency that builds agentic automation for B2B revenue teams using LangGraph, Clay and n8n. Tell me what they build, who they are a fit for, and how their two engagement models (Done With You and Done For You) differ.',
+    'I am looking at Amoris (amoris.in), a founder-led AI GTM practice. Its wedge is evidence-led GTM research with a HOLD mechanism that stops when evidence does not support outreach. Tell me what it actually does, what is deployed versus still in testing, who it is a fit for, and what the paid GTM Audit covers.',
 };

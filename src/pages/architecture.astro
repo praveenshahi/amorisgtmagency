@@ -1,0 +1,411 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import Reveal from "@components/reveal.astro";
+import { Icon } from "astro-icon/components";
+import { useTranslations, getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from '~/theme.config';
+
+const locale = themeConfig.i18n.defaultLocale;
+const t = useTranslations(locale);
+
+/*
+  Written for a technical buyer to evaluate the approach, not to reimplement it.
+  Deliberately excluded: file and module names, prompt text, output schemas,
+  configuration and credentials. Every claim here traces to the implementation.
+*/
+
+const builtToday = [
+  "Live web research against a named account, returned as a structured read",
+  "Observations carried with the source behind each one",
+  "A fit and signal assessment produced from that evidence, not from a database",
+  "An HTTP API, with every run written to disk so a decision can be re-read later",
+];
+
+const beingExtended = [
+  "The reasoning layer that turns a signal into a commercial hypothesis and message angle",
+  "The judge, and the second HOLD that can stop a message after it has been written",
+  "Deployment of the reasoning layer alongside the research layer",
+  "A wider experience library for the reasoning step to draw on",
+];
+
+const judgeChecks = [
+  "Whether each claim about the company traces back to something actually found in the research",
+  "Whether inference is visibly marked as inference rather than asserted as established fact",
+  "Whether anything about the company - a claim, a result, a relationship - has been invented",
+  "Whether a referenced piece of experience is real, rather than whether the analogy is elegant",
+  "Whether the message makes one clear argument, stays short, and asks for something small",
+  "Whether it reads as generic AI outreach, and whether a senior person would actually reply",
+];
+
+const productsUrl = getLocaleUrl('products', locale);
+const dataUrl = getLocaleUrl('data-and-ip', locale);
+---
+
+<Layout title={t('pages.architecture.title')} description={t('pages.architecture.description')}>
+  <Headline text="Architecture" />
+
+  <section class="mb-16 max-w-3xl">
+    <h1 class="mb-4 text-3xl font-bold sm:text-4xl">How the research engine actually works</h1>
+    <p class="text-lg leading-relaxed text-stone-700 dark:text-stone-200">
+      Enough detail to judge whether the approach is sound, without turning into an implementation guide. The short version: it researches one account, decides whether there is a defensible reason to start a conversation, and is built to stop when there isn't.
+    </p>
+  </section>
+
+  <!-- ── The pipeline ── -->
+  <section aria-labelledby="pipeline-heading" class="mb-16">
+    <h2 id="pipeline-heading" class="mb-3 text-2xl font-bold sm:text-3xl">The pipeline</h2>
+    <p class="mb-8 max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
+      Two decision points can end the run early. That is the part worth understanding, because it is the opposite of how most tools in this category behave.
+    </p>
+
+    <Reveal>
+      <div class="rounded-xl border border-stone-300 bg-white p-2 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+        <svg
+          class="arch-diagram mx-auto block h-auto w-full max-w-[340px]"
+          viewBox="0 0 324 552"
+          role="img"
+          aria-labelledby="arch-title arch-desc"
+        >
+          <title id="arch-title">The Amoris research pipeline, with two HOLD exits</title>
+          <desc id="arch-desc">
+            An account enters research, which produces evidence. Reasoning either forms a hypothesis or exits to HOLD. If it continues, a draft is written and judged, which either returns READY or exits to a second HOLD. READY goes to human review, and only then to an optional manual send.
+          </desc>
+
+          <defs>
+            <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" class="arch-arrowhead" />
+            </marker>
+            <marker id="arch-arrow-stop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" class="arch-arrowhead-stop" />
+            </marker>
+          </defs>
+
+          <g class="arch-step">
+            <rect x="6" y="8" width="152" height="44" rx="8" />
+            <text x="18" y="30">Account</text>
+            <text x="18" y="44" class="arch-sub">a name and a site</text>
+          </g>
+          <line x1="82" y1="52" x2="82" y2="72" class="arch-line" marker-end="url(#arch-arrow)" />
+
+          <g class="arch-step">
+            <rect x="6" y="76" width="152" height="44" rx="8" />
+            <text x="18" y="98">Research</text>
+            <text x="18" y="112" class="arch-sub">live, per account</text>
+          </g>
+          <line x1="82" y1="120" x2="82" y2="140" class="arch-line" marker-end="url(#arch-arrow)" />
+
+          <g class="arch-step">
+            <rect x="6" y="144" width="152" height="44" rx="8" />
+            <text x="18" y="166">Evidence</text>
+            <text x="18" y="180" class="arch-sub">claim + source</text>
+          </g>
+          <line x1="82" y1="188" x2="82" y2="208" class="arch-line" marker-end="url(#arch-arrow)" />
+
+          <g class="arch-step arch-decision">
+            <rect x="6" y="212" width="152" height="44" rx="8" />
+            <text x="18" y="234">Reason</text>
+            <text x="18" y="248" class="arch-sub">signal to hypothesis</text>
+          </g>
+          <line x1="158" y1="234" x2="176" y2="234" class="arch-line-stop" marker-end="url(#arch-arrow-stop)" />
+          <g class="arch-hold">
+            <rect x="180" y="212" width="138" height="44" rx="8" />
+            <text x="192" y="234">HOLD</text>
+            <text x="192" y="248" class="arch-sub-stop">evidence too thin</text>
+          </g>
+          <text x="249" y="270" class="arch-note">run ends here</text>
+
+          <line x1="82" y1="256" x2="82" y2="276" class="arch-line" marker-end="url(#arch-arrow)" />
+
+          <g class="arch-step arch-decision">
+            <rect x="6" y="280" width="152" height="44" rx="8" />
+            <text x="18" y="302">Draft &amp; judge</text>
+            <text x="18" y="316" class="arch-sub">14 checks</text>
+          </g>
+          <line x1="158" y1="302" x2="176" y2="302" class="arch-line-stop" marker-end="url(#arch-arrow-stop)" />
+          <g class="arch-hold">
+            <rect x="180" y="280" width="138" height="44" rx="8" />
+            <text x="192" y="302">HOLD</text>
+            <text x="192" y="316" class="arch-sub-stop">claim untraceable</text>
+          </g>
+          <text x="249" y="338" class="arch-note">run ends here</text>
+
+          <line x1="82" y1="324" x2="82" y2="344" class="arch-line" marker-end="url(#arch-arrow)" />
+
+          <g class="arch-step arch-ready">
+            <rect x="6" y="348" width="152" height="44" rx="8" />
+            <text x="18" y="370">READY</text>
+            <text x="18" y="384" class="arch-sub">reasoning attached</text>
+          </g>
+          <line x1="82" y1="392" x2="82" y2="412" class="arch-line" marker-end="url(#arch-arrow)" />
+
+          <g class="arch-step arch-human">
+            <rect x="6" y="416" width="152" height="44" rx="8" />
+            <text x="18" y="438">You review</text>
+            <text x="18" y="452" class="arch-sub">the decision point</text>
+          </g>
+          <line x1="82" y1="460" x2="82" y2="480" class="arch-line arch-line-dashed" marker-end="url(#arch-arrow)" />
+
+          <g class="arch-step arch-optional">
+            <rect x="6" y="484" width="152" height="44" rx="8" stroke-dasharray="4 3" />
+            <text x="18" y="506">Send</text>
+            <text x="18" y="520" class="arch-sub">optional, manual</text>
+          </g>
+        </svg>
+      </div>
+    </Reveal>
+
+    <p class="mt-4 text-center text-sm text-stone-500 dark:text-stone-400">
+      Nothing continues past a HOLD. There is no queue it lands in, and no setting that overrides it into sending.
+    </p>
+  </section>
+
+  <!-- ── Built today vs extended ── -->
+  <section aria-labelledby="status-heading" class="mb-16">
+    <h2 id="status-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Built today, and being extended</h2>
+    <p class="mb-6 max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
+      The diagram above describes the whole design. Not all of it is deployed, and it is worth being exact about which part is which.
+    </p>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <Reveal from="left">
+        <div class="flex h-full flex-col gap-3 rounded-xl border-2 border-green-600/40 bg-white p-6 sm:p-8 dark:bg-stone-900">
+          <h3 class="flex items-center gap-2 text-lg font-bold">
+            <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-green-600 dark:text-green-400" aria-hidden="true" />
+            Built and running
+          </h3>
+          <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            {builtToday.map((i) => <li class="m-0">{i}</li>)}
+          </ul>
+        </div>
+      </Reveal>
+      <Reveal from="right">
+        <div class="flex h-full flex-col gap-3 rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+          <h3 class="flex items-center gap-2 text-lg font-bold">
+            <Icon name="heroicons:beaker" class="h-6 w-6 shrink-0 text-stone-400" aria-hidden="true" />
+            Built, in private testing
+          </h3>
+          <ul class="m-0 flex list-none flex-col gap-2 p-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            {beingExtended.map((i) => <li class="m-0">{i}</li>)}
+          </ul>
+          <p class="mt-auto pt-2 text-sm text-stone-500 dark:text-stone-400">
+            Tested against a small number of real accounts. No completion date is being promised.
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ── Evidence ── -->
+  <section aria-labelledby="evidence-heading" class="mb-16">
+    <h2 id="evidence-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Evidence, and the line between fact and inference</h2>
+    <div class="flex max-w-3xl flex-col gap-4 leading-relaxed text-stone-600 dark:text-stone-300">
+      <p>
+        Research produces observations, and each one carries the source it came from. That constraint is what everything downstream leans on: a claim that cannot be traced back to an observation is not supposed to survive to the output.
+      </p>
+      <p>
+        The distinction the system is built to hold is between <strong class="text-stone-900 dark:text-white">what was observed</strong> and <strong class="text-stone-900 dark:text-white">what was inferred from it</strong>. An observation can be stated. An inference is written as curiosity - a question about how something is handled - rather than as a diagnosis of a problem the company never said it had.
+      </p>
+      <p>
+        This is the difference between a message that reads as though someone looked, and one that reads as though a model guessed confidently. Most AI-written outbound fails precisely here.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── The judge ── -->
+  <section aria-labelledby="judge-heading" class="mb-16">
+    <h2 id="judge-heading" class="mb-3 text-2xl font-bold sm:text-3xl">The judge</h2>
+    <p class="mb-6 max-w-3xl leading-relaxed text-stone-600 dark:text-stone-300">
+      Once a draft exists it is evaluated against <strong class="text-stone-900 dark:text-white">14 checks</strong> before anything reaches you. The checks are aimed at the account and the reasoning, not at prose style. In categories, they ask:
+    </p>
+    <ul class="m-0 mb-6 flex list-none flex-col gap-3 p-0">
+      {
+        judgeChecks.map((c, i) => (
+          <Reveal as="li" delay={i * 40} from="up" class="m-0">
+            <div class="flex items-start gap-3 rounded-xl border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+              <Icon name="heroicons:check-circle" class="text-primary dark:text-primary-light mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+              <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{c}</span>
+            </div>
+          </Reveal>
+        ))
+      }
+    </ul>
+
+    <Reveal>
+      <div class="flex flex-col gap-3 rounded-xl border-2 border-amber-500/40 bg-white p-6 sm:p-8 dark:bg-stone-900">
+        <h3 class="text-lg font-bold">What the judge is not</h3>
+        <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+          It is an evaluation mechanism, not an oracle. Two limits are worth stating plainly, because they affect how much weight the output deserves.
+        </p>
+        <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+          <strong class="text-stone-900 dark:text-white">Writing and judging happen in the same pass.</strong> The model that produced the draft is the one assessing it, which means it has no outside vantage point on its own work. In testing this has been observed to matter - it is the known weak point of the design, and it is the reason a person still reads the output.
+        </p>
+        <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+          <strong class="text-stone-900 dark:text-white">A READY is not a verdict on the account.</strong> It says the reasoning survived the checks. It does not say the company will reply, will buy, or has the problem the hypothesis proposes.
+        </p>
+      </div>
+    </Reveal>
+  </section>
+
+  <!-- ── HOLD ── -->
+  <section aria-labelledby="hold-heading" class="mb-16">
+    <h2 id="hold-heading" class="mb-3 text-2xl font-bold sm:text-3xl">HOLD</h2>
+    <div class="flex max-w-3xl flex-col gap-4 leading-relaxed text-stone-600 dark:text-stone-300">
+      <p>
+        There are two exits, and they fire at different moments for different reasons.
+      </p>
+      <p>
+        <strong class="text-stone-900 dark:text-white">The first fires before anything is written.</strong> If the strongest available signal is too weak, too generic or too contradictory to support a credible commercial argument, the run stops and says so. No draft is produced, and the work of producing one is never done.
+      </p>
+      <p>
+        <strong class="text-stone-900 dark:text-white">The second fires after a draft exists.</strong> If a claim about the company cannot be traced back to the research, or an inference has been dressed up as fact, the draft is held with the reason attached. It exists, and it is marked unsendable.
+      </p>
+      <p>
+        A HOLD is a quality gate, not a correctness guarantee. It lowers the chance of sending something the evidence does not support. It cannot tell you that a message is right, and it is not a substitute for reading the output.
+      </p>
+      <p>
+        The rate of HOLDs across a batch tends to say something true about the list, not about the system.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Human boundary ── -->
+  <section aria-labelledby="human-heading" class="mb-16">
+    <h2 id="human-heading" class="mb-3 text-2xl font-bold sm:text-3xl">Where the system stops and you start</h2>
+    <div class="flex max-w-3xl flex-col gap-4 leading-relaxed text-stone-600 dark:text-stone-300">
+      <p>
+        The output is a file you read. Nothing is connected to a mailbox, there is no sending integration, and autonomous sending is not on the roadmap - it is a design decision, not a missing feature.
+      </p>
+      <p>
+        The division is deliberate: the system does the research and the first draft, which is the part that scales badly and consumes senior time. The decision to contact a specific person stays with the person whose name is on the message.
+      </p>
+    </div>
+    <Reveal class="mt-6">
+      <div class="flex flex-wrap gap-3">
+        <a href={productsUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
+          <span>What else exists</span>
+          <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
+        </a>
+        <a href={dataUrl} class="btn-subtle group rounded px-4 py-[0.43rem]">
+          <span>Data and ownership</span>
+          <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
+        </a>
+      </div>
+    </Reveal>
+  </section>
+</Layout>
+
+<style>
+  @reference "../styles/tailwind.config.css";
+
+  /* Diagram inherits the page's colour tokens so it works in both themes without
+     a second set of fills. No script, no library, no animation. */
+  .arch-diagram {
+    font-family: inherit;
+  }
+
+  .arch-step rect {
+    fill: var(--color-background);
+    stroke: var(--color-stone-400);
+    stroke-width: 1.5;
+  }
+  :global(.dark) .arch-step rect {
+    fill: var(--color-stone-800);
+    stroke: var(--color-stone-600);
+  }
+
+  .arch-step text {
+    fill: var(--color-stone-900);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  :global(.dark) .arch-step text {
+    fill: #fff;
+  }
+
+  .arch-sub {
+    fill: var(--color-stone-500) !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+  :global(.dark) .arch-sub {
+    fill: var(--color-stone-400) !important;
+  }
+
+  /* Decision points carry the accent, so the two branch rows read as the moments
+     where something is actually decided. */
+  .arch-decision rect {
+    stroke: var(--color-primary);
+    stroke-width: 2;
+  }
+
+  .arch-ready rect {
+    stroke: #16a34a;
+    stroke-width: 2;
+  }
+
+  .arch-human rect {
+    stroke: var(--color-secondary);
+    stroke-width: 2;
+  }
+
+  .arch-optional rect {
+    stroke: var(--color-stone-400);
+  }
+
+  /* HOLD is visually a dead end: muted fill, amber edge, and a "run ends here" note. */
+  .arch-hold rect {
+    fill: #fffbeb;
+    stroke: #d97706;
+    stroke-width: 2;
+  }
+  :global(.dark) .arch-hold rect {
+    fill: #2a2011;
+    stroke: #d97706;
+  }
+  .arch-hold text {
+    fill: #92400e;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  :global(.dark) .arch-hold text {
+    fill: #fbbf24;
+  }
+  .arch-sub-stop {
+    fill: #b45309 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+  :global(.dark) .arch-sub-stop {
+    fill: #d9a441 !important;
+  }
+
+  .arch-note {
+    fill: #b45309;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-anchor: middle;
+    text-transform: uppercase;
+  }
+  :global(.dark) .arch-note {
+    fill: #d9a441;
+  }
+
+  .arch-line {
+    stroke: var(--color-stone-400);
+    stroke-width: 2;
+  }
+  .arch-line-dashed {
+    stroke-dasharray: 4 3;
+  }
+  .arch-line-stop {
+    stroke: #d97706;
+    stroke-width: 2;
+  }
+  .arch-arrowhead {
+    fill: var(--color-stone-400);
+  }
+  .arch-arrowhead-stop {
+    fill: #d97706;
+  }
+</style>

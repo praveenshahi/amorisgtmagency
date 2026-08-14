@@ -3,6 +3,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* The fixed header is width:100%, which on a fixed element resolves against the
+       viewport *including* the classic scrollbar - so it ended up wider than the
+       document and produced a horizontal scroll of exactly the scrollbar width.
+       Reserving the gutter keeps the two measurements equal. Also removes the
+       layout shift when a short page grows long enough to gain a scrollbar. */
+    scrollbar-gutter: stable;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
