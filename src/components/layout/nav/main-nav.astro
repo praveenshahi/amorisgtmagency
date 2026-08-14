@@ -13,8 +13,11 @@ interface Props {
 const { locale, tabIndex = 0 } = Astro.props as Props;
 const t = useTranslations(locale);
 
+// Ordered the way a sceptical buyer moves: what gets built, how it works, what it
+// costs, who is behind it, then the objections.
 const navLinks: NavItem[] = [
   { href: getLocaleUrl('products', locale), label: t('nav.products') },
+  { href: getLocaleUrl('architecture', locale), label: t('nav.architecture') },
   { href: getLocaleUrl('pricing', locale), label: t('nav.pricing') },
   { href: getLocaleUrl('founder', locale), label: t('nav.founder') },
   { href: getLocaleUrl('faq', locale), label: t('nav.faq') },
