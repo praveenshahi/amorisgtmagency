@@ -6,7 +6,7 @@ category: 'engagement'
 llmsTxt: true
 ---
 
-The GTM Audit is a **paid, written diagnostic — ₹15,000, delivered in about two to three days.**
+The GTM Audit is a **paid, written diagnostic — ₹15,000 to ₹25,000 plus GST, delivered in about two to three days.**
 
 It maps the go-to-market motion end to end and names four things:
 
@@ -14,6 +14,8 @@ It maps the go-to-market motion end to end and names four things:
 - Where research and qualification are breaking down or being redone by hand
 - Which parts are genuinely worth handing to a system, and which are a process problem wearing an automation costume
 - What a sensible first pilot would actually cover
+
+**Why a range.** Where you land depends on what the audit has to work through. A clean, documented stack with one source of truth sits at the lower end. Several disconnected tools, patchy pipeline data and no clear owner takes materially longer to untangle, and sits at the upper end. You are told which before anything starts.
 
 **You keep the document.** It is written to be useful on its own, whether or not anything follows.
 
