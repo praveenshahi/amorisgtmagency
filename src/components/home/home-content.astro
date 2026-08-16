@@ -272,7 +272,27 @@ const architectureUrl = getLocaleUrl('architecture', locale);
               <strong>Praveen Shahi.</strong> Four years at Amazon and Meta on global data science and ML projects - finding patterns in systems large enough that intuition stops working and design has to take over. That is where I learned how a system is actually put together.
             </p>
             <p class="leading-relaxed text-stone-600 dark:text-stone-300">
-              Then I went and carried a number. More than seven years in sales and growth hacking since - millions in sales closed, and growth work across more than six brands. The record is on <a href="https://www.linkedin.com/in/praveenshahi13" target="_blank" rel="noopener">LinkedIn</a> if you want to check it.
+              Then I went and carried a number. Seven years of sales and growth hacking since - building teams, opening new markets from scratch, and running growth for brands at very different stages. Enough range to recognise a problem I have seen before wearing different clothes.
+            </p>
+
+            <!-- Scale of prior operating work. Range, not results - see the caption. -->
+            <ul class="m-0 grid list-none grid-cols-2 gap-px overflow-hidden rounded-xl border border-stone-300 bg-stone-300 p-0 sm:grid-cols-4 dark:border-stone-700 dark:bg-stone-700">
+              {
+                [
+                  { figure: "7+", label: "years in sales and growth" },
+                  { figure: "150", label: "largest sales team led" },
+                  { figure: "6+", label: "brands grown" },
+                  { figure: "Millions", label: "in sales closed" },
+                ].map((s) => (
+                  <li class="m-0 flex flex-col gap-0.5 bg-white p-4 dark:bg-stone-900">
+                    <span class="text-primary dark:text-primary-light text-2xl font-bold">{s.figure}</span>
+                    <span class="text-xs leading-snug text-stone-600 dark:text-stone-300">{s.label}</span>
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="m-0 text-sm text-stone-500 dark:text-stone-400">
+              Operating work before Amoris, across LATAM, Africa and India - not Amoris client results, and not a forecast of what any engagement produces. The detail is on <a href="https://www.linkedin.com/in/praveenshahi13" target="_blank" rel="noopener">LinkedIn</a>.
             </p>
             <p class="leading-relaxed text-stone-600 dark:text-stone-300">
               Most people in this category have one half. The system designers have never had to explain a missed quarter. The revenue operators are waiting on an engineering team. The value is not either half on its own - it is that one person carries both, and can therefore tell you which half your problem actually lives in.
