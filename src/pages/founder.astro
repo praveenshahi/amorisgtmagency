@@ -67,7 +67,7 @@ const story = [
     title: "Systems, then revenue",
     paras: [
       "Four years at Amazon and Meta, on global data science and ML projects. Finding patterns in systems large enough that intuition stops working and design has to take over. That is where I learned how a system is actually put together - and how confidently people misread one.",
-      "Then I went and carried a number. At Great Learning I led a 150-person sales organisation doing $120K+ per month in net-new revenue, and built the go-to-market motion into LATAM and Africa. At CrunchPrep I scaled the business to Rs 3.5Cr ARR and built a 30-member team from scratch. In both cases the job was designing the operating process, not adding headcount to a problem.",
+      "Then I went and carried a number. Sales and growth leadership across brands at very different stages - building teams, opening new markets from scratch, owning the number rather than advising on it. In every case the job was designing the operating process, not adding headcount to a problem.",
       "Two halves that rarely sit in one person. The system designers have never had to explain a missed quarter. The revenue operators are waiting on an engineering team. Carrying both is what lets me tell a founder which half their problem actually lives in.",
     ],
   },
@@ -85,7 +85,7 @@ const story = [
     title: "Field proof",
     paras: [
       "Then I took it into the field. At MsgKart I built go-to-market from zero - an AI automation SaaS selling to non-technical buyers, which is the hardest version of the problem.",
-      "I designed the outbound stack end to end: Clay for waterfall enrichment, LLMs for personalisation, n8n for orchestration. We closed the first clients with one SDR and zero ad spend. I also built the SPIN and MEDDIC playbook for selling AI to buyers who do not care what a model is.",
+      "I designed the outbound stack end to end: Clay for waterfall enrichment, LLMs for personalisation, n8n for orchestration. I also built the SPIN and MEDDIC playbook for selling AI to buyers who do not care what a model is.",
       "That is the proof the two halves connect. The stack worked because the GTM judgment shaped it, and the GTM worked because I could build the stack.",
     ],
   },
@@ -101,14 +101,16 @@ const story = [
 ];
 
 /*
-  Moved off the homepage, where they were presented as Amoris client results. They
-  are not: they pre-date Amoris. Attribution to a specific engagement is unconfirmed,
-  so they are grouped as outcomes of the pre-Amoris outbound period.
+  Abstract scale, not validation. Amoris sells a diagnosis for a problem most
+  buyers have no language for yet, so proof-of-results framing is the wrong
+  register. These figures show range - enough different situations to recognise
+  a problem already seen wearing different clothes.
 */
-const priorOutcomes = [
-  { metric: "3.5x", label: "cold reply rate", note: "after enrichment and research replaced list-blasting" },
-  { metric: "60%+", label: "more qualified leads", note: "once qualification moved ahead of the first call" },
-  { metric: "10x", label: "faster qualification", note: "when the research step stopped being manual" },
+const scale = [
+  { figure: "7+", label: "years in sales and growth" },
+  { figure: "150", label: "largest sales team led" },
+  { figure: "6+", label: "brands grown" },
+  { figure: "Millions", label: "in sales closed" },
 ];
 
 const openTo = [
@@ -227,25 +229,22 @@ const links = [
     </ol>
   </section>
 
-  <!-- ── Prior outcomes ── -->
-  <section aria-labelledby="founder-outcomes-heading" class="mb-16">
-    <h2 id="founder-outcomes-heading" class="mb-3 text-2xl font-bold sm:text-3xl">What that work produced</h2>
+  <!-- ── Scale of prior operating work ── -->
+  <section aria-labelledby="founder-scale-heading" class="mb-16">
+    <h2 id="founder-scale-heading" class="mb-3 text-2xl font-bold sm:text-3xl">The range that work covered</h2>
     <p class="mb-8 max-w-2xl text-stone-600 dark:text-stone-300">
-      From building outbound systems before Amoris existed. These are not Amoris client results - Amoris has not run a client engagement yet - and they are not a forecast of what any future engagement produces.
+      Operating work before Amoris, across LATAM, Africa and India. Not Amoris client results - Amoris has not run a client engagement yet - and not a forecast of what any engagement produces. It is here to show the breadth of situations the judgement came from.
     </p>
-    <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+    <ul class="m-0 grid list-none grid-cols-2 gap-px overflow-hidden rounded-xl border border-stone-300 bg-stone-300 p-0 sm:grid-cols-4 dark:border-stone-700 dark:bg-stone-700">
       {
-        priorOutcomes.map((o, i) => (
-          <Reveal delay={i * 60} from="up">
-            <div class="flex h-full flex-col gap-1 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
-              <span class="text-primary dark:text-primary-light text-3xl font-bold">{o.metric}</span>
-              <span class="font-semibold">{o.label}</span>
-              <span class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{o.note}</span>
-            </div>
-          </Reveal>
+        scale.map((s) => (
+          <li class="m-0 flex flex-col gap-1 bg-white p-6 dark:bg-stone-900">
+            <span class="text-primary dark:text-primary-light text-3xl font-bold">{s.figure}</span>
+            <span class="text-sm leading-snug text-stone-600 dark:text-stone-300">{s.label}</span>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </section>
 
   <!-- ── Links ── -->
