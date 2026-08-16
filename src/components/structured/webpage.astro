@@ -5,6 +5,11 @@ import { themeConfig } from '~/theme.config';
 
 interface Props {
   type: "WebPage" | "FAQPage";
+  /*
+    Question entities for a FAQPage. Without these, declaring @type FAQPage
+    produces no rich result and gives answer engines nothing to quote.
+  */
+  mainEntity?: Array<Record<string, unknown>>;
   title: string;
   description?: string;
   image?: string;
@@ -23,7 +28,7 @@ interface Props {
   }
 }
 
-const { title, description, type, image, locale } = Astro.props as Props;
+const { title, description, type, image, locale, mainEntity } = Astro.props as Props;
 
 const pageUrl = getCleanLocaleUrl(Astro.url, locale);
 
@@ -39,6 +44,7 @@ const structuredData = {
   ...(description && { about: description }),
   url: pageUrl,
   ...(image && { image }),
+  ...(mainEntity && mainEntity.length > 0 && { mainEntity }),
   author,
   creator,
   publisher,

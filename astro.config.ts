@@ -133,7 +133,16 @@ export default defineConfig({
   integrations: [
     setOnDemandPrerender,
     sitemap({
-      customPages: getOnDemandSitemapPages(),
+      /*
+        The intel-echo product pages are static HTML dropped into public/, so Astro
+        has no route for them and the sitemap integration cannot discover them. They
+        are live and indexable, so they are declared explicitly here.
+      */
+      customPages: [
+        ...getOnDemandSitemapPages(),
+        `${themeConfig.site.replace(/\/+$/, '')}/intel-echo/`,
+        `${themeConfig.site.replace(/\/+$/, '')}/intel-echo-gtm/`,
+      ],
     }),
     icon({
       svgoOptions: svgoConfig,

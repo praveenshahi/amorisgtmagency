@@ -51,6 +51,7 @@ interface Props {
   isHome?: boolean;
   noTitleSlug?: boolean; // if true, the title slug (e.g. " | Stardrive") will not be added to the title
   schemaType?: 'WebPage' | 'FAQPage';
+  mainEntity?: Array<Record<string, unknown>>; // Question entities, for FAQPage
   collection?: CollectionKey; // we need this (for things like events or integration_options) to identify whether pages are translated or not
   contentId?: string; // we need this (for things like events or integration_options) to identify whether pages are translated or not
   noContainer?: boolean; // if true, the content will not be wrapped in a container div (useful for full-width pages like the homepage)
@@ -61,7 +62,7 @@ const t = useTranslations(locale);
 
 const title = Astro.props.title || t('meta.title');
 const description = Astro.props.description || t('meta.description');
-const { isError, noi18n, noTitleSlug, robots, isHome, schemaType, header, showFooterBanner, collection, contentId, noContainer } = Astro.props;
+const { isError, noi18n, noTitleSlug, robots, isHome, schemaType, mainEntity, header, showFooterBanner, collection, contentId, noContainer } = Astro.props;
 
 const ogTitle = themeConfig.ogTitle ?? t('meta.og-site-name');
 const metaTitle = noTitleSlug ? title : title + ' | ' + t('meta.slug');
@@ -93,7 +94,7 @@ const showTopBanner = (themeConfig.promotions?.topBanner && header?.showTopBanne
     <HeadOgX {locale} title={metaTitle} {description} {ogTitle} />
     <!-- Structured Data -->
     {isHome ? <WebsiteStructuredData {title} image={structuredDataImage} {author} {publisher} {locale} /> : null}
-    <WebPageStructuredData {type} {title} {description} image={structuredDataImage} {author} {publisher} {locale} />
+    <WebPageStructuredData {type} {title} {description} image={structuredDataImage} {author} {publisher} {locale} {mainEntity} />
     <!-- Transitions -->
     <ClientRouter />
   </head>

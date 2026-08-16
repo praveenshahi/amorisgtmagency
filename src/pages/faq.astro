@@ -26,9 +26,39 @@ const items = await Promise.all(
 const categories = Array.from(
   new Set(entries.map((e) => e.data.category).filter(Boolean) as string[])
 ).sort((a, b) => a.localeCompare(b, locale));
+
+/*
+  Question entities for the FAQPage schema. Declaring @type FAQPage without
+  mainEntity produces no rich result and leaves answer engines nothing to quote,
+  so the answers are flattened from Markdown to plain text here.
+*/
+function markdownToPlainText(md: string): string {
+  return md
+    .replace(/```[\s\S]*?```/g, '')          // fenced code
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, '')     // images
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')  // links -> their text
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '')       // headings
+    .replace(/^\s{0,3}>\s?/gm, '')            // blockquotes
+    .replace(/^\s*[-*+]\s+/gm, '')            // bullets
+    .replace(/(\*\*|__|\*|_|`)/g, '')         // emphasis and inline code
+    .replace(/\r/g, '')
+    .replace(/\n{2,}/g, ' ')
+    .replace(/\n/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+const faqMainEntity = entries.map((entry) => ({
+  '@type': 'Question',
+  name: entry.data.question,
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: markdownToPlainText(entry.body ?? ''),
+  },
+}));
 ---
 
-<Layout title={t('pages.faq.title')} description={t('pages.faq.description')} schemaType="FAQPage">
+<Layout title={t('pages.faq.title')} description={t('pages.faq.description')} schemaType="FAQPage" mainEntity={faqMainEntity}>
   <Headline text={t('pages.faq.title')} class="pb-6" />
 
   <h1 class="mb-10 text-3xl font-bold sm:text-4xl">Questions about AI GTM automation</h1>
