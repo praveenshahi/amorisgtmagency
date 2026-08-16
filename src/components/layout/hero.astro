@@ -23,9 +23,12 @@ const stars2 = generateStars(60);  // 2 px - medium
 const stars3 = generateStars(22);  // 3 px - few bright
 
 
-// What the research engine itself runs on. Named explicitly because these are the
-// terms buyers and answer engines search for - and because each one is verifiable.
-const stack = ["LangGraph", "Tavily", "OpenAI", "Anthropic", "FastAPI"];
+/*
+  The hero carries one CTA and no tool chips. Naming the stack here put a tool
+  signal in the slot where a credibility signal belongs; the stack argument now
+  lives in the integration-layer section further down the page.
+*/
+const introCall = "https://calendly.com/praveenshahi13/30min";
 ---
 
 <div role="banner" class="hero relative flex min-h-svh w-full flex-col items-center justify-center overflow-hidden px-6 pt-40 pb-20" style={`--stars1:${stars1};--stars2:${stars2};--stars3:${stars3};`}>
@@ -39,30 +42,24 @@ const stack = ["LangGraph", "Tavily", "OpenAI", "Anthropic", "FastAPI"];
 
   <!-- Hero content -->
   <div class="relative z-10 flex w-full max-w-4xl flex-col items-center gap-6 text-center">
-    <a href="#research-engine" class="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-sm text-white/70 no-underline backdrop-blur transition-colors hover:border-white/40 hover:text-white">
+    <span class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-sm text-white/70 backdrop-blur">
       <span class="bg-primary h-1.5 w-1.5 shrink-0 rounded-full"></span>
       <span>{t('pages.home.hero-chip')}</span>
-      <Icon name="heroicons:arrow-right" class="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
-    </a>
+    </span>
 
     <h1 class="hero-title">{t('pages.home.hero-title')}</h1>
     <p class="hero-subline">{t('pages.home.hero-sub-slogan')}</p>
 
     <div class="mt-1 flex flex-wrap justify-center gap-4">
-      <a href="#gtm-audit" class="btn-primary">{t('labels.book-audit')}</a>
-      <a href="https://calendly.com/praveenshahi13/30min" target="_blank" rel="noopener" class="group inline-flex cursor-pointer items-center gap-2 rounded border-2 border-white/30 bg-white/5 px-4 py-2 pr-3 text-base font-semibold whitespace-nowrap text-white/80 no-underline transition-all select-none hover:border-white hover:text-white">
-        <span>{t('labels.intro-call')}</span>
+      <a href={introCall} target="_blank" rel="noopener" class="btn-primary group">
+        Book 30 minutes
         <Icon name="heroicons:arrow-right" class="mr-1 ml-0 h-4 w-4 transition-all duration-200 group-hover:mr-0 group-hover:ml-1" aria-hidden="true" />
       </a>
     </div>
 
-    <ul class="mt-6 flex list-none flex-wrap justify-center gap-2 p-0" aria-label="Core technologies">
-      {
-        stack.map((item) => (
-          <li class="m-0 rounded-full border border-white/15 px-3 py-1 font-mono text-xs tracking-wide text-white/60">{item}</li>
-        ))
-      }
-    </ul>
+    <p class="max-w-md text-sm text-white/45">
+      No deck. Thirty minutes on what is actually breaking in your motion, and whether I am the right person for it.
+    </p>
   </div>
 </div>
 

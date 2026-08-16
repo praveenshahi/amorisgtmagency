@@ -6,7 +6,7 @@ category: 'engagement'
 llmsTxt: true
 ---
 
-Both models run the same methodology and both ship in six weeks, and both start with the paid GTM Audit. What changes is who makes the infrastructure decisions.
+Both models run the same methodology and both ship in six weeks, and both start with the paid GTM Diagnostic. What changes is who makes the infrastructure decisions.
 
 **Done With You** deploys onto the stack you already have. Your engineers stay in the loop and keep the tech decisions; Amoris brings the architecture, the GTM logic and the training. It suits teams with existing infrastructure and engineering capacity, and it is the shorter engagement.
 

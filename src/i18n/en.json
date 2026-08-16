@@ -58,17 +58,17 @@
     "subscribe-email-param": "The email address to subscribe to the newsletter.",
     "generic-error": "An error occurred. Please try again later.",
     "demo-warn": "Mind that this is not sending anything at this demo!",
-    "book-audit": "Book the GTM Audit",
+    "book-audit": "Book 30 minutes",
     "see-the-work": "See what exists",
-    "intro-call": "Free intro call"
+    "intro-call": "Book 30 minutes"
   },
   "meta": {
-    "title": "Amoris - AI GTM systems for B2B revenue teams",
-    "description": "Amoris designs and deploys agentic AI systems for B2B go-to-market teams. LangGraph, Clay and n8n, self-hosted and owned by you.",
+    "title": "Amoris - AI GTM agency for B2B revenue teams",
+    "description": "Amoris is a founder-led AI GTM agency. Most go-to-market problems are misdiagnosed - every specialist describes them in the shape of their own job. I diagnose which problem is actually yours, then build the system around it.",
     "og-site-name": "Amoris",
     "slug": "Amoris",
-    "slogan": "AI GTM agency",
-    "sub-slogan": "Agentic automation for B2B revenue teams."
+    "slogan": "Founder-led AI GTM agency",
+    "sub-slogan": "I find out which problem is actually yours."
   },
   "i18n": {
     "select-language": "Select your Language",
@@ -89,11 +89,11 @@
       "message": "Ooops. You somehow found a page that does not exist.\nMaybe never existed or was deleted.\n\nPlease check the URL or go back to the main page."
     },
     "home": {
-      "title": "AI GTM systems that start at the decision",
-      "description": "Amoris is a founder-led AI GTM practice. Evidence-led account research and reasoning for B2B teams, built on LangGraph. The research layer runs today; the outbound reasoning layer is in private testing.",
-      "hero-chip": "Evidence-led GTM research, with a system that can say HOLD",
-      "hero-title": "More GTM activity won't fix a bad decision",
-      "hero-sub-slogan": "Most go-to-market problems get treated as volume problems. They are usually decision problems - which accounts, which motion, what to say. Amoris starts there, then builds the system around it.",
+      "title": "You're probably solving the wrong problem",
+      "description": "Amoris is a founder-led AI GTM agency. Most GTM problems are misdiagnosed. I work across sales, marketing, product, analytics and ML to tell founders which problem is actually theirs - then build the system around it.",
+      "hero-chip": "A founder-led AI GTM agency",
+      "hero-title": "You're probably solving the wrong problem",
+      "hero-sub-slogan": "Your sales lead says it's lead quality. Marketing says it's follow-up. Product says it's positioning. Each is right about their part, and none of them can see the whole thing. I have worked in all of it - sales, marketing, product, analytics and ML - and the most useful thing I do is tell founders which problem is actually theirs.",
       "references": "A decade of finding patterns, designing systems and driving revenue"
     },
     "faq": {
@@ -105,17 +105,13 @@
     },
     "contact": {
       "title": "Contact",
-      "description": "Talk to Amoris about GTM automation. Email, WhatsApp or book twenty minutes directly.",
-      "intro-text": "Tell us what is breaking in your go-to-market motion. We answer within a day, and the first conversation is about your problem, not our deck.",
-      "docs-heading": "Don't want to wait?",
-      "docs-text": "Most answers are already in our documentation.",
-      "docs-cta": "Browse the docs",
-      "address-heading": "Our office",
+      "description": "Talk to Amoris about your go-to-market. Book 30 minutes or email directly. Remote across US, EU and APAC time zones.",
+      "intro-text": "Tell me what is breaking in your go-to-market. I answer within a day, and the first conversation is about your problem, not a deck.",
       "name": "Name",
       "name-placeholder": "Your name",
       "email-placeholder": "you@example.com",
       "message": "Message",
-      "message-placeholder": "How can we help?",
+      "message-placeholder": "What is actually going wrong?",
       "send": "Send message",
       "success": "Thanks! Your message is on its way.",
       "required-note": "This field is required.",
@@ -129,7 +125,7 @@
     },
     "pricing": {
       "title": "Engagement models",
-      "description": "Two ways to build your GTM automation: Done With You on your existing stack, or Done For You end to end. Both ship in six weeks and leave you owning the system."
+      "description": "Free intro call, a paid GTM Diagnostic from $500, a pilot from $3,000 scoped to one constraint, then ongoing systems work. The thinking gets done; the decision stays yours."
     },
     "legal-notice": {
       "title": "Legal Notice",
@@ -148,7 +144,7 @@
     },
     "founder": {
       "title": "Praveen Shahi - AI GTM Engineer",
-      "description": "Praveen Shahi is an AI GTM Engineer and founder of Amoris. Ten years running revenue at Amazon, Meta and Great Learning, now shipping production AI."
+      "description": "Praveen Shahi, founder of Amoris. Since 2014 across sales, marketing, product, analytics and ML - four years at Amazon and Meta on global data science and ML projects, then sales leadership and revenue ownership."
     },
     "architecture": {
       "title": "Architecture",
