@@ -117,6 +117,40 @@ const faqUrl = getLocaleUrl('faq', locale);
     </Reveal>
   </section>
 
+  <!-- ── The pilot ── -->
+  <section id="pilot" aria-labelledby="pricing-pilot-heading" class="mb-16 scroll-mt-28">
+    <Reveal>
+      <div class="flex flex-col gap-5 rounded-2xl border border-stone-300 bg-white p-6 sm:p-10 dark:border-stone-700 dark:bg-stone-900">
+        <div class="flex flex-col gap-2">
+          <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-[0.2em] uppercase">Step two</span>
+          <h2 id="pricing-pilot-heading" class="text-2xl font-bold sm:text-3xl">The first paid pilot</h2>
+          <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span class="text-primary dark:text-primary-light text-3xl font-bold">₹1.5L – ₹3L</span>
+            <span class="text-stone-500 dark:text-stone-400">+ GST · scoped from the audit</span>
+          </p>
+        </div>
+
+        <p class="max-w-2xl leading-relaxed text-stone-600 dark:text-stone-300">
+          One motion, one cohort, one question worth answering. Account research and evidence gathering run on the Amoris engine. Review, sending and response handling stay deliberate and human - on your infrastructure, your domain and your name.
+        </p>
+
+        <div class="flex flex-col gap-1 rounded-lg bg-stone-100 p-4 dark:bg-stone-800">
+          <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-widest uppercase">Measured against a baseline</span>
+          <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            The deliverable of a pilot is evidence. What counts as a result is agreed before it starts - qualified opportunities and their quality, not replies or meetings booked - and the before-state is captured first, because it can only be measured once.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-1 border-t border-stone-200 pt-4 dark:border-stone-700">
+          <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-widest uppercase">Two things to know early</span>
+          <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            Sending happens from your domain and your inbox, not mine - that keeps deliverability and reputation with you. If you need new sending domains, warmup is three to four weeks and goes into the timeline before signing, not discovered halfway through.
+          </p>
+        </div>
+      </div>
+    </Reveal>
+  </section>
+
   <section class="mb-8 max-w-3xl">
     <h2 class="mb-3 text-2xl font-bold sm:text-3xl">Then, two ways to build</h2>
     <p class="leading-relaxed text-stone-600 dark:text-stone-300">
@@ -178,12 +212,12 @@ const faqUrl = getLocaleUrl('faq', locale);
   <section class="mb-16">
     <div class="border-primary/20 from-primary-light/10 to-secondary-light/10 dark:from-primary-darker/30 dark:to-secondary-dark/20 rounded-2xl border-4 bg-linear-to-br via-white px-6 py-10 sm:px-12 dark:via-stone-900">
       <div class="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
-        <h2 class="text-2xl font-bold sm:text-3xl">Why the build price is not listed</h2>
+        <h2 class="text-2xl font-bold sm:text-3xl">Why the full build price is not listed</h2>
         <p class="leading-relaxed text-stone-600 dark:text-stone-300">
-          Two things move it: which model you pick, and how much of the stack already exists. Quoting a build before anyone has looked at the motion is guessing, and you would be paying for the guess.
+          The audit and the pilot are priced above because both are bounded - a fixed diagnostic, and one motion with one question. Ongoing build work is not. Two things move it: which model you pick, and how much of the stack already exists.
         </p>
         <p class="leading-relaxed text-stone-600 dark:text-stone-300">
-          So the audit comes first. Two to three days, a written diagnostic, and it is yours whether or not anything gets built.
+          Quoting that before anyone has looked at the motion is guessing, and you would be paying for the guess. So the audit comes first. Two to three days, a written diagnostic, and it is yours whether or not anything gets built.
         </p>
         <div class="mt-2 flex flex-wrap items-center justify-center gap-4">
           <a href={auditWhatsApp} target="_blank" rel="noopener" class="btn-primary">Book the GTM Audit</a>
