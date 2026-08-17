@@ -63,7 +63,8 @@ Do not relitigate without the founder.
 | 2 | H1 states the offer, not a philosophy: **"Audit before you automate."** |
 | 3 | **Nine homepage sections, hard ceiling.** New ideas displace; they do not append. |
 | 4 | **Exactly one rendered process diagram on `/`** — Audit→Diagnose→Readiness→Build→Deploy→Qualified bookings, in section 4. The commercial ladder renders as a list. |
-| 5 | Pricing in **USD**, no ceilings: free intro call · **GTM Audit from $500** · Pilot **from $3,000** · ongoing scoped, no public number. The first rung is called an **Audit**, never a "Diagnostic" — the H1 depends on it. |
+| 5 | Pricing in **USD as published ranges**: free intro call · **GTM Audit $200–$500** · **Pilot $1,200–$3,000** · ongoing scoped, no public number. The first rung is called an **Audit**, never a "Diagnostic" — the H1 depends on it. |
+| 5a | **Three factors move the price**, stated wherever a range appears: how tangled the workflow and GTM stack are, how clean and accessible the pipeline data is, and whether the client has technical or data talent available for the integration. The third is not padding — without an internal owner, more of the work and more of the chasing falls on Praveen, and the price reflects it. Ranges replaced the earlier "from X, no ceiling" construction on the founder's instruction. |
 | 6 | **One primary CTA** — Calendly — repeated at hero and close. WhatsApp is not on the homepage. |
 | 7 | The thesis line ("Outbound rarely fails at sending…") appears **exactly once**, in section 3. |
 | 8 | Global default. Remote across US, EU and APAC, with overlap stated. Bengaluru named, not hidden. |

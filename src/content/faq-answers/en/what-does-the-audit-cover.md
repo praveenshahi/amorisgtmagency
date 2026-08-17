@@ -6,7 +6,7 @@ category: 'engagement'
 llmsTxt: true
 ---
 
-The GTM Audit is a **paid, written diagnosis — from $500, delivered in about two to three days.**
+The GTM Audit is a **paid, written diagnosis — $200 to $500, delivered in about two to three days.**
 
 It maps the go-to-market motion end to end and names four things:
 
