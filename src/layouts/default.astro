@@ -2,6 +2,7 @@
 import "@fontsource/geist/400.css";
 import "@fontsource/geist/600.css";
 import "@fontsource/geist/800.css";
+import "@fontsource-variable/fraunces";
 import "@styles/global.css";
 import { ClientRouter } from 'astro:transitions';
 import Footer from "@components/layout/footer.astro";
@@ -49,6 +50,7 @@ interface Props {
   locale?: string;
   noi18n?: boolean;
   isHome?: boolean;
+  noHero?: boolean; // homepage variants that bring their own hero
   noTitleSlug?: boolean; // if true, the title slug (e.g. " | Stardrive") will not be added to the title
   schemaType?: 'WebPage' | 'FAQPage';
   mainEntity?: Array<Record<string, unknown>>; // Question entities, for FAQPage
@@ -62,7 +64,7 @@ const t = useTranslations(locale);
 
 const title = Astro.props.title || t('meta.title');
 const description = Astro.props.description || t('meta.description');
-const { isError, noi18n, noTitleSlug, robots, isHome, schemaType, mainEntity, header, showFooterBanner, collection, contentId, noContainer } = Astro.props;
+const { isError, noi18n, noTitleSlug, robots, isHome, noHero, schemaType, mainEntity, header, showFooterBanner, collection, contentId, noContainer } = Astro.props;
 
 const ogTitle = themeConfig.ogTitle ?? t('meta.og-site-name');
 const metaTitle = noTitleSlug ? title : title + ' | ' + t('meta.slug');
@@ -107,7 +109,7 @@ const showTopBanner = (themeConfig.promotions?.topBanner && header?.showTopBanne
         )
       }
       <main role="main" class="relative z-40">
-        {isHome && <Hero {locale} />}
+        {isHome && !noHero && <Hero {locale} />}
         {
           !noContainer ? (
             <div class="container mx-auto pt-4 pb-10 md:pt-8 md:pb-14 lg:pb-16">

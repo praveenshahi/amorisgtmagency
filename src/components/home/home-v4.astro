@@ -1,0 +1,1126 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from "~/theme.config";
+
+interface Props {
+  locale?: string;
+}
+
+const { locale = themeConfig.i18n.defaultLocale } = Astro.props;
+
+/*
+  Homepage v4.
+
+  The brief: the argument was right but drowned in prose. Every idea here is
+  carried by an artifact - the broken motion, the diagnostic, the HOLD card -
+  and the copy exists only to label them. If a paragraph can be deleted without
+  losing the argument, it has been.
+
+  Design tokens are scoped to .v4 rather than changed globally, so the rest of
+  the site keeps the existing identity while this is reviewed.
+*/
+
+const intro = "https://calendly.com/praveenshahi13/30min";
+const architecture = getLocaleUrl("architecture", locale);
+
+// Step 01 - the diagnostic artifact
+const readiness = [
+  { area: "ICP", pct: 72, flag: false },
+  { area: "Data & signals", pct: 41, flag: true },
+  { area: "Message", pct: 81, flag: false },
+  { area: "Qualification", pct: 37, flag: true },
+  { area: "Follow-up", pct: 54, flag: false },
+  { area: "Process", pct: 62, flag: false },
+];
+
+// Step 02 - the system
+const system = [
+  { label: "Data & signals", icon: "heroicons:circle-stack", text: "Relevant accounts and real buying indicators" },
+  { label: "AI research", icon: "heroicons:cpu-chip", text: "Deep account research and commercial hypotheses" },
+  { label: "Qualification", icon: "heroicons:clipboard-document-check", text: "Evidence-based fit and buying-intent evaluation" },
+  { label: "Engagement", icon: "heroicons:paper-airplane", text: "Personalised outreach only when evidence supports it" },
+];
+
+// Step 03 - the HOLD card
+const accountChecks = [
+  { label: "ICP fit", ok: true },
+  { label: "Company growth", ok: true },
+  { label: "Decision maker identified", ok: true },
+  { label: "Recent funding / change", ok: true },
+  { label: "Buying evidence", ok: false },
+];
+
+const credentials = ["7+ years in sales and growth", "6+ brands scaled", "Millions in pipeline generated"];
+
+const outcomes = [
+  { icon: "heroicons:arrow-trending-up", text: "Higher quality pipeline" },
+  { icon: "heroicons:user-group", text: "More qualified meetings" },
+  { icon: "heroicons:clock", text: "Shorter sales cycles" },
+  { icon: "heroicons:light-bulb", text: "Better GTM decision making" },
+];
+
+const impact = [
+  { figure: "2–3x", label: "increase in qualified meetings" },
+  { figure: "30–40%", label: "improvement in SQL conversion" },
+  { figure: "20–50%", label: "reduction in sales cycle time" },
+];
+
+const fit = [
+  "You're a founder or GTM leader",
+  "You sell high-value B2B",
+  "Quality over volume",
+  "You have conflicting internal diagnoses",
+  "Research is your constraint",
+];
+
+const notFit = [
+  "You want volume, regardless of evidence",
+  "You want fully autonomous outreach",
+  "You need a tool or a sequencer",
+  "You want someone else to make every decision",
+  "You're not ready to change how you do GTM",
+];
+
+/*
+  Logos exist in simple-icons for only some of these. Rather than a half-broken
+  grid, every tool gets an identically sized tile: a real mark where one is
+  available, a wordmark where it is not.
+*/
+const stack = [
+  { group: "Data & intel", tools: [{ n: "Clay" }, { n: "ZoomInfo" }, { n: "Apollo" }, { n: "Clearbit" }] },
+  { group: "Signals", tools: [{ n: "Common Room" }, { n: "Warmly" }, { n: "G2", i: "simple-icons:g2" }, { n: "RB2B" }] },
+  { group: "CRM", tools: [{ n: "HubSpot", i: "simple-icons:hubspot" }, { n: "Salesforce", i: "simple-icons:salesforce" }, { n: "Attio" }] },
+  { group: "Orchestration", tools: [{ n: "n8n", i: "simple-icons:n8n" }, { n: "LangGraph", i: "simple-icons:langgraph" }, { n: "PostgreSQL", i: "simple-icons:postgresql" }] },
+];
+
+const engage = [
+  { n: "1", title: "Intro conversation", text: "30 minutes to understand your GTM motion and challenges." },
+  { n: "2", title: "GTM diagnostic", text: "A deep audit that identifies the real constraint on pipeline." },
+  { n: "3", title: "Pilot", text: "We build, test and prove the system on a focused segment." },
+  { n: "4", title: "Ongoing systems", text: "Scale what works and keep improving outcomes." },
+];
+---
+
+<div class="v4">
+  <!-- ════════════ HERO ════════════ -->
+  <section class="v4-ink relative overflow-hidden">
+    <div class="container mx-auto grid grid-cols-1 items-center gap-14 px-6 py-24 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 lg:py-32">
+      <div>
+        <h1 class="v4-display text-[clamp(2.6rem,5.2vw,4.1rem)] leading-[1.06]">
+          You're probably<br />solving the <span class="v4-accent">wrong problem.</span>
+        </h1>
+        <p class="v4-lede mt-7 max-w-md">
+          We run evidence-led GTM diagnostics that find the real bottleneck — before you build, buy, or scale.
+        </p>
+        <div class="mt-9 flex flex-wrap items-center gap-6">
+          <a href={intro} target="_blank" rel="noopener" class="v4-btn-ghost">Book a GTM diagnostic</a>
+          <a href={architecture} class="v4-play group">
+            <span class="v4-play-dot"><Icon name="heroicons:arrow-right" class="h-3 w-3" aria-hidden="true" /></span>
+            <span>See the architecture</span>
+          </a>
+        </div>
+      </div>
+
+      <!--
+        The broken motion, as SVG so the bracket, the branch off DATA and the
+        question all line up exactly. HTML boxes could not hold the alignment.
+      -->
+      <figure class="m-0">
+        <svg class="v4-svg" viewBox="0 0 680 300" role="img" aria-labelledby="motion-title">
+          <title id="motion-title">A go-to-market motion running ICP to data to message to outbound to sales pipeline, with an unknown break in the middle</title>
+
+          <!-- span bracket -->
+          <text x="340" y="16" class="s-kicker" text-anchor="middle">YOUR GTM MOTION</text>
+          <path d="M14 42 V30 H666 V42" class="s-bracket" />
+
+          <!-- the motion -->
+          <g class="s-node"><rect x="14" y="62" width="74" height="46" /><text x="51" y="90" text-anchor="middle">ICP</text></g>
+          <text x="103" y="90" class="s-arrow" text-anchor="middle">→</text>
+          <g class="s-node"><rect x="118" y="62" width="86" height="46" /><text x="161" y="90" text-anchor="middle">DATA</text></g>
+          <text x="219" y="90" class="s-arrow" text-anchor="middle">→</text>
+          <g class="s-node"><rect x="234" y="62" width="122" height="46" /><text x="295" y="90" text-anchor="middle">MESSAGE</text></g>
+          <text x="371" y="90" class="s-arrow" text-anchor="middle">→</text>
+          <g class="s-node"><rect x="386" y="62" width="132" height="46" /><text x="452" y="90" text-anchor="middle">OUTBOUND</text></g>
+          <text x="533" y="90" class="s-arrow" text-anchor="middle">→</text>
+          <g class="s-node is-end"><rect x="548" y="62" width="118" height="46" /><text x="607" y="84" text-anchor="middle">SALES</text><text x="607" y="100" text-anchor="middle">PIPELINE</text></g>
+
+          <!-- the break: branches off DATA, which is where the diagnostic found it -->
+          <path d="M161 108 V150" class="s-drop" />
+          <rect x="96" y="150" width="130" height="46" class="s-unknown" />
+          <text x="161" y="180" class="s-q" text-anchor="middle">?   ?   ?</text>
+          <path d="M161 196 V232" class="s-drop" />
+          <path d="M155 224 L161 233 L167 224" class="s-tip" />
+          <text x="161" y="256" class="s-ask" text-anchor="middle">WHERE IS IT</text>
+          <text x="161" y="276" class="s-ask" text-anchor="middle">ACTUALLY BREAKING?</text>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════════ STEP 01 ════════════ -->
+  <section class="v4-paper">
+    <div class="container mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] lg:gap-16">
+      <div class="lg:sticky lg:top-32 lg:self-start">
+        <span class="v4-step">Step 01</span>
+        <h2 class="v4-h2 mt-4">We start with a GTM Audit, not assumptions.</h2>
+        <p class="v4-body mt-5">We map your motion, evaluate the evidence, and identify the real constraint on pipeline.</p>
+      </div>
+
+      <!-- The deliverable, made concrete. -->
+      <figure class="v4-doc m-0">
+        <header class="v4-doc-head">
+          <span class="v4-doc-title">Amoris / GTM Diagnostic</span>
+          <span class="v4-doc-pin" aria-hidden="true"></span>
+        </header>
+        <div class="v4-doc-body">
+          <div>
+            <span class="v4-kicker">Readiness</span>
+            <ul class="m-0 mt-4 flex list-none flex-col gap-3 p-0">
+              {
+                readiness.map((r) => (
+                  <li class="m-0 grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1">
+                    <span class="v4-doc-label">{r.area}</span>
+                    <span class:list={["v4-doc-pct", r.flag && "is-flag"]}>{r.pct}%</span>
+                    <span class="v4-bar col-span-2"><span class:list={["v4-bar-fill", r.flag && "is-flag"]} style={`--w:${r.pct}%`} /></span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="v4-doc-finding">
+            <span class="v4-kicker">Finding</span>
+            <p class="v4-doc-p mt-3">The bottleneck isn't lead volume. It's <strong>qualification and signal quality</strong>.</p>
+            <span class="v4-kicker mt-6 block">Recommendation</span>
+            <p class="v4-doc-p mt-3">Fix qualification and enrich buying signals before scaling outbound.</p>
+            <span class="v4-note">Primary<br />constraint</span>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════════ STEP 02 ════════════ -->
+  <section id="how-it-works" class="v4-ink scroll-mt-24">
+    <div class="container mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] lg:gap-16">
+      <div>
+        <span class="v4-step">Step 02</span>
+        <h2 class="v4-h2 mt-4">Then we design and build the right GTM system.</h2>
+        <p class="v4-body mt-5">Diagnosis turns into a system that finds the right accounts, at the right time, with the right message.</p>
+      </div>
+
+      <figure class="m-0">
+        <div class="v4-sys">
+          {
+            system.map((n, i) => (
+              <>
+                <div class="v4-sys-node">
+                  <Icon name={n.icon} class="v4-sys-icon" aria-hidden="true" />
+                  <span class="v4-sys-label">{n.label}</span>
+                  <span class="v4-sys-text">{n.text}</span>
+                </div>
+                <span class="v4-sys-arrow" aria-hidden="true">→</span>
+              </>
+            ))
+          }
+          <div class="v4-sys-node is-goal">
+            <Icon name="heroicons:user-group" class="v4-sys-icon" aria-hidden="true" />
+            <span class="v4-sys-label">Qualified meetings</span>
+          </div>
+        </div>
+        <figcaption class="v4-accent mt-7 text-center font-medium italic">Evidence first. Outreach second.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════════ STEP 03 ════════════ -->
+  <section class="v4-paper">
+    <div class="container mx-auto grid grid-cols-1 gap-12 px-6 py-24 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] lg:gap-16">
+      <div>
+        <span class="v4-step">Step 03</span>
+        <h2 class="v4-h2 mt-4">The best GTM system sometimes does nothing.</h2>
+        <p class="v4-body mt-5">The HOLD principle means your team spends time only where there's real evidence of a buying motion.</p>
+      </div>
+
+      <div class="flex flex-col gap-8">
+        <figure class="v4-hold m-0">
+          <div class="v4-hold-col">
+            <span class="v4-kicker">Account review</span>
+            <span class="v4-hold-co">Acme Corp</span>
+            <ul class="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
+              {
+                accountChecks.map((c) => (
+                  <li class:list={["v4-hold-check m-0", !c.ok && "is-miss"]}>
+                    <Icon name={c.ok ? "heroicons:check" : "heroicons:x-mark"} class="h-4 w-4 shrink-0" aria-hidden="true" />
+                    {c.label}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <div class="v4-hold-col is-mid">
+            <span class="v4-kicker">Evidence</span>
+            <p class="v4-doc-p mt-3">No recent trigger events in the past 90 days.</p>
+            <p class="v4-doc-p mt-3">No relevant intent or project signals detected.</p>
+          </div>
+          <div class="v4-hold-col is-decision">
+            <span class="v4-kicker">Decision</span>
+            <span class="v4-hold-verdict">HOLD</span>
+            <p class="v4-doc-p">Not enough evidence to spend a sales touch.</p>
+          </div>
+        </figure>
+        <blockquote class="v4-quote m-0">
+          Most systems are built to send more.<br />Ours is built to decide better.
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ FOUNDER ════════════ -->
+  <section class="v4-ink">
+    <div class="container mx-auto px-6 py-20">
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-14">
+        <div class="flex items-start gap-6">
+          <img src="/founder.png" alt="Praveen Shahi, founder of Amoris" width="160" height="160" loading="lazy" decoding="async" class="v4-portrait" />
+          <div class="min-w-0">
+            <span class="v4-kicker">Founder-led</span>
+            <p class="v4-name mt-2">Praveen Shahi</p>
+            <p class="v4-dim mt-1 text-sm">Ex-Amazon, Ex-Meta</p>
+            <ul class="m-0 mt-4 flex list-none flex-col gap-1.5 p-0">
+              {credentials.map((c) => <li class="v4-cred m-0">{c}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <span class="v4-kicker">Outcomes we drive</span>
+          <ul class="m-0 mt-4 flex list-none flex-col gap-3 p-0">
+            {
+              outcomes.map((o) => (
+                <li class="v4-outcome m-0">
+                  <Icon name={o.icon} class="v4-accent h-5 w-5 shrink-0" aria-hidden="true" />
+                  {o.text}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div>
+          <span class="v4-kicker">Client impact</span>
+          <div class="v4-impact mt-4">
+            {
+              impact.map((m) => (
+                <div class="v4-impact-cell">
+                  <span class="v4-figure">{m.figure}</span>
+                  <span class="v4-figure-label">{m.label}</span>
+                </div>
+              ))
+            }
+          </div>
+          <p class="v4-fine mt-5">From prior client engagements. Results vary with industry, ICP and current GTM maturity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ FIT + STACK ════════════ -->
+  <section class="v4-paper">
+    <div class="container mx-auto grid grid-cols-1 gap-12 px-6 py-20 lg:grid-cols-[1fr_1fr_1.2fr] lg:gap-14">
+      <div>
+        <span class="v4-kicker">We're a great fit if</span>
+        <ul class="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
+          {
+            fit.map((f) => (
+              <li class="v4-fit m-0">
+                <Icon name="heroicons:check-circle" class="h-4.5 w-4.5 shrink-0 text-emerald-700" aria-hidden="true" />
+                {f}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <span class="v4-kicker">We're not a fit if</span>
+        <ul class="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
+          {
+            notFit.map((f) => (
+              <li class="v4-fit m-0">
+                <Icon name="heroicons:x-circle" class="h-4.5 w-4.5 shrink-0 text-red-700/70" aria-hidden="true" />
+                {f}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div>
+        <span class="v4-kicker">The stack we work across</span>
+        <div class="mt-4 flex flex-col gap-5">
+          {
+            stack.map((s2) => (
+              <div>
+                <span class="v4-stack-group">{s2.group}</span>
+                <ul class="v4-tiles m-0 mt-2 list-none p-0">
+                  {
+                    s2.tools.map((t) => (
+                      <li class="v4-tile m-0">
+                        {t.i ? <Icon name={t.i} class="v4-tile-logo" aria-hidden="true" /> : null}
+                        <span class="v4-tile-name">{t.n}</span>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+        <p class="v4-fine mt-4">Built with and integrated into — not a list of pre-built connectors.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════ ENGAGEMENT ════════════ -->
+  <section class="v4-ink">
+    <div class="container mx-auto grid grid-cols-1 gap-12 px-6 py-20 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,1.5fr)] lg:gap-16">
+      <div>
+        <span class="v4-kicker">How we engage</span>
+        <h2 class="v4-h2 mt-4 text-[1.7rem]">A focused path from clarity to compounding results.</h2>
+      </div>
+      <ol class="v4-engage m-0 list-none p-0">
+        {
+          engage.map((e) => (
+            <li class="v4-engage-step m-0">
+              <span class="v4-engage-n">{e.n}</span>
+              <span class="v4-engage-title">{e.title}</span>
+              <span class="v4-engage-text">{e.text}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ════════════ CLOSE ════════════ -->
+  <section class="v4-paper">
+    <div class="container mx-auto flex flex-col items-center gap-7 px-6 py-20 text-center">
+      <h2 class="v4-display text-[clamp(2rem,3.6vw,2.9rem)] leading-tight">Let's find the bott<span class="v4-accent">leneck.</span></h2>
+      <p class="v4-body max-w-md">30 minutes can save you months of guessing.</p>
+      <div class="mt-1 flex flex-wrap items-center justify-center gap-6">
+        <a href={intro} target="_blank" rel="noopener" class="v4-btn">Book a GTM diagnostic</a>
+        <span class="v4-play">
+          <span class="v4-play-dot"><Icon name="heroicons:check" class="h-3 w-3" aria-hidden="true" /></span>
+          <span>No deck. No spam. Just clarity.</span>
+        </span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+
+  /* ── Scoped identity ───────────────────────────────────────────────
+     Kept on .v4 rather than the global tokens so every other page keeps
+     the current look while this version is reviewed. */
+    .v4 {
+    --ink: #0e1116;
+    --ink-2: #151a22;
+    --paper: #f4f0e6;
+    --paper-2: #fbf8f1;
+    --gold: #c9a227;
+    --gold-soft: #e3c766;
+    --on-ink: #e8e4da;
+    --on-ink-dim: #9aa1ab;
+    --on-paper: #1a1d23;
+    --on-paper-dim: #5c6068;
+    --rule-ink: rgb(255 255 255 / 0.12);
+    --rule-paper: rgb(0 0 0 / 0.12);
+  }
+
+  .v4-ink {
+    background: var(--ink);
+    color: var(--on-ink);
+  }
+  .v4-paper {
+    background: var(--paper);
+    color: var(--on-paper);
+  }
+
+  /* ── Type scale. One scale, used everywhere. ── */
+  .v4-display {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-weight: 600;
+    font-variation-settings: 'SOFT' 0, 'WONK' 0, 'opsz' 90;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .v4-h2 {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-weight: 600;
+    font-variation-settings: 'opsz' 40;
+    font-size: clamp(1.55rem, 2.2vw, 2rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .v4-lede {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--on-ink-dim);
+    margin: 0;
+  }
+  .v4-body {
+    font-size: 0.975rem;
+    line-height: 1.7;
+    color: var(--on-paper-dim);
+    margin: 0;
+  }
+  .v4-ink .v4-body {
+    color: var(--on-ink-dim);
+  }
+  .v4-kicker {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .v4-step {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .v4-accent {
+    color: var(--gold);
+  }
+  .v4-dim {
+    color: var(--on-ink-dim);
+  }
+  .v4-fine {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--on-ink-dim);
+    margin: 0;
+  }
+  .v4-paper .v4-fine {
+    color: var(--on-paper-dim);
+  }
+
+  /* ── Buttons ── */
+  .v4-btn,
+  .v4-btn-ghost {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 0.9rem 1.6rem;
+    text-decoration: none;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      transform 0.25s ease;
+  }
+  .v4-btn {
+    background: var(--gold);
+    color: #14110a;
+  }
+  .v4-btn:hover {
+    background: var(--gold-soft);
+    transform: translateY(-1px);
+    color: #14110a;
+  }
+  .v4-btn-ghost {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+  }
+  .v4-btn-ghost:hover {
+    background: var(--gold);
+    color: #14110a;
+    transform: translateY(-1px);
+  }
+
+  .v4-play {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--on-ink-dim);
+    text-decoration: none;
+  }
+  .v4-paper .v4-play {
+    color: var(--on-paper-dim);
+  }
+  .v4-play-dot {
+    display: grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    opacity: 0.7;
+  }
+  a.v4-play:hover {
+    color: var(--gold);
+  }
+
+  /* ── Hero: the broken motion ── */
+  .v4-motion-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .v4-node {
+    border: 1px solid var(--rule-ink);
+    padding: 0.6rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .v4-node-end {
+    text-align: center;
+    line-height: 1.25;
+  }
+  .v4-arrow {
+    color: var(--on-ink-dim);
+    font-size: 0.9rem;
+  }
+  .v4-motion-break {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  .v4-drop {
+    width: 1px;
+    height: 1.6rem;
+    background: var(--gold);
+    opacity: 0.55;
+  }
+  .v4-unknown {
+    border: 1px dashed var(--gold);
+    color: var(--gold);
+    padding: 0.55rem 1.6rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+  }
+  .v4-motion-q {
+    margin: 0;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  /* ── Step 01: the diagnostic document ── */
+  .v4-doc {
+    position: relative;
+    background: var(--paper-2);
+    border: 1px solid var(--rule-paper);
+    box-shadow: 0 24px 50px -34px rgb(0 0 0 / 0.4);
+  }
+  .v4-doc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.4rem;
+    border-bottom: 1px solid var(--rule-paper);
+  }
+  .v4-doc-title {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .v4-doc-pin {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: var(--on-paper);
+    opacity: 0.75;
+  }
+  .v4-doc-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.6rem 1.4rem;
+  }
+  @media (min-width: 640px) {
+    .v4-doc-body {
+      grid-template-columns: 1.15fr 1fr;
+    }
+  }
+  .v4-doc-label {
+    font-size: 0.82rem;
+    color: var(--on-paper);
+  }
+  .v4-doc-pct {
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--on-paper-dim);
+  }
+  .v4-doc-pct.is-flag {
+    color: #b4472c;
+    font-weight: 700;
+  }
+  .v4-bar {
+    display: block;
+    height: 7px;
+    background: rgb(0 0 0 / 0.08);
+  }
+  .v4-bar-fill {
+    display: block;
+    height: 100%;
+    width: var(--w);
+    background: var(--on-paper);
+    opacity: 0.55;
+  }
+  .v4-bar-fill.is-flag {
+    background: #b4472c;
+    opacity: 1;
+  }
+  .v4-doc-finding {
+    position: relative;
+    border-left: 1px solid var(--rule-paper);
+    padding-left: 1.4rem;
+  }
+  .v4-doc-p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--on-paper-dim);
+  }
+  .v4-note {
+    position: absolute;
+    right: -0.5rem;
+    bottom: -2.4rem;
+    background: var(--gold-soft);
+    color: #14110a;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1.35;
+    padding: 0.6rem 0.8rem;
+    transform: rotate(-4deg);
+    box-shadow: 0 10px 20px -14px rgb(0 0 0 / 0.5);
+  }
+
+  /* ── Step 02: the system ── */
+  .v4-sys {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .v4-sys-node {
+    flex: 1 1 9.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    border: 1px solid var(--rule-ink);
+    padding: 1.1rem 0.95rem;
+  }
+  .v4-sys-node.is-goal {
+    border-color: var(--gold);
+    justify-content: center;
+    flex: 0 1 10rem;
+  }
+  .v4-sys-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    color: var(--on-ink);
+  }
+  .v4-sys-node.is-goal .v4-sys-icon {
+    color: var(--gold);
+  }
+  .v4-sys-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  .v4-sys-node.is-goal .v4-sys-label {
+    color: var(--gold);
+  }
+  .v4-sys-text {
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: var(--on-ink-dim);
+  }
+  .v4-sys-arrow {
+    align-self: center;
+    color: var(--on-ink-dim);
+  }
+
+  /* ── Step 03: the HOLD card ── */
+  .v4-hold {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--paper-2);
+    border: 1px solid var(--rule-paper);
+    box-shadow: 0 24px 50px -34px rgb(0 0 0 / 0.4);
+  }
+  @media (min-width: 768px) {
+    .v4-hold {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  .v4-hold-col {
+    min-width: 0;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .v4-hold-col.is-mid {
+    border-top: 1px solid var(--rule-paper);
+  }
+  .v4-hold-col.is-decision {
+    border-top: 1px solid var(--rule-paper);
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  @media (min-width: 768px) {
+    .v4-hold-col.is-mid,
+    .v4-hold-col.is-decision {
+      border-top: 0;
+      border-left: 1px solid var(--rule-paper);
+    }
+  }
+  .v4-hold-co {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 0.35rem;
+  }
+  .v4-hold-check {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.83rem;
+    color: var(--on-paper);
+  }
+  .v4-hold-check.is-miss {
+    color: #b4472c;
+    font-weight: 600;
+  }
+  .v4-hold-verdict {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 5vw, 3.6rem);
+    line-height: 1;
+    color: #b4472c;
+  }
+  .v4-quote {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--on-paper);
+    padding-left: 1.6rem;
+    border-left: 2px solid var(--gold);
+    max-width: 18rem;
+  }
+
+  /* ── Founder ── */
+  .v4-portrait {
+    width: 10rem;
+    height: 10rem;
+    flex-shrink: 0;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.05);
+    border: 1px solid var(--rule-ink);
+  }
+  .v4-name {
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 0;
+  }
+  .v4-cred {
+    font-size: 0.82rem;
+    color: var(--on-ink-dim);
+    padding-left: 0.85rem;
+    position: relative;
+  }
+  .v4-cred::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.35rem;
+    height: 1px;
+    background: var(--gold);
+  }
+  .v4-outcome {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.88rem;
+  }
+  .v4-figure {
+    display: block;
+    font-family: 'Fraunces Variable', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    color: var(--gold);
+    line-height: 1.1;
+  }
+  .v4-figure-label {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    color: var(--on-ink-dim);
+  }
+
+  /* ── Fit + stack ── */
+  .v4-fit {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .v4-stack {
+    border: 1px solid var(--rule-paper);
+    padding: 0.8rem 0.9rem;
+  }
+  .v4-stack-group {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--on-paper-dim);
+  }
+  .v4-stack-tools {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+  }
+
+
+  /* ── Hero SVG ── */
+  .v4-svg {
+    width: 100%;
+    height: auto;
+    max-width: 42rem;
+    margin-inline: auto;
+    display: block;
+    overflow: visible;
+  }
+  .v4-svg .s-kicker {
+    fill: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+  .v4-svg .s-bracket {
+    fill: none;
+    stroke: var(--rule-ink);
+    stroke-width: 1;
+  }
+  .v4-svg .s-node rect {
+    fill: none;
+    stroke: rgb(255 255 255 / 0.22);
+    stroke-width: 1;
+  }
+  .v4-svg .s-node.is-end rect {
+    stroke: rgb(255 255 255 / 0.4);
+  }
+  .v4-svg .s-node text {
+    fill: var(--on-ink);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .v4-svg .s-arrow {
+    fill: var(--on-ink-dim);
+    font-size: 15px;
+  }
+  .v4-svg .s-drop,
+  .v4-svg .s-tip {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.4;
+  }
+  .v4-svg .s-unknown {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.2;
+    stroke-dasharray: 5 4;
+  }
+  .v4-svg .s-q {
+    fill: var(--gold);
+    font-size: 17px;
+    letter-spacing: 0.28em;
+  }
+  .v4-svg .s-ask {
+    fill: var(--on-ink);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+  }
+
+  /* ── Step 02: one row, arrows in their own cells, equal heights ── */
+  .v4-sys {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  /* Between sm and xl the arrows are hidden, so the grid must not reserve a
+     column for them - otherwise a node drops into the arrow slot and the row
+     breaks 3 + 2. Plain equal columns until the full row fits at xl. */
+  @media (min-width: 640px) {
+    .v4-sys {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 900px) {
+    .v4-sys {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1280px) {
+    .v4-sys {
+      grid-template-columns: repeat(4, minmax(0, 1fr) auto) minmax(0, 0.85fr);
+      gap: 0.5rem;
+    }
+  }
+  .v4-sys-node {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    border: 1px solid var(--rule-ink);
+    padding: 1.05rem 0.9rem;
+    min-width: 0;
+  }
+  .v4-sys-node.is-goal {
+    border-color: var(--gold);
+    justify-content: center;
+  }
+  .v4-sys-arrow {
+    display: none;
+    align-self: center;
+    color: var(--on-ink-dim);
+    padding-inline: 0.1rem;
+  }
+  @media (min-width: 1280px) {
+    .v4-sys-arrow {
+      display: block;
+    }
+  }
+
+  /* ── HOLD card: full width, columns that do not squeeze ── */
+  .v4-hold-col.is-decision {
+    justify-content: center;
+  }
+  .v4-hold-check {
+    align-items: flex-start;
+  }
+  .v4-hold-check :global(svg) {
+    margin-top: 0.18em;
+  }
+  .v4-quote {
+    max-width: 32rem;
+  }
+
+  /* ── Founder: figures on a fixed 3-up grid so they never re-wrap ── */
+  .v4-impact {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+  .v4-impact-cell {
+    min-width: 0;
+  }
+  .v4-figure {
+    font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+    white-space: nowrap;
+  }
+
+  /* ── Stack tiles ── */
+  .v4-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .v4-tile {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--rule-paper);
+    background: rgb(255 255 255 / 0.5);
+    padding: 0.38rem 0.6rem;
+    min-height: 2rem;
+  }
+  .v4-tile-logo {
+    width: 0.95rem;
+    height: 0.95rem;
+    opacity: 0.75;
+  }
+  .v4-tile-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ── Engagement ── */
+  .v4-engage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .v4-engage {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+  }
+  .v4-engage-step {
+    position: relative;
+    padding-top: 2.6rem;
+    border-top: 1px solid var(--rule-ink);
+  }
+  .v4-engage-n {
+    position: absolute;
+    top: -0.95rem;
+    left: 0;
+    display: grid;
+    place-items: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--gold);
+    background: var(--ink);
+    color: var(--gold);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .v4-engage-title {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .v4-engage-text {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--on-ink-dim);
+  }
+</style>
