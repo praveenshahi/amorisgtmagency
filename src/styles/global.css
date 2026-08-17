@@ -201,6 +201,27 @@
       0 2px 8px -4px rgb(0 0 0 / 0.12);
   }
 
+  /* Cards sitting on the dark band. Kept separate from .a-card because that one
+     hard-codes a white surface, which is invisible-on-invisible here. */
+  .a-band-card {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s ease,
+      background-color 0.35s ease;
+  }
+
+  .a-band-card:hover {
+    @apply -translate-y-1 border-white/30 bg-white/[0.08];
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .a-band-card,
+    .a-band-card:hover {
+      @apply translate-y-0;
+      transition: none;
+    }
+  }
+
   /* Full-bleed dark band. Breaks a long run of white sections so the page has
      contrast rhythm rather than one continuous scroll of boxes. */
   .a-band-dark {
