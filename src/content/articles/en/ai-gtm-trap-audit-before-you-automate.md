@@ -6,6 +6,9 @@ excerpt: 'AI GTM tools can automate prospecting, research and outbound at incred
 slug: 'en/ai-gtm-trap-audit-before-you-automate'
 categories: ['gtm-engineering']
 tags: ['gtm', 'audit', 'automation', 'ai-sdr']
+image:
+  file: '@images/content/articles/audit-before-you-automate.png'
+  alt: 'A go-to-market system opened up like an engineered machine on a workbench, its ICP, data quality, buying signals, messaging, workflows and tech stack labelled on internal panels while a hand inspects the data-quality core with a magnifying glass. The automation layer beside it is switched off.'
 author:
   name: 'Praveen Shahi'
   url: 'https://amoris.in/founder'

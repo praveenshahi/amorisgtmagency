@@ -6,6 +6,9 @@ excerpt: 'Most outbound systems are built to always produce a message. The more 
 slug: 'en/the-hold-principle-ai-sdr-does-nothing'
 categories: ['gtm-engineering']
 tags: ['gtm', 'automation', 'ai-sdr']
+image:
+  file: '@images/content/articles/the-hold-principle.png'
+  alt: 'A hand holding a decision card that contrasts HOLD, where there is not enough evidence to justify outreach, against ENGAGE, where the signals, timing, fit and intent all support starting a conversation.'
 author:
   name: 'Praveen Shahi'
   url: 'https://amoris.in/founder'

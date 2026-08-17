@@ -6,6 +6,9 @@ excerpt: 'An AI SDR inherits your ICP, your data, your signals and your qualific
 slug: 'en/ai-sdr-isnt-broken-your-gtm-system-might-be'
 categories: ['gtm-engineering']
 tags: ['gtm', 'audit', 'ai-sdr', 'automation']
+image:
+  file: '@images/content/articles/ai-sdr-isnt-broken.png'
+  alt: 'A desk showing a CRM lead list riddled with incomplete records, duplicates and stale activity, alongside a hand-drawn GTM system check mapping ICP, data quality, buying signals, messaging, process handoffs and tech stack around a quality pipeline.'
 author:
   name: 'Praveen Shahi'
   url: 'https://amoris.in/founder'
