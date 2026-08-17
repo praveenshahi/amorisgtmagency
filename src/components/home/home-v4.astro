@@ -420,6 +420,34 @@ const engage = [
   @reference "../../styles/tailwind.config.css";
 
 
+
+  /* ── Header over the dark hero ──────────────────────────────────────
+     The header picks its logo from the visitor's colour theme, not from what
+     is actually behind it. On this page the hero is near-black whatever the
+     theme, so a light-mode visitor got the dark-navy wordmark on near-black
+     and could not see it.
+
+     `data-overlay-theme="dark"` is present only while the header overlays the
+     hero - the scroll script removes it when the header turns solid - so
+     keying off it fixes the overlay state and leaves the scrolled state alone.
+     This stylesheet only ships on the homepage, so it cannot affect other pages. */
+  :global(#header[data-overlay-theme='dark'] .header-logo-dark) {
+    display: none;
+  }
+  :global(#header[data-overlay-theme='dark'] .header-logo-white) {
+    display: block;
+  }
+  /* Nav and icons sit on the hero, so hold them at full strength there. */
+  :global(#header[data-overlay-theme='dark']) {
+    color: #f5f3ee;
+  }
+  :global(#header[data-overlay-theme='dark'] nav[aria-label='Main'] a) {
+    color: #f5f3ee;
+  }
+  :global(#header[data-overlay-theme='dark'] nav[aria-label='Main'] a:hover) {
+    color: #ffffff;
+  }
+
   /* ── Scoped identity ───────────────────────────────────────────────
      Kept on .v4 rather than the global tokens so every other page keeps
      the current look while this version is reviewed. */
