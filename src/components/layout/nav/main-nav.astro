@@ -11,6 +11,15 @@ interface Props {
 }
 
 const { locale, tabIndex = 0 } = Astro.props as Props;
+
+// Current-route match, so the nav says where you are. Trailing slashes vary
+// between the dev server and the built output, so both are normalised.
+const strip = (p: string) => (p !== '/' ? p.replace(/\/+$/, '') : p);
+const here = strip(Astro.url.pathname);
+const isActive = (href: string) => {
+  const h = strip(href);
+  return h !== '/' && (here === h || here.startsWith(h + '/'));
+};
 const t = useTranslations(locale);
 
 // Ordered the way a sceptical buyer moves: what gets built, how it works, what it
@@ -27,7 +36,7 @@ const navLinks: NavItem[] = [
 ---
 
 <!-- Desktop nav -->
-<nav role="navigation" aria-label="Main" class="hidden items-center gap-6 text-sm lg:flex">
+<nav role="navigation" aria-label="Main" class="hidden items-center gap-7 text-[0.9375rem] lg:flex">
   {
     navLinks.map((item, i) =>
       item.isParent ? (
@@ -55,7 +64,7 @@ const navLinks: NavItem[] = [
           </div>
         </div>
       ) : (
-        <a href={item.href} class="hover:text-primary no-underline" tabindex={tabIndex}>
+        <a href={item.href} class:list={["nav-link no-underline", isActive(item.href) && "is-active"]} aria-current={isActive(item.href) ? "page" : undefined} tabindex={tabIndex}>
           {item.label}
         </a>
       ),

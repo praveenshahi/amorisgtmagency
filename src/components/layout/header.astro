@@ -193,7 +193,21 @@ const isOverlayScroll = !fixed && !!overlay && !isClose;
 
 {
   isOverlayScroll && (
-    <header id="header" role="banner" class:list={['absolute top-0 left-0 z-50 w-full', !overlayTheme ? 'text-text dark:text-text-dark' : overlayTheme === 'light' ? 'text-text' : 'text-text-dark']} data-overlay-scroll data-overlay-theme={overlayTheme} data-scroll-threshold={scrollDownThreshold}>
+    <header
+      id="header"
+      role="banner"
+      class:list={[
+        'absolute top-0 left-0 z-50 w-full',
+        // A scrim under the overlay bar. Without it the nav is white text sitting
+        // directly on the hero nebula, which is legible by contrast ratio but reads
+        // as weak because the backdrop is busy. The gradient gives the bar a surface.
+        'before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:-z-10 before:h-[140%] before:bg-linear-to-b before:from-black/55 before:via-black/25 before:to-transparent',
+        !overlayTheme ? 'text-text dark:text-text-dark' : overlayTheme === 'light' ? 'text-text' : 'text-text-dark',
+      ]}
+      data-overlay-scroll
+      data-overlay-theme={overlayTheme}
+      data-scroll-threshold={scrollDownThreshold}
+    >
       <HeaderContent {locale} {button} {isHome} {ctaButton} {github} />
     </header>
   )

@@ -177,7 +177,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
 
 <section class="home-content flex flex-col overflow-x-clip">
   <!-- ════ 2. Recognition ════ -->
-  <div class="container mx-auto py-20">
+  <div class="container mx-auto py-24 sm:py-28">
     <section aria-labelledby="home-symptoms-heading">
       <Reveal class="mx-auto mb-10 flex max-w-3xl flex-col items-center gap-3 text-center">
         <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Some of this will sound familiar</span>
@@ -187,8 +187,11 @@ const architectureUrl = getLocaleUrl('architecture', locale);
       <ul class="mx-auto m-0 flex max-w-3xl list-none flex-col gap-0 p-0">
         {
           symptoms.map((s, i) => (
-            <Reveal as="li" delay={i * 50} from="up" class="m-0 border-t border-stone-200 py-5 last:border-b dark:border-stone-800">
-              <p class="m-0 text-lg leading-relaxed text-stone-700 text-balance dark:text-stone-200">{s}</p>
+            <Reveal as="li" delay={i * 60} tier="tight" from="up" class="symptom m-0 border-t border-stone-200 last:border-b dark:border-stone-800">
+              <div class="flex items-baseline gap-5 py-5 transition-[padding] duration-300">
+                <span class="text-primary/45 dark:text-primary-light/45 w-8 shrink-0 font-mono text-sm tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                <p class="m-0 text-lg leading-relaxed text-stone-700 text-balance dark:text-stone-200">{s}</p>
+              </div>
             </Reveal>
           ))
         }
@@ -197,16 +200,16 @@ const architectureUrl = getLocaleUrl('architecture', locale);
   </div>
 
   <!-- ════ 3. Premature automation ════ -->
-  <div class="graph-paper-bg-inner">
-    <div class="container mx-auto py-20">
+  <div class="a-band-dark">
+    <div class="container mx-auto py-28 sm:py-32">
       <section aria-labelledby="home-cause-heading">
-        <Reveal class="mx-auto mb-12 flex max-w-3xl flex-col items-center gap-4 text-center">
-          <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">The real enemy</span>
-          <h2 id="home-cause-heading" class="text-3xl font-bold text-balance sm:text-4xl">Most GTM automation fixes a bottleneck nobody confirmed.</h2>
-          <p class="text-lg leading-relaxed text-stone-600 dark:text-stone-300">
+        <Reveal tier="statement" class="mx-auto mb-14 flex max-w-3xl flex-col items-center gap-5 text-center">
+          <span class="text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">The real enemy</span>
+          <h2 id="home-cause-heading" class="text-4xl font-bold text-balance sm:text-5xl">Most GTM automation fixes a bottleneck nobody confirmed.</h2>
+          <p class="text-xl leading-relaxed text-stone-300">
             The category is incentivised to tell you that you have an SDR problem, because it sells AI SDRs. Maybe you do. The point is that nobody checked - and automating the wrong step does not just fail, it buries the real problem under six weeks of new infrastructure.
           </p>
-          <p class="leading-relaxed text-stone-600 dark:text-stone-300">
+          <p class="leading-relaxed text-stone-400">
             Outbound rarely fails at sending. It fails at deciding what to say - which account, what to say to them, whether it is worth saying at all. That step takes judgement and context from more than one part of the business, it does not scale with headcount or tooling, and it is invisible in every activity metric you have. So it is the first thing dropped, and its absence surfaces somewhere else entirely: as a lead quality argument, a follow-up argument, a positioning argument.
           </p>
         </Reveal>
@@ -214,10 +217,10 @@ const architectureUrl = getLocaleUrl('architecture', locale);
         <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {
             whyNobodyTells.map((item, i) => (
-              <Reveal delay={i * 60} from="up">
-                <div class="flex h-full flex-col gap-2 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
-                  <h3 class="text-base font-bold">{item.title}</h3>
-                  <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-300">{item.text}</p>
+              <Reveal delay={i * 70} tier="tight" from="up">
+                <div class="a-card a-card-hover flex h-full flex-col gap-2 border-white/12 bg-white/5 backdrop-blur-sm dark:border-white/12 dark:bg-white/5">
+                  <h3 class="text-base font-bold text-white">{item.title}</h3>
+                  <p class="text-sm leading-relaxed text-stone-300">{item.text}</p>
                 </div>
               </Reveal>
             ))
@@ -225,7 +228,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
         </div>
 
         <Reveal class="mt-8">
-          <p class="mx-auto max-w-2xl text-center text-lg font-semibold text-balance">
+          <p class="mx-auto max-w-2xl text-center text-xl font-semibold text-balance text-white">
             So the first question is not which tool. It is whether the thing you are about to automate is the thing that is actually costing you meetings.
           </p>
         </Reveal>
@@ -234,7 +237,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
   </div>
 
   <!-- ════ 4. The sequence ════ -->
-  <div class="container mx-auto py-20">
+  <div class="container mx-auto py-24">
     <section id="how-it-works" aria-labelledby="home-method-heading" class="scroll-mt-28">
       <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
         <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">How the work runs</span>
@@ -244,22 +247,22 @@ const architectureUrl = getLocaleUrl('architecture', locale);
         </p>
       </Reveal>
 
-      <Reveal>
+      <div>
         <ol class="method-chain m-0 grid list-none grid-cols-1 gap-0 p-0 sm:grid-cols-2 lg:grid-cols-6" aria-label="How an engagement runs">
           {
             method.map((step, i) => (
-              <li class="method-step relative m-0 flex flex-col gap-2 border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+              <Reveal as="li" tier="tight" from="up" delay={i * 110} class="method-step relative m-0 flex flex-col gap-2 border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
                 <div class="flex items-center gap-2">
                   <Icon name={step.icon} class="text-primary dark:text-primary-light h-5 w-5 shrink-0" aria-hidden="true" />
                   <span class="font-mono text-xs text-stone-400 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
                 </div>
                 <span class="text-base font-bold">{step.label}</span>
                 <p class="m-0 text-xs leading-relaxed text-stone-600 dark:text-stone-300">{step.text}</p>
-              </li>
+              </Reveal>
             ))
           }
         </ol>
-      </Reveal>
+      </div>
 
       <Reveal class="mt-8">
         <p class="mx-auto max-w-2xl text-center text-sm text-stone-500 dark:text-stone-400">
@@ -271,15 +274,15 @@ const architectureUrl = getLocaleUrl('architecture', locale);
 
   <!-- ════ 5. Who is behind this ════ -->
   <div class="graph-paper-bg-inner">
-    <div class="container mx-auto py-20">
+    <div class="container mx-auto py-24 sm:py-28">
       <section aria-labelledby="home-founder-heading">
         <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
           <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Who's behind this</span>
           <h2 id="home-founder-heading" class="max-w-3xl text-3xl font-bold text-balance sm:text-4xl">The judgement being automated is mine, and you can check where it came from.</h2>
         </Reveal>
 
-        <div class="flex flex-col items-start gap-8 sm:flex-row sm:gap-10">
-          <Reveal from="left" class="mx-auto shrink-0 sm:mx-0">
+        <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-16">
+          <Reveal from="left" class="mx-auto w-full max-w-sm lg:sticky lg:top-28 lg:mx-0">
             <img
               src="/founder.png"
               alt="Praveen Shahi, founder of Amoris"
@@ -287,7 +290,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
               height="288"
               loading="lazy"
               decoding="async"
-              class="border-primary/30 h-56 w-56 rounded-2xl border-2 object-cover sm:h-64 sm:w-64 lg:h-72 lg:w-72"
+              class="border-primary/30 aspect-square w-full rounded-2xl border-2 object-cover"
             />
             <ul class="mt-5 flex list-none flex-col gap-1.5 p-0">
               {
@@ -367,7 +370,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
         {
           pipeline.map((step, i) => (
             <Reveal as="li" delay={i * 60} from="up" class="m-0">
-              <article class="flex h-full flex-col gap-3 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+              <article class="a-card a-card-hover flex h-full flex-col gap-3">
                 <div class="flex items-center gap-3">
                   <span class="text-primary dark:text-primary-light font-mono text-2xl font-bold tabular-nums">{step.n}</span>
                   <span class="flex items-center gap-2 text-lg font-bold">
@@ -383,20 +386,29 @@ const architectureUrl = getLocaleUrl('architecture', locale);
       </ol>
 
       <!-- The philosophy, stated once, operating at two levels -->
-      <Reveal class="mb-8">
-        <div class="border-primary/40 rounded-xl border-2 border-dashed p-6 sm:p-8">
-          <h3 class="mb-3 text-lg font-bold">The same rule, at both levels</h3>
-          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <div class="flex flex-col gap-1">
-              <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-widest uppercase">Before building</span>
-              <p class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">Do not automate until the audit supports it. If the evidence is not there, the honest answer is not yet.</p>
+      <Reveal class="mb-10">
+        <div class="a-card overflow-hidden p-0">
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="flex flex-col gap-2 border-b border-stone-300 p-6 sm:p-8 md:border-r md:border-b-0 dark:border-stone-700">
+              <span class="flex items-center gap-2 font-mono text-xs font-semibold tracking-widest text-amber-600 uppercase dark:text-amber-400">
+                <Icon name="heroicons:pause-circle" class="h-4 w-4 shrink-0" aria-hidden="true" />
+                Before building
+              </span>
+              <p class="m-0 leading-relaxed text-stone-600 dark:text-stone-300">
+                Do not automate until the audit supports it. If the evidence is not there, the honest answer is <strong>not yet</strong>.
+              </p>
             </div>
-            <div class="flex flex-col gap-1">
-              <span class="text-primary dark:text-primary-light font-mono text-xs font-semibold tracking-widest uppercase">Inside the system</span>
-              <p class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">Do not reach out until the account evidence supports it. If it is not there, the pipeline stops and says why.</p>
+            <div class="flex flex-col gap-2 p-6 sm:p-8">
+              <span class="flex items-center gap-2 font-mono text-xs font-semibold tracking-widest text-green-700 uppercase dark:text-green-400">
+                <Icon name="heroicons:hand-raised" class="h-4 w-4 shrink-0" aria-hidden="true" />
+                Inside the system
+              </span>
+              <p class="m-0 leading-relaxed text-stone-600 dark:text-stone-300">
+                Do not reach out until the account evidence supports it. If it is not there, the pipeline <strong>stops and says why</strong>.
+              </p>
             </div>
           </div>
-          <p class="mt-4 mb-0 text-sm text-stone-500 dark:text-stone-400">
+          <p class="m-0 border-t border-stone-300 bg-stone-100 px-6 py-4 text-sm text-stone-600 sm:px-8 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300">
             One philosophy, applied twice. HOLD is not a feature bolted onto the product - it is the same discipline the engagement itself runs on.
           </p>
         </div>
@@ -428,7 +440,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
         {
           refusals.map((r, i) => (
             <Reveal delay={i * 60} from="up">
-              <div class="flex h-full flex-col gap-2 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+              <div class="a-card a-card-hover flex h-full flex-col gap-2">
                 <h3 class="flex items-start gap-2 text-base font-bold">
                   <Icon name="heroicons:x-circle" class="mt-0.5 h-5 w-5 shrink-0 text-stone-400" aria-hidden="true" />
                   {r.title}
@@ -483,8 +495,8 @@ const architectureUrl = getLocaleUrl('architecture', locale);
   </div>
 
   <!-- ════ 7. The stack Amoris works inside ════ -->
-  <div class="graph-paper-bg-inner">
-    <div class="container mx-auto py-20">
+  <div class="border-y border-stone-200 bg-stone-50/70 dark:border-stone-800 dark:bg-stone-900/40">
+    <div class="container mx-auto py-16 sm:py-20">
       <section aria-labelledby="home-stack-heading">
         <Reveal class="mx-auto mb-12 flex max-w-3xl flex-col items-center gap-3 text-center">
           <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">The stack I work across</span>
@@ -498,7 +510,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
           {
             stackLayers.map((l, i) => (
               <Reveal delay={i * 50} from="up">
-                <div class="flex h-full flex-col gap-2 rounded-xl border border-stone-300 bg-white p-6 dark:border-stone-700 dark:bg-stone-900">
+                <div class="a-card a-card-hover flex h-full flex-col gap-2">
                   <h3 class="flex items-center gap-2 text-base font-bold">
                     <Icon name={l.icon} class="text-primary dark:text-primary-light h-5 w-5 shrink-0" aria-hidden="true" />
                     {l.layer}
@@ -520,7 +532,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
   </div>
 
   <!-- ════ 8. Fit ════ -->
-  <div class="container mx-auto py-20">
+  <div class="container mx-auto py-16 sm:py-20">
     <section aria-labelledby="home-fit-heading">
       <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
         <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Who this is for</span>
@@ -532,7 +544,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
 
       <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Reveal from="left">
-          <div class="flex h-full flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+          <div class="a-card a-card-hover flex h-full flex-col gap-4 sm:p-8">
             <h3 class="flex items-center gap-2 text-lg font-bold">
               <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-green-600 dark:text-green-400" aria-hidden="true" />
               A fit
@@ -548,7 +560,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
           </div>
         </Reveal>
         <Reveal from="right">
-          <div class="flex h-full flex-col gap-4 rounded-xl border border-stone-300 bg-white p-6 sm:p-8 dark:border-stone-700 dark:bg-stone-900">
+          <div class="a-card a-card-hover flex h-full flex-col gap-4 sm:p-8">
             <h3 class="flex items-center gap-2 text-lg font-bold">
               <Icon name="heroicons:x-circle" class="h-6 w-6 shrink-0 text-stone-400" aria-hidden="true" />
               Not a fit
@@ -571,7 +583,7 @@ const architectureUrl = getLocaleUrl('architecture', locale);
 
   <!-- ════ 9. One action ════ -->
   <div class="graph-paper-bg-inner">
-    <div class="container mx-auto py-20">
+    <div class="container mx-auto py-24">
       <section aria-labelledby="home-ladder-heading">
         <Reveal class="mb-12 flex flex-col items-center gap-3 text-center">
           <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Where to start</span>
@@ -587,8 +599,8 @@ const architectureUrl = getLocaleUrl('architecture', locale);
               <Reveal as="li" delay={i * 60} from="up" class="m-0">
                 <article
                   class:list={[
-                    'flex h-full flex-col gap-5 rounded-xl bg-white p-6 sm:flex-row sm:gap-8 sm:p-8 dark:bg-stone-900',
-                    i === 1 ? 'border-primary border-2' : 'border border-stone-300 dark:border-stone-700',
+                    'a-card a-card-hover flex h-full flex-col gap-5 sm:flex-row sm:gap-8 sm:p-8',
+                    i === 1 && 'border-primary/70 dark:border-primary-light/70 border-2',
                   ]}
                 >
                   <div class="flex shrink-0 items-center gap-4 sm:w-52 sm:flex-col sm:items-start sm:gap-2">
@@ -635,6 +647,30 @@ const architectureUrl = getLocaleUrl('architecture', locale);
 
 <style>
   @reference "../../styles/tailwind.config.css";
+
+  /* Symptom rows: a quiet indent and a warming index on hover, so the list
+     responds without turning into another card grid. */
+  .symptom > div {
+    transition:
+      padding-left 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s ease;
+  }
+  .symptom:hover > div {
+    padding-left: 0.75rem;
+    background-color: rgb(67 97 255 / 0.04);
+  }
+  :global(.dark) .symptom:hover > div {
+    background-color: rgb(0 217 255 / 0.06);
+  }
+  .symptom:hover span {
+    color: var(--color-primary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .symptom > div {
+      transition: none;
+    }
+  }
 
   /* ── CTA glow ── */
   .cta-glow {

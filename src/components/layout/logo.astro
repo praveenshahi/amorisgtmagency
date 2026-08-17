@@ -19,17 +19,24 @@ interface Props {
   markOnly?: boolean;
   /** Adds the AUTOMATE / ENGAGE / CLOSE REVENUE line. Only legible at large sizes. */
   tagline?: boolean;
+  /**
+   * Drops the AI / GTM / AGENCY sub-lockup and tightens the viewBox to the mark
+   * plus wordmark. At header scale that sub-lockup renders around 3px tall and
+   * turns to mush, so compact is the correct lockup anywhere under ~120px tall.
+   */
+  compact?: boolean;
   class?: string;
   title?: string;
 }
 
-const { surface = 'dark', markOnly = false, tagline = false, class: className = '', title = 'Amoris — AI GTM Agency' } = Astro.props as Props;
+const { surface = 'dark', markOnly = false, tagline = false, compact = false, class: className = '', title = 'Amoris — AI GTM Agency' } = Astro.props as Props;
 
 const uid = Math.random().toString(36).slice(2, 8);
 const id = (name: string) => `${name}-${uid}`;
 
-// Only the mark is drawn when markOnly, so the viewBox tightens around it.
-const viewBox = markOnly ? '40 80 520 500' : tagline ? '0 0 1600 700' : '0 40 1600 560';
+// The viewBox tightens to whatever is actually drawn: mark only, mark plus
+// wordmark (compact), or the full lockup with the AI/GTM/AGENCY block.
+const viewBox = markOnly ? '40 80 520 500' : tagline ? '0 0 1600 700' : compact ? '40 90 1120 430' : '0 40 1600 560';
 
 // On white the pale artwork gradient disappears, so the wordmark switches to a
 // deep navy and the sub-lockup to the brand blue/violet.
@@ -113,16 +120,20 @@ const chipIcon = surface === 'dark' ? '#E9F7FF' : '#E9F7FF';
           AMORIS
         </text>
         <path d="M365 47 l8 19 19 8-19 8-8 19-8-19-19-8 19-8z" fill="#9C4DFF" />
-        <rect x="665" y="-8" width="3" height="135" rx="1.5" fill={ruleFill} />
-        <text x="705" y="55" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="68" font-weight="800" fill={aiFill}>
-          AI
-        </text>
-        <text x="707" y="105" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="44" font-weight="700" letter-spacing="5" fill={gtmFill}>
-          GTM
-        </text>
-        <text x="709" y="143" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="29" font-weight="500" letter-spacing="7" fill={agencyFill}>
-          AGENCY
-        </text>
+        {!compact && (
+          <>
+            <rect x="665" y="-8" width="3" height="135" rx="1.5" fill={ruleFill} />
+            <text x="705" y="55" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="68" font-weight="800" fill={aiFill}>
+              AI
+            </text>
+            <text x="707" y="105" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="44" font-weight="700" letter-spacing="5" fill={gtmFill}>
+              GTM
+            </text>
+            <text x="709" y="143" font-family="Geist, Inter, Arial, Helvetica, sans-serif" font-size="29" font-weight="500" letter-spacing="7" fill={agencyFill}>
+              AGENCY
+            </text>
+          </>
+        )}
       </g>
     )
   }

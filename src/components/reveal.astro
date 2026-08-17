@@ -17,35 +17,53 @@ interface Props {
   from?: "up" | "left" | "right" | "none";
   /** Rendered HTML tag. Defaults to "div". */
   as?: keyof HTMLElementTagNameMap;
+  /**
+   * Motion tier. One animation used everywhere reads as no animation, so the
+   * page uses three:
+   *  - `statement` moves further and slower, for the big single-idea sections
+   *  - `default`   the standard card/paragraph reveal
+   *  - `tight`     a short, quick move for items inside a stagger
+   */
+  tier?: "statement" | "default" | "tight";
 }
 
-const { delay = 0, class: className = "", from = "up", as = "div" } = Astro.props as Props;
+const { delay = 0, class: className = "", from = "up", as = "div", tier = "default" } = Astro.props as Props;
 const Tag = as;
 ---
 
-<Tag class:list={['docs-reveal', className]} data-reveal-from={from} style={delay ? `--reveal-delay: ${delay}ms` : undefined}>
+<Tag class:list={['docs-reveal', className]} data-reveal-from={from} data-reveal-tier={tier} style={delay ? `--reveal-delay: ${delay}ms` : undefined}>
   <slot />
 </Tag>
 
 <style>
   .docs-reveal {
+    --reveal-shift: 2rem;
+    --reveal-duration: 0.6s;
     transition:
-      opacity 0.6s ease,
-      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity var(--reveal-duration) ease,
+      transform var(--reveal-duration) cubic-bezier(0.22, 1, 0.36, 1);
     transition-delay: var(--reveal-delay, 0ms);
     will-change: opacity, transform;
+  }
+  .docs-reveal[data-reveal-tier='statement'] {
+    --reveal-shift: 3.5rem;
+    --reveal-duration: 0.95s;
+  }
+  .docs-reveal[data-reveal-tier='tight'] {
+    --reveal-shift: 0.9rem;
+    --reveal-duration: 0.45s;
   }
   .docs-reveal.is-hidden {
     opacity: 0;
   }
   .docs-reveal.is-hidden[data-reveal-from='up'] {
-    transform: translateY(2rem);
+    transform: translateY(var(--reveal-shift));
   }
   .docs-reveal.is-hidden[data-reveal-from='left'] {
-    transform: translateX(-2rem);
+    transform: translateX(calc(var(--reveal-shift) * -1));
   }
   .docs-reveal.is-hidden[data-reveal-from='right'] {
-    transform: translateX(2rem);
+    transform: translateX(var(--reveal-shift));
   }
   @media (prefers-reduced-motion: reduce) {
     .docs-reveal,
