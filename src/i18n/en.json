@@ -64,11 +64,11 @@
   },
   "meta": {
     "title": "Amoris - AI GTM agency for B2B revenue teams",
-    "description": "Amoris is a founder-led AI GTM agency. Most go-to-market problems are misdiagnosed - every specialist describes them in the shape of their own job. I diagnose which problem is actually yours, then build the system around it.",
+    "description": "Amoris is a founder-led AI GTM agency. I audit your existing go-to-market motion before building anything, so you automate the confirmed bottleneck rather than the assumed one.",
     "og-site-name": "Amoris",
     "slug": "Amoris",
     "slogan": "Founder-led AI GTM agency",
-    "sub-slogan": "I find out which problem is actually yours."
+    "sub-slogan": "Audit before you automate."
   },
   "i18n": {
     "select-language": "Select your Language",
@@ -89,11 +89,11 @@
       "message": "Ooops. You somehow found a page that does not exist.\nMaybe never existed or was deleted.\n\nPlease check the URL or go back to the main page."
     },
     "home": {
-      "title": "You're probably solving the wrong problem",
-      "description": "Amoris is a founder-led AI GTM agency. Most GTM problems are misdiagnosed. I work across sales, marketing, product, analytics and ML to tell founders which problem is actually theirs - then build the system around it.",
+      "title": "Audit before you automate",
+      "description": "Amoris is a founder-led AI GTM agency. I audit your existing go-to-market motion, data and stack before building anything - so you automate the bottleneck, not the wrong problem. The goal is more qualified meetings, not more automation.",
       "hero-chip": "A founder-led AI GTM agency",
-      "hero-title": "You're probably solving the wrong problem",
-      "hero-sub-slogan": "Your sales lead says it's lead quality. Marketing says it's follow-up. Product says it's positioning. Each is right about their part, and none of them can see the whole thing. I have worked in all of it - sales, marketing, product, analytics and ML - and the most useful thing I do is tell founders which problem is actually theirs.",
+      "hero-title": "Audit before you automate",
+      "hero-sub-slogan": "You already have a GTM motion. I audit it - the motion, the data and the stack - and find where lead-to-demo is actually leaking. Then we build only what the audit supports. The goal is more qualified meetings, not more automation.",
       "references": "A decade of finding patterns, designing systems and driving revenue"
     },
     "faq": {
@@ -125,7 +125,7 @@
     },
     "pricing": {
       "title": "Engagement models",
-      "description": "Free intro call, a paid GTM Diagnostic from $500, a pilot from $3,000 scoped to one constraint, then ongoing systems work. The thinking gets done; the decision stays yours."
+      "description": "Free intro call, a paid GTM Audit from $500, a pilot from $3,000 scoped to one constraint, then ongoing systems work. The thinking gets done; the decision stays yours."
     },
     "legal-notice": {
       "title": "Legal Notice",

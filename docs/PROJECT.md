@@ -14,29 +14,44 @@ Use the word **agency** everywhere — body copy, footer, wordmark, meta, struct
 
 ## The argument the site makes
 
-Everyone can build now. That is the setup, not the point.
+**Audit before you automate.** That is the H1, the offer and the whole position.
 
-The point is that **nobody can tell a founder which problem is actually the problem.** Every specialist describes it in the shape of their own job — sales says lead quality, marketing says follow-up, product says positioning, data says instrumentation. Each is right about their slice. None owns the diagnosis.
+The enemy is **premature automation** — building against a bottleneck nobody confirmed. The category is incentivised to say "you have an SDR problem, here is an AI SDR." Amoris says: maybe, let's find out first.
 
-That leaves two bad options: decide half-blind, or hand the decision to a consultant who takes it off the desk entirely. Founders want neither.
+Underneath it, the reason the diagnosis is hard: **every specialist describes the problem in the shape of their own job.** Sales says lead quality, marketing says follow-up, product says positioning, data says instrumentation. Each is right about their slice; none owns the question of which slice matters. So the founder either decides half-blind or hands the decision to someone who takes it off their desk entirely. They want neither.
 
 **What they want is the thinking done and the decision kept.** That is the product.
 
-The offer is a 360-degree read across **sales, marketing, product management, analytics and machine learning** — enough range to say the thing no specialist will: *this is not your problem, that one is.*
+The offer is a 360-degree read across **sales, marketing, product management, analytics and machine learning** — enough range to say the thing no specialist will: this is not your problem, that one is.
 
-### The line the site hangs on
+### The outcome
 
-> The most expensive thing in GTM is solving the wrong problem well.
+**More qualified meetings, not more automation.** This must appear above the fold and recur.
 
-### Why this converts
+Write it as **the goal of the work**, never as a guaranteed result. "The goal is more qualified meetings" is safe. "We book you qualified meetings" is not, and would be the first unsupported claim on the site. There are no client engagements yet.
 
-The paid diagnostic **is** the thinking, delivered, with the decision left on the founder's desk. Not "pay me and I'll fix it". The engagement continues afterwards because there is now someone who can see the whole board and works alongside the client rather than instead of them.
+### ICP
+
+Companies that **already have a GTM motion** and want lead → demo conversion to improve. Not pre-revenue companies with nothing running — there is nothing to audit. This is stated as an explicit disqualifier in section 8.
+
+### HOLD, unified
+
+The same rule at two levels, and it is the site's philosophy rather than a product feature:
+
+- **Before building** — do not automate until the audit supports it.
+- **Inside the system** — do not reach out until the account evidence supports it.
+
+Stated explicitly in homepage section 6. Do not let it collapse back into "a feature of the research engine".
+
+### The sequence the page makes obvious
+
+Audit → Diagnose → Readiness → Build → Deploy → Qualified bookings.
+
+**Readiness** is a real step and a real audit output: some stacks are not in a state where automation would hold, and saying so is part of the value. Nobody else in the category names it.
 
 ### What the site is proving
 
-Judgment, not product surface. This is a deliberate trade — it is why the writing matters more than the feature list.
-
----
+Judgment, not product surface. It is why the writing matters more than the feature list.
 
 ## Locked decisions
 
@@ -45,10 +60,10 @@ Do not relitigate without the founder.
 | # | Decision |
 |---|---|
 | 1 | Category word is **agency**. "A founder-led AI GTM agency." |
-| 2 | H1 names the buyer's condition, not the category: **"You're probably solving the wrong problem."** |
+| 2 | H1 states the offer, not a philosophy: **"Audit before you automate."** |
 | 3 | **Nine homepage sections, hard ceiling.** New ideas displace; they do not append. |
-| 4 | **Exactly one rendered process diagram on `/`** — Diagnose→Design→Build→Test→Measure→Learn. The commercial ladder renders as a list. |
-| 5 | Pricing in **USD**, no ceilings: free intro call · Diagnostic **from $500** · Pilot **from $3,000** · ongoing scoped, no public number. |
+| 4 | **Exactly one rendered process diagram on `/`** — Audit→Diagnose→Readiness→Build→Deploy→Qualified bookings, in section 4. The commercial ladder renders as a list. |
+| 5 | Pricing in **USD**, no ceilings: free intro call · **GTM Audit from $500** · Pilot **from $3,000** · ongoing scoped, no public number. The first rung is called an **Audit**, never a "Diagnostic" — the H1 depends on it. |
 | 6 | **One primary CTA** — Calendly — repeated at hero and close. WhatsApp is not on the homepage. |
 | 7 | The thesis line ("Outbound rarely fails at sending…") appears **exactly once**, in section 3. |
 | 8 | Global default. Remote across US, EU and APAC, with overlap stated. Bengaluru named, not hidden. |
@@ -63,15 +78,15 @@ Nine sections. Verify after any change that the built `dist/index.html` has one 
 
 | # | Section | Job |
 |---|---|---|
-| 1 | Hero | Recognition in five seconds, plus the operator |
-| 2 | The most expensive thing in GTM is solving the wrong problem well | Six plain symptom lines. No cards, no icons, no product, no "Amoris" |
-| 3 | Outbound rarely fails at sending | The cause. Thesis line lives here and only here |
-| 4 | The category got very good at the step that was never broken | Why nobody tells them. Structural argument, no named competitors |
-| 5 | The judgement being automated is mine | Conversion section. Both halves, the five domains, the working model |
-| 6 | The system is not the strategy | The engine, subordinate to the operator. Holds the one diagram |
-| 7 | You already have a stack | Integration layer, seven layers as text. **Never a logo wall** |
-| 8 | Built for teams where outbound carries someone's name | Fit and disqualification |
-| 9 | Start with a conversation | The ladder, then one CTA |
+| 1 | Hero — Audit before you automate | Offer, outcome and ICP in one screen |
+| 2 | The most expensive thing in GTM is solving the wrong problem well | Six plain symptom lines, including lead-to-demo leakage. No cards, no product |
+| 3 | Most GTM automation fixes a bottleneck nobody confirmed | The enemy, named. Holds the thesis line — once |
+| 4 | Audit, then automate. In that order | The one diagram, ending in qualified bookings |
+| 5 | The judgement being automated is mine | Conversion section. Both halves, five domains, the working model |
+| 6 | The system is not the strategy | The engine. **HOLD at two levels stated here** |
+| 7 | Your stack, and what it is actually ready for | Integration layer, readiness, self-hosted |
+| 8 | Built for teams that already have a motion | Fit. Pre-revenue is an explicit exclusion |
+| 9 | Start with the audit | The ladder, then one CTA |
 
 ### The principle that repeats
 
