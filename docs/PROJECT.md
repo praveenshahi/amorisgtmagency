@@ -118,7 +118,7 @@ Nine sections. Verify after any change that the built `dist/index.html` has one 
 - Since **2014**. A decade across sales, marketing, product management, analytics and machine learning.
 - **Four years at Amazon and Meta** on global data science and ML projects — pattern-finding and system design. This is the *systems* half, **not** revenue leadership. Earlier copy miscategorised it; do not reintroduce that.
 - **Seven-plus years** in sales and growth hacking: building teams, opening new markets, growth across brands at different stages.
-- Abstract scale used on `/` and `/founder`: **7+** years, **150** largest sales team led, **6+** brands grown, **millions** in sales closed. Prior operating work across LATAM, Africa and India.
+- Abstract scale used on `/` and `/founder`: **10+** years of experience, **150** largest sales team led, **6+** brands grown, **millions** in sales closed. Prior operating work across LATAM, Africa and India.
 - LinkedIn carries the detail and is linked. `linkedin.com/in/praveenshahi13`
 - **`intel-echo`** is real and published on npm.
 

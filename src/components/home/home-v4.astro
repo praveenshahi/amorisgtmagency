@@ -51,7 +51,7 @@ const accountChecks = [
   { label: "Buying evidence", ok: false },
 ];
 
-const credentials = ["7+ years in sales and growth", "6+ brands scaled", "Millions in pipeline generated"];
+const credentials = ["10+ years of experience", "6+ brands scaled", "Millions in pipeline generated"];
 
 const outcomes = [
   { icon: "heroicons:arrow-trending-up", text: "Higher quality pipeline" },
@@ -279,13 +279,13 @@ const engage = [
   <!-- ════════════ FOUNDER ════════════ -->
   <section class="v4-ink">
     <div class="container mx-auto px-6 py-20">
-      <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-14">
+      <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.2fr_0.85fr_1.05fr] lg:gap-14">
         <div class="flex items-start gap-6">
           <img src="/founder.png" alt="Praveen Shahi, founder of Amoris" width="160" height="160" loading="lazy" decoding="async" class="v4-portrait" />
           <div class="min-w-0">
             <span class="v4-kicker">Founder-led</span>
             <p class="v4-name mt-2">Praveen Shahi</p>
-            <p class="v4-dim mt-1 text-sm">Ex-Amazon, Ex-Meta</p>
+            <p class="v4-role mt-1">Ex-Amazon, Ex-Meta</p>
             <ul class="m-0 mt-4 flex list-none flex-col gap-1.5 p-0">
               {credentials.map((c) => <li class="v4-cred m-0">{c}</li>)}
             </ul>
@@ -318,7 +318,7 @@ const engage = [
               ))
             }
           </div>
-          <p class="v4-fine mt-5">From prior client engagements. Results vary with industry, ICP and current GTM maturity.</p>
+          <p class="v4-fine v4-fine-sep">From prior client engagements. Results vary with industry, ICP and current GTM maturity.</p>
         </div>
       </div>
     </div>
@@ -500,7 +500,7 @@ const engage = [
     color: var(--on-ink-dim);
   }
   .v4-fine {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     line-height: 1.6;
     color: var(--on-ink-dim);
     margin: 0;
@@ -842,6 +842,13 @@ const engage = [
     filter: grayscale(1) contrast(1.05);
     border: 1px solid var(--rule-ink);
   }
+  .v4-role {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--on-ink-dim);
+    margin: 0;
+  }
+
   .v4-name {
     font-family: 'Fraunces Variable', Georgia, serif;
     font-weight: 600;
@@ -849,7 +856,8 @@ const engage = [
     margin: 0;
   }
   .v4-cred {
-    font-size: 0.82rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
     color: var(--on-ink-dim);
     padding-left: 0.85rem;
     position: relative;
@@ -867,7 +875,8 @@ const engage = [
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    font-size: 0.88rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
   }
   .v4-figure {
     display: block;
@@ -879,10 +888,18 @@ const engage = [
   }
   .v4-figure-label {
     display: block;
-    margin-top: 0.4rem;
-    font-size: 0.7rem;
-    line-height: 1.4;
+    margin-top: 0.45rem;
+    font-size: 0.78rem;
+    line-height: 1.45;
     color: var(--on-ink-dim);
+  }
+
+  /* The disclaimer sat flush against the figure labels and read as part of the
+     third column. A rule and real space separate the two. */
+  .v4-fine-sep {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule-ink);
   }
 
   /* ── Fit + stack ── */
