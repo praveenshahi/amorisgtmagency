@@ -400,6 +400,23 @@ const engage = [
     </div>
   </section>
 
+  <!-- ════════════ LEARN ════════════ -->
+  <section class="v4-ink" aria-labelledby="home-learn">
+    <div class="container mx-auto px-6 pb-16">
+      <div class="v4-learn">
+        <div class="flex flex-col gap-3">
+          <span class="v4-kicker">Amoris Learn</span>
+          <h2 id="home-learn" class="v4-h2">Learn to build this yourself.</h2>
+          <p class="v4-body max-w-2xl">
+            Amoris builds AI GTM systems for companies. Amoris Learn teaches professionals to build their own &mdash; from AI literacy to designing AI-powered workflows and systems.
+          </p>
+          <p class="v4-fine italic">Same principle: audit before you automate.</p>
+        </div>
+        <a href="/learn-ai" class="v4-btn-ghost shrink-0">Find your AI level &rarr;</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ════════════ CLOSE ════════════ -->
   <section class="v4-paper">
     <div class="container mx-auto flex flex-col items-center gap-7 px-6 py-20 text-center">
@@ -1122,6 +1139,25 @@ const engage = [
     font-size: 0.78rem;
     font-weight: 600;
     white-space: nowrap;
+  }
+
+
+  /* Learn band: a rule above it and nothing else, so it reads as an aside to
+     the agency argument rather than a competing offer. */
+  .v4-learn {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    border-top: 1px solid var(--rule-ink);
+    padding-top: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    .v4-learn {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+    }
   }
 
   /* ── Engagement ── */

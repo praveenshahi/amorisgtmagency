@@ -1,0 +1,470 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import Reveal from "@components/reveal.astro";
+import LadderMotif from "@components/learn/LadderMotif.astro";
+import AltitudeBars from "@components/learn/AltitudeBars.astro";
+import Scorecard from "@components/learn/Scorecard.astro";
+import LevelCard from "@components/learn/LevelCard.astro";
+import LearnFaqList from "@components/learn/LearnFaqList.astro";
+import { getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from "~/theme.config";
+
+const locale = themeConfig.i18n.defaultLocale;
+
+// TODO: replace with the live Tally/Typeform diagnostic URL.
+const DIAGNOSTIC_URL = "mailto:shahi@amoris.in?subject=AI%20level%20test";
+// TODO: replace with the live Tally application URL.
+const APPLY_URL = "mailto:shahi@amoris.in?subject=Batch%2001%20application";
+
+const agencyUrl = getLocaleUrl("/", locale);
+
+const fitYes = [
+  "You're a working professional, not an aspiring AI engineer",
+  "You already use AI and suspect you're using it shallowly",
+  "You want your week to change, not just your afternoon",
+  "You're willing to bring real work into the room",
+  "You'd rather build one thing that runs than watch ten hours of video",
+];
+
+const fitNo = [
+  "You want a certificate for your résumé",
+  "You want to learn to build AI models",
+  "You want to be told which tools to buy",
+  "You can't commit ~5 hours a week",
+  "You want theory without deploying anything",
+];
+
+const levels = [
+  {
+    level: "Level 1",
+    name: "AI Literate",
+    quote: "I understand AI.",
+    unit: "The task",
+    builds: "A personal AI workbench + one redesigned recurring task",
+    audience: "Professionals using AI occasionally",
+    length: "4 weeks",
+    glyph: "task" as const,
+  },
+  {
+    level: "Level 2",
+    name: "AI Practitioner",
+    quote: "I use AI in my actual work.",
+    unit: "The workflow",
+    builds: "A deployed workflow running in your real job",
+    audience: "Daily users who've hit a ceiling",
+    length: "6 weeks",
+    glyph: "workflow" as const,
+  },
+  {
+    level: "Level 3",
+    name: "AI Systems Architect",
+    quote: "I design AI-powered systems.",
+    unit: "The system",
+    builds: "A transformation roadmap + working prototype",
+    audience: "Founders, GTM/product/ops leaders",
+    length: "8 weeks",
+    glyph: "system" as const,
+  },
+];
+
+const flow = ["Concept", "Demonstration", "You build", "It runs in your work"];
+
+const split = [
+  { label: "Concept", pct: 20 },
+  { label: "Demonstration", pct: 30 },
+  { label: "Hands-on", pct: 40 },
+  { label: "Reflection", pct: 10 },
+];
+
+const method = [
+  { title: "Small cohorts.", text: "Six to eight people. Everyone talks every session." },
+  { title: "Live, including the failures.", text: "We demo things going wrong, and how to diagnose them." },
+  { title: "Your real work is the material.", text: "You bring a recurring task. You leave having redesigned it." },
+  { title: "Deploy, don't present.", text: "Completion means something is running." },
+  { title: "Judgment is taught, not assumed.", text: "Including where not to use AI." },
+];
+
+const artifacts = [
+  { level: "Level 1", items: ["Personal AI workbench", "Reusable context assets", "Verification routines", "A redesigned recurring task, measured"] },
+  { level: "Level 2", items: ["Scored process map", "Multi-step workflow", "Deployed automation", "One agentic flow", "Human checkpoint design"] },
+  { level: "Level 3", items: ["Opportunity map", "Human+AI architecture", "Working prototype", "Evaluation framework", "ROI model", "Implementation roadmap"] },
+];
+
+const proof = ["10+ years", "Amazon", "Meta", "6+ brands scaled", "Shipped open source", "Live production AI systems"];
+
+const cohort = [
+  { k: "Who", v: "Professionals at Level 1 to 2" },
+  { k: "What", v: "Redesign one week of your work around AI, and deploy it" },
+  { k: "When", v: "TODO: dates" },
+  { k: "Format", v: "5 live sessions x 2.5 hrs + weekly labs + one 1:1" },
+  { k: "Commitment", v: "~5 hrs/week" },
+  { k: "You leave with", v: "A workflow running in your actual job" },
+  { k: "Seats", v: "8 — TODO: remaining" },
+];
+
+// Learn FAQs live in their own collection so they never surface on /faq or in
+// the agency llms.txt. Order is explicit rather than alphabetical.
+const faqEntries = (await getCollection('learn_faqs', ({ data }) => !data.draft)).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
+const faqItems = await Promise.all(
+  faqEntries.map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+);
+
+const title = "Become AI-native at work — Amoris Learn";
+const description = "Learn how modern AI actually works, apply it across real professional workflows, and progress from AI literacy to designing AI-powered systems.";
+---
+
+<Layout {title} {description} noTitleSlug>
+  <Headline text="Amoris Learn" />
+
+  <!-- ════ 1. Hero ════ -->
+  <section aria-labelledby="learn-h1" class="pb-16">
+    <Reveal tier="statement" class="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center">
+      <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Amoris Learn</span>
+      <h1 id="learn-h1" class="m-0 text-4xl font-bold text-balance sm:text-5xl">Become AI-native at work.</h1>
+      <p class="m-0 max-w-2xl text-lg leading-relaxed text-stone-600 dark:text-stone-300">{description}</p>
+      <p class="m-0 text-sm text-stone-500 dark:text-stone-400">Diagnosed first. Built hands-on. Evidence at every step.</p>
+      <div class="mt-3 flex flex-wrap items-center justify-center gap-4">
+        <a href={DIAGNOSTIC_URL} class="btn-primary">Find your AI level →</a>
+        <a href="#levels" class="btn-subtle rounded px-4 py-[0.43rem]">See the programs</a>
+      </div>
+    </Reveal>
+
+    <Reveal class="mt-14">
+      <LadderMotif />
+    </Reveal>
+  </section>
+
+  <!-- ════ 2. The problem ════ -->
+  <section aria-labelledby="learn-problem" class="border-y border-stone-200 bg-stone-50/70 py-20 dark:border-stone-800 dark:bg-stone-900/40">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+      <Reveal from="left">
+        <h2 id="learn-problem" class="m-0 text-3xl font-bold text-balance sm:text-4xl">Most people aren't behind on AI. They're using it at the wrong altitude.</h2>
+        <div class="mt-6 flex flex-col gap-4 text-stone-600 dark:text-stone-300">
+          <p class="m-0 leading-relaxed">Two years in, most professionals have settled into the same pattern: AI as a faster way to write emails and rephrase paragraphs. Real gains, then a ceiling.</p>
+          <p class="m-0 leading-relaxed">The ceiling isn't skill. It's altitude. You're optimising tasks when the leverage is in redesigning workflows — and eventually, systems.</p>
+          <p class="m-0 leading-relaxed">Meanwhile the honest problem nobody's selling you a course on: AI applied without judgment creates work. Output that looks finished and isn't. Automation that saves you an hour and costs a colleague two.</p>
+        </div>
+      </Reveal>
+      <Reveal from="right" class="lg:pt-4">
+        <AltitudeBars />
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ════ 3. Fit ════ -->
+  <section aria-labelledby="learn-fit" class="py-20">
+    <Reveal class="mb-10">
+      <h2 id="learn-fit" class="m-0 text-3xl font-bold sm:text-4xl">Who this is for.</h2>
+    </Reveal>
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <Reveal from="left">
+        <div class="a-card a-card-hover flex h-full flex-col gap-4 sm:p-8">
+          <h3 class="m-0 flex items-center gap-2 text-lg font-bold">
+            <svg class="h-6 w-6 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            This is for you if
+          </h3>
+          <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
+            {
+              fitYes.map((f) => (
+                <li class="m-0 flex items-start gap-2.5 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+                  <svg class="text-primary dark:text-primary-light mt-1 h-4 w-4 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {f}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </Reveal>
+      <Reveal from="right">
+        <div class="a-card a-card-hover flex h-full flex-col gap-4 sm:p-8">
+          <h3 class="m-0 flex items-center gap-2 text-lg font-bold">
+            <svg class="h-6 w-6 shrink-0 text-stone-400" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+            This is not for you if
+          </h3>
+          <ul class="m-0 flex list-none flex-col gap-2.5 p-0">
+            {
+              fitNo.map((f) => (
+                <li class="m-0 flex items-start gap-2.5 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+                  <svg class="mt-1 h-4 w-4 shrink-0 text-stone-400" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                  </svg>
+                  {f}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ════ 4. Levels ════ -->
+  <section id="levels" class="scroll-mt-28 border-y border-stone-200 bg-stone-50/70 py-20 dark:border-stone-800 dark:bg-stone-900/40" aria-labelledby="learn-levels">
+    <Reveal class="mb-10">
+      <h2 id="learn-levels" class="m-0 text-3xl font-bold sm:text-4xl">Three levels. Different units of work.</h2>
+    </Reveal>
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
+      {
+        levels.map((l, i) => (
+          <Reveal delay={i * 70} tier="tight" from="up" class="h-full">
+            <LevelCard {...l} />
+          </Reveal>
+        ))
+      }
+    </div>
+    <Reveal class="mt-10">
+      <div class="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
+        <p class="m-0 leading-relaxed text-stone-600 dark:text-stone-300">
+          <strong class="text-stone-800 dark:text-stone-100">Not sure which one?</strong> That's the point of the level test. Most people place themselves wrong — in both directions.
+        </p>
+        <a href={DIAGNOSTIC_URL} class="btn-primary">Find your AI level →</a>
+      </div>
+    </Reveal>
+  </section>
+
+  <!-- ════ 5. Diagnostic ════ -->
+  <section aria-labelledby="learn-diagnostic" class="py-20">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <Reveal from="left">
+        <h2 id="learn-diagnostic" class="m-0 text-3xl font-bold text-balance sm:text-4xl">Audit before you automate. Starting with yourself.</h2>
+        <div class="mt-6 flex flex-col gap-4 text-stone-600 dark:text-stone-300">
+          <p class="m-0 leading-relaxed">We don't start by selling you a level. We start by finding out where you actually are.</p>
+          <p class="m-0 leading-relaxed">Twelve scenario questions — no "rate your AI knowledge," just real situations with real trade-offs. You'll get a profile across three dimensions: understanding, application, and systems thinking.</p>
+          <p class="m-0 leading-relaxed">Most people score differently than they expect.</p>
+        </div>
+        <a href={DIAGNOSTIC_URL} class="btn-primary mt-7 inline-block">Take the level test — 2 minutes</a>
+      </Reveal>
+      <Reveal from="right">
+        <Scorecard />
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ════ 6. How you learn ════ -->
+  <section aria-labelledby="learn-how" class="border-y border-stone-200 bg-stone-50/70 py-20 dark:border-stone-800 dark:bg-stone-900/40">
+    <Reveal class="mb-10">
+      <h2 id="learn-how" class="m-0 text-3xl font-bold sm:text-4xl">You'll spend more time building than listening.</h2>
+    </Reveal>
+
+    <Reveal>
+      <ol class="learn-flow m-0 grid list-none grid-cols-1 gap-0 p-0 sm:grid-cols-2 lg:grid-cols-4" aria-label="How a session runs">
+        {
+          flow.map((f, i) => (
+            <li class="learn-flow-step relative m-0 flex flex-col gap-2 border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900">
+              <span class="font-mono text-xs text-stone-400 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+              <span class="text-base font-bold">{f}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </Reveal>
+
+    <Reveal class="mt-8">
+      <div class="flex h-9 w-full overflow-hidden rounded-sm" role="img" aria-label="Time split: 20 percent concept, 30 percent demonstration, 40 percent hands-on, 10 percent reflection">
+        {
+          split.map((s, i) => (
+            <span
+              class:list={[
+                "flex items-center justify-center text-[0.68rem] font-bold tracking-wide text-white",
+                i === 0 && "bg-primary/55",
+                i === 1 && "bg-primary/75",
+                i === 2 && "bg-primary",
+                i === 3 && "bg-primary/35",
+              ]}
+              style={`width:${s.pct}%`}
+            >
+              <span class="truncate px-1">{s.pct}%</span>
+            </span>
+          ))
+        }
+      </div>
+      <div class="mt-2 flex w-full text-[0.7rem] text-stone-500 dark:text-stone-400">
+        {split.map((s) => <span class="truncate px-1" style={`width:${s.pct}%`}>{s.label}</span>)}
+      </div>
+    </Reveal>
+
+    <ul class="m-0 mt-10 grid list-none grid-cols-1 gap-x-8 gap-y-5 p-0 sm:grid-cols-2">
+      {
+        method.map((m, i) => (
+          <Reveal as="li" delay={i * 50} tier="tight" from="up" class="m-0 border-t border-stone-200 pt-4 dark:border-stone-800">
+            <span class="block text-sm font-bold">{m.title}</span>
+            <span class="mt-1 block text-sm leading-relaxed text-stone-600 dark:text-stone-300">{m.text}</span>
+          </Reveal>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ════ 7. What you'll build ════ -->
+  <section aria-labelledby="learn-build" class="py-20">
+    <Reveal class="mb-10">
+      <h2 id="learn-build" class="m-0 text-3xl font-bold sm:text-4xl">You leave holding things.</h2>
+    </Reveal>
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      {
+        artifacts.map((a, i) => (
+          <Reveal delay={i * 70} tier="tight" from="up">
+            <span class="text-primary dark:text-primary-light font-mono text-xs font-bold tracking-[0.18em] uppercase">{a.level}</span>
+            <ul class="m-0 mt-4 flex list-none flex-wrap gap-2 p-0">
+              {a.items.map((it) => <li class="learn-chip m-0">{it}</li>)}
+            </ul>
+          </Reveal>
+        ))
+      }
+    </div>
+    <Reveal class="mt-10">
+      <p class="m-0 max-w-2xl text-sm leading-relaxed text-stone-500 dark:text-stone-400">
+        A completion record that names what you built and what it changed — which is the thing anyone will actually ask you about.
+      </p>
+    </Reveal>
+  </section>
+
+  <!-- ════ 8. Instructor ════ -->
+  <section aria-labelledby="learn-instructor" class="border-y border-stone-200 bg-stone-50/70 py-20 dark:border-stone-800 dark:bg-stone-900/40">
+    <Reveal class="mb-10">
+      <h2 id="learn-instructor" class="m-0 text-3xl font-bold sm:text-4xl">Taught by someone who does this commercially.</h2>
+    </Reveal>
+    <div class="flex flex-col items-start gap-8 sm:flex-row sm:gap-10">
+      <Reveal from="left" class="mx-auto shrink-0 sm:mx-0">
+        <img src="/founder.png" alt="Praveen Shahi, founder of Amoris" width="176" height="176" loading="lazy" decoding="async" class="border-primary/30 h-44 w-44 rounded-2xl border-2 object-cover" />
+      </Reveal>
+      <Reveal from="right" class="flex flex-col gap-4">
+        <p class="m-0 text-lg leading-relaxed text-stone-700 dark:text-stone-200">
+          <strong>Praveen Shahi</strong> — ex-Amazon, ex-Meta. ~10 years across product, GTM, sales, marketing and EdTech.
+        </p>
+        <p class="m-0 leading-relaxed text-stone-600 dark:text-stone-300">
+          Amoris is an AI GTM agency: I build LLM-driven research, qualification and orchestration systems for companies that need pipeline, not experiments. The tooling I teach is the tooling I ship.
+        </p>
+        <p class="m-0 leading-relaxed text-stone-600 dark:text-stone-300">
+          This isn't a course built from other courses. It's what I do during the week, structured so you can do it too.
+        </p>
+        <ul class="m-0 mt-2 flex list-none flex-wrap items-center gap-x-4 gap-y-2 p-0" aria-label="Background">
+          {proof.map((p) => <li class="learn-proof m-0">{p}</li>)}
+        </ul>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ════ 9. Cohort ════ -->
+  <section aria-labelledby="learn-cohort" class="py-20">
+    <Reveal class="mb-10">
+      <h2 id="learn-cohort" class="m-0 text-3xl font-bold sm:text-4xl">The AI-Native Sprint — Batch 01</h2>
+    </Reveal>
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1.25fr_1fr] lg:gap-12">
+      <Reveal from="left">
+        <dl class="learn-spec m-0">
+          {
+            cohort.map((c) => (
+              <div class="learn-spec-row">
+                <dt>{c.k}</dt>
+                <dd>{c.v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </Reveal>
+      <Reveal from="right" class="flex flex-col gap-6">
+        <div class="border-primary/40 rounded-xl border-2 bg-white p-6 dark:bg-stone-900">
+          <span class="text-primary dark:text-primary-light font-mono text-xs font-bold tracking-[0.18em] uppercase">Founding batch</span>
+          <p class="m-0 mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+            This is the first batch. It's small, priced as a founding cohort, and it will be the most hands-on version of this program that ever runs — because with eight people I can work on your actual workflow, individually. In exchange I'll ask for honest feedback and, if it worked, a testimonial.
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-3">
+          <a href={APPLY_URL} class="btn-primary">Apply for Batch 01 →</a>
+          <p class="m-0 text-sm text-stone-500 dark:text-stone-400">
+            Not sure you're ready? <a href={DIAGNOSTIC_URL}>Take the level test first.</a>
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+
+  <!-- ════ 10. FAQ ════ -->
+  <section aria-labelledby="learn-faq" class="border-y border-stone-200 bg-stone-50/70 py-20 dark:border-stone-800 dark:bg-stone-900/40">
+    <Reveal class="mb-8">
+      <h2 id="learn-faq" class="m-0 text-3xl font-bold sm:text-4xl">Questions.</h2>
+    </Reveal>
+    <LearnFaqList items={faqItems} />
+  </section>
+
+  <!-- ════ 11. Final CTA ════ -->
+  <section aria-labelledby="learn-cta" class="py-20">
+    <Reveal tier="statement" class="mx-auto flex max-w-2xl flex-col items-center gap-5 text-center">
+      <h2 id="learn-cta" class="m-0 text-3xl font-bold text-balance sm:text-4xl">Start by finding out where you actually are.</h2>
+      <p class="m-0 leading-relaxed text-stone-600 dark:text-stone-300">Twelve questions. Two minutes. You'll learn something about your own work either way.</p>
+      <a href={DIAGNOSTIC_URL} class="btn-primary mt-2">Find your AI level →</a>
+      <p class="m-0 text-sm text-stone-500 dark:text-stone-400">
+        Need this built rather than taught? <a href={agencyUrl}>See how Amoris works with companies →</a>
+      </p>
+    </Reveal>
+  </section>
+</Layout>
+
+<style>
+  @reference "../styles/tailwind.config.css";
+
+  /* Flow steps butt together so the sequence reads as one run. */
+  .learn-flow-step + .learn-flow-step {
+    margin-top: -1px;
+  }
+  @media (min-width: 640px) {
+    .learn-flow-step:nth-child(even) {
+      margin-left: -1px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .learn-flow-step + .learn-flow-step {
+      margin-top: 0;
+      margin-left: -1px;
+    }
+  }
+
+  .learn-chip {
+    @apply rounded-full border border-stone-300 bg-white px-3 py-1.5 text-sm dark:border-stone-700 dark:bg-stone-900;
+  }
+
+  .learn-proof {
+    @apply text-xs font-semibold tracking-widest text-stone-500 uppercase dark:text-stone-400;
+  }
+  .learn-proof:not(:last-child)::after {
+    content: '·';
+    @apply ml-4 text-stone-400;
+  }
+
+  /* Cohort spec, as a data readout rather than prose. */
+  .learn-spec-row {
+    @apply grid grid-cols-1 gap-1 border-t border-stone-200 py-3 sm:grid-cols-[11rem_1fr] sm:gap-4 dark:border-stone-800;
+  }
+  .learn-spec-row:last-child {
+    @apply border-b border-stone-200 dark:border-stone-800;
+  }
+  .learn-spec dt {
+    @apply text-xs font-bold tracking-widest text-stone-500 uppercase dark:text-stone-400;
+  }
+  .learn-spec dd {
+    @apply m-0 text-sm leading-relaxed text-stone-700 dark:text-stone-200;
+  }
+
+  .learn-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .learn-faq[open] .learn-faq-icon {
+    transform: rotate(180deg);
+  }
+  .learn-faq-icon {
+    transition: transform 0.25s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .learn-faq-icon {
+      transition: none;
+    }
+  }
+</style>

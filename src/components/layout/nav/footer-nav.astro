@@ -12,7 +12,7 @@ const t = useTranslations(locale);
 const linkClass = "unstyle-link group-hover:text-text-dark/60 hover:text-text-dark text-text-dark/80 w-fit pt-1.5";
 ---
 
-<nav role="navigation" class="xs:grid-cols-2 text-text-dark xs:justify-items-start grid w-full grid-cols-1 justify-items-center gap-14 text-left text-sm sm:grid-cols-3 md:w-auto md:grid-cols-2 lg:grid-cols-3 xl:gap-20">
+<nav role="navigation" class="xs:grid-cols-2 text-text-dark xs:justify-items-start grid w-full grid-cols-1 justify-items-center gap-14 text-left text-sm sm:grid-cols-3 md:w-auto md:grid-cols-2 lg:grid-cols-4 xl:gap-20">
   <div class="xs:items-start group flex flex-col items-center">
     <h3>{t('labels.offering')}</h3>
     {!isHome ? <a class={linkClass} href={getLocaleUrl('/', locale)}>{t('nav.home')}</a> : ''}
@@ -25,6 +25,14 @@ const linkClass = "unstyle-link group-hover:text-text-dark/60 hover:text-text-da
     <a class={linkClass} href={getLocaleUrl('founder', locale)}>{t('nav.founder')}</a>
     <a class={linkClass} href={getLocaleUrl('contact', locale)}>{t('nav.contact')}</a>
     <a class={linkClass} href={getLocaleUrl('blog', locale)}>{t('nav.blog')}</a>
+  </div>
+  <div class="xs:items-start group flex flex-col items-center">
+    <h3>{t('labels.learn')}</h3>
+    <a class={linkClass} href={getLocaleUrl('learn-ai', locale)}>AI level test</a>
+    <a class={linkClass} href={getLocaleUrl('learn-ai#levels', locale)}>Level 1</a>
+    <a class={linkClass} href={getLocaleUrl('learn-ai#levels', locale)}>Level 2</a>
+    <a class={linkClass} href={getLocaleUrl('learn-ai#levels', locale)}>Level 3</a>
+    <a class={linkClass} href={getLocaleUrl('learn-ai#levels', locale)}>Next cohort</a>
   </div>
   <div class="xs:items-start group flex flex-col items-center">
     <h3>{t('labels.resources')}</h3>

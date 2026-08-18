@@ -1,0 +1,121 @@
+---
+/**
+ * The page's recurring motif: three nodes, UNDERSTAND -> APPLY -> DESIGN.
+ *
+ * Rendered as SVG so the connectors, nodes and the floating "you are here?"
+ * marker hold their alignment exactly. HTML boxes drift.
+ *
+ * The `?` sits between stages one and two and is deliberately unresolved - it
+ * is the setup for the diagnostic further down the page.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = "" } = Astro.props as Props;
+
+const stages = [
+  { n: "LEVEL 1", label: "UNDERSTAND", quote: "I understand AI", x: 20 },
+  { n: "LEVEL 2", label: "APPLY", quote: "I use AI in my work", x: 250 },
+  { n: "LEVEL 3", label: "DESIGN", quote: "I build AI systems", x: 480 },
+];
+---
+
+<svg class:list={["ladder", className]} viewBox="0 0 660 200" role="img" aria-label="Three levels of AI capability: understand, apply, then design AI systems">
+  {
+    stages.map((s, i) => (
+      <>
+        <g class="ladder-node">
+          <rect x={s.x} y="46" width="160" height="72" rx="2" />
+          <text x={s.x + 80} y="30" class="ladder-lvl" text-anchor="middle">{s.n}</text>
+          <text x={s.x + 80} y="80" class="ladder-label" text-anchor="middle">{s.label}</text>
+          <text x={s.x + 80} y="102" class="ladder-quote" text-anchor="middle">{s.quote}</text>
+        </g>
+        {i < stages.length - 1 && (
+          <g class="ladder-link" aria-hidden="true">
+            <path d={`M${s.x + 166} 82 H${s.x + 218}`} />
+            <path d={`M${s.x + 210} 76 L${s.x + 218} 82 L${s.x + 210} 88`} />
+          </g>
+        )}
+      </>
+    ))
+  }
+
+  <!-- Unresolved on purpose: this is what the diagnostic answers. -->
+  <g class="ladder-here" aria-hidden="true">
+    <path d="M215 150 V128" />
+    <circle cx="215" cy="160" r="13" />
+    <text x="215" y="165" text-anchor="middle">?</text>
+    <text x="215" y="192" class="ladder-here-label" text-anchor="middle">YOU ARE HERE</text>
+  </g>
+</svg>
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+  .ladder {
+    @apply mx-auto block h-auto w-full max-w-3xl;
+    overflow: visible;
+  }
+  .ladder-node rect {
+    fill: none;
+    stroke: var(--color-stone-300);
+    stroke-width: 1;
+  }
+  :global(.dark) .ladder-node rect {
+    stroke: var(--color-stone-700);
+  }
+  .ladder-lvl {
+    fill: var(--color-primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+  .ladder-label {
+    fill: currentColor;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .ladder-quote {
+    fill: var(--color-stone-500);
+    font-size: 12px;
+  }
+  :global(.dark) .ladder-quote {
+    fill: var(--color-stone-400);
+  }
+  .ladder-link path {
+    fill: none;
+    stroke: var(--color-stone-400);
+    stroke-width: 1.4;
+    stroke-linecap: round;
+  }
+  .ladder-here path {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1.2;
+    stroke-dasharray: 4 4;
+  }
+  .ladder-here circle {
+    fill: none;
+    stroke: var(--color-primary);
+    stroke-width: 1.4;
+  }
+  .ladder-here text {
+    fill: var(--color-primary);
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .ladder-here-label {
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.18em;
+  }
+
+  /* Stacked on small screens: the row becomes a column via a taller viewBox is
+     not possible in one SVG, so the SVG scales down and stays legible instead. */
+  @media (max-width: 640px) {
+    .ladder-quote {
+      font-size: 13px;
+    }
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+/**
+ * Three descending bars: task, workflow, system.
+ *
+ * Comparative only - no percentage labels, because the point is the shape of
+ * the gap rather than a measured figure. Pure CSS widths, no JS.
+ */
+const levels = [
+  { label: "Task level", quote: "faster emails", fill: 88 },
+  { label: "Workflow level", quote: "my Monday changed", fill: 34 },
+  { label: "System level", quote: "the function changed", fill: 14 },
+];
+---
+
+<figure class="m-0">
+  <ul class="m-0 flex list-none flex-col gap-5 p-0" aria-label="Where professionals apply AI, by altitude">
+    {
+      levels.map((l) => (
+        <li class="m-0">
+          <div class="mb-2 flex flex-wrap items-baseline gap-x-3">
+            <span class="text-sm font-bold">{l.label}</span>
+            <span class="text-sm text-stone-500 dark:text-stone-400">&ldquo;{l.quote}&rdquo;</span>
+          </div>
+          <div class="alt-track">
+            <span class="alt-fill" style={`--w:${l.fill}%`} />
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+  <figcaption class="mt-6 text-sm text-stone-500 dark:text-stone-400">Where most professionals are stuck.</figcaption>
+</figure>
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+  .alt-track {
+    @apply h-3 w-full bg-stone-200 dark:bg-stone-800;
+  }
+  .alt-fill {
+    @apply bg-primary dark:bg-primary-light block h-full;
+    width: var(--w);
+  }
+</style>

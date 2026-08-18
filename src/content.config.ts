@@ -63,4 +63,26 @@ const faq_answers = defineCollection({
     }),
 });
 
-export const collections = { articles, faq_answers };
+/*
+  Learn FAQs are a separate collection from faq_answers on purpose.
+
+  The agency FAQ feeds /faq and llms.txt (generateLLMFiles.js scans the
+  faq-answers directory by name). Amoris Learn is a different service with a
+  different audience, so mixing the two would put cohort questions on the
+  agency FAQ page and into the agency's llms.txt. Separate collection, separate
+  surface, no leakage.
+*/
+const learn_faqs = defineCollection({
+  loader: glob({ pattern: ['**/[^_]**.md'], base: './src/content/learn-faqs', deferRender: onDemandCollections.has('learn_faqs') }),
+  schema: () =>
+    z.object({
+      publishDate: z.date().optional(),
+      updateDate: z.date().optional(),
+      draft: z.boolean().optional(),
+      question: z.string(),
+      /** Controls display order; the sequence is deliberate. */
+      order: z.number().optional(),
+    }),
+});
+
+export const collections = { articles, faq_answers, learn_faqs };

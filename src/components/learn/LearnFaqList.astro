@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import Reveal from "@components/reveal.astro";
+
+/**
+ * The Learn FAQ.
+ *
+ * Deliberately simpler than the agency `faq/faq-list.astro`: nine questions
+ * need no search box or category filter, and native <details> gives keyboard
+ * and screen-reader behaviour for free without a line of JavaScript.
+ */
+interface Props {
+  items: { entry: CollectionEntry<"learn_faqs">; Content: AstroComponentFactory }[];
+}
+
+const { items } = Astro.props as Props;
+---
+
+<ul class="m-0 flex list-none flex-col gap-3 p-0">
+  {
+    items.map(({ entry, Content }, i) => (
+      <Reveal as="li" delay={i * 40} tier="tight" from="up" class="m-0">
+        <details class="learn-faq a-card p-0" id={entry.id.split("/").slice(-1)[0]}>
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5">
+            <span class="text-base font-semibold">{entry.data.question}</span>
+            <svg class="learn-faq-icon text-primary dark:text-primary-light h-5 w-5 shrink-0" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </summary>
+          <div class="learn-faq-body border-t border-stone-200 px-5 pt-4 pb-5 text-sm leading-relaxed text-stone-600 dark:border-stone-800 dark:text-stone-300">
+            <Content />
+          </div>
+        </details>
+      </Reveal>
+    ))
+  }
+</ul>
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+  .learn-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .learn-faq[open] .learn-faq-icon {
+    transform: rotate(180deg);
+  }
+  .learn-faq-icon {
+    transition: transform 0.25s ease;
+  }
+  .learn-faq-body :global(p) {
+    margin: 0;
+  }
+  .learn-faq-body :global(p + p) {
+    margin-top: 0.75rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .learn-faq-icon {
+      transition: none;
+    }
+  }
+</style>

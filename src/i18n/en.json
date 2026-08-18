@@ -10,6 +10,7 @@
     "legal-notice": "Legal Notice",
     "privacy-policy": "Privacy Policy",
     "architecture": "Architecture",
+    "learn": "Learn",
     "data-and-ip": "Data & IP"
   },
   "labels": {
@@ -60,7 +61,8 @@
     "demo-warn": "Mind that this is not sending anything at this demo!",
     "book-audit": "Book 30 minutes",
     "see-the-work": "See what exists",
-    "intro-call": "Book 30 minutes"
+    "intro-call": "Book 30 minutes",
+    "learn": "Learn"
   },
   "meta": {
     "title": "Amoris - AI GTM agency for B2B revenue teams",
@@ -153,6 +155,10 @@
     "data-and-ip": {
       "title": "Data & IP",
       "description": "What access Amoris asks for, what it will not ask for, and who owns what after an engagement."
+    },
+    "learn-ai": {
+      "title": "Become AI-native at work",
+      "description": "Learn how modern AI actually works, apply it across real professional workflows, and progress from AI literacy to designing AI-powered systems."
     }
   },
   "rss": {

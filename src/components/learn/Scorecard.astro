@@ -1,0 +1,123 @@
+---
+/**
+ * A sample diagnostic readout. Labelled as a sample so it is never mistaken
+ * for the visitor's own result.
+ *
+ * The bars are rendered at full width in the markup and only *narrowed* by the
+ * script once it has confirmed it can animate them. A visitor without
+ * JavaScript, or with reduced motion, sees the finished card.
+ */
+const dimensions = [
+  { label: "Understanding", pct: 72 },
+  { label: "Application", pct: 41, flag: true },
+  { label: "Systems thinking", pct: 81 },
+];
+---
+
+<figure class="a-card m-0 p-0" data-scorecard>
+  <header class="flex items-center justify-between border-b border-stone-300 px-6 py-4 dark:border-stone-700">
+    <span class="text-primary dark:text-primary-light font-mono text-xs font-bold tracking-[0.18em] uppercase">Your AI profile</span>
+    <span class="rounded-full border border-stone-300 px-2.5 py-0.5 text-[0.65rem] font-semibold tracking-wider text-stone-500 uppercase dark:border-stone-700 dark:text-stone-400">Sample</span>
+  </header>
+
+  <div class="flex flex-col gap-5 px-6 py-6">
+    {
+      dimensions.map((d) => (
+        <div>
+          <div class="mb-2 flex items-baseline justify-between gap-4">
+            <span class="text-sm font-semibold">{d.label}</span>
+            <span class:list={["font-mono text-sm tabular-nums", d.flag ? "text-amber-600 dark:text-amber-400" : "text-stone-500 dark:text-stone-400"]}>{d.pct}%</span>
+          </div>
+          <div class="score-track">
+            <span class:list={["score-fill", d.flag && "is-flag"]} style={`--w:${d.pct}%`} />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <figcaption class="flex flex-col gap-2 border-t border-stone-300 bg-stone-100 px-6 py-5 dark:border-stone-700 dark:bg-stone-800">
+    <p class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+      <span class="font-bold text-stone-800 dark:text-stone-100">Finding:</span> You think in systems but you haven&rsquo;t built one.
+    </p>
+    <p class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+      <span class="font-bold text-stone-800 dark:text-stone-100">Recommended:</span> Level 2 &mdash; AI Practitioner
+    </p>
+  </figcaption>
+</figure>
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+  .score-track {
+    @apply h-2.5 w-full overflow-hidden bg-stone-200 dark:bg-stone-800;
+  }
+
+  /*
+    The bar is laid out at its true width and scaled on the X axis to animate.
+    Transform rather than width: it runs on the compositor, triggers no layout,
+    and is not contested by the width declaration.
+
+    Without JS, or under reduced motion, --s is never set and scaleX defaults
+    to 1, so the bar simply renders full.
+  */
+  .score-fill {
+    @apply bg-primary dark:bg-primary-light block h-full;
+    width: var(--w);
+    transform-origin: left center;
+    transform: scaleX(var(--s, 1));
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .score-fill.is-flag {
+    @apply bg-amber-500 dark:bg-amber-400;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .score-fill {
+      transform: none;
+      transition: none;
+    }
+  }
+
+</style>
+
+<script>
+  function setupScorecard() {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-scorecard]')).filter((el) => !el.dataset.scoreInit);
+    if (!cards.length) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) return;
+
+    // Collapse only once we know the animation can run. Without JS the bars
+    // never get --s and render at their real width.
+    const bars = new Map<HTMLElement, HTMLElement[]>();
+    cards.forEach((card) => {
+      card.dataset.scoreInit = 'true';
+      const fills = Array.from(card.querySelectorAll<HTMLElement>('.score-fill'));
+      fills.forEach((f) => f.style.setProperty('--s', '0'));
+      bars.set(card, fills);
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const card = entry.target as HTMLElement;
+          (bars.get(card) ?? []).forEach((f, i) => {
+            f.style.transitionDelay = `${i * 90}ms`;
+            f.style.removeProperty('--s');
+          });
+          observer.unobserve(card);
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.2 },
+    );
+
+    cards.forEach((el) => observer.observe(el));
+  }
+
+  document.addEventListener('astro:page-load', setupScorecard);
+  if (document.readyState !== 'loading') setupScorecard();
+  else document.addEventListener('DOMContentLoaded', setupScorecard);
+</script>
