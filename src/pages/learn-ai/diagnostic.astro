@@ -1,0 +1,726 @@
+---
+import Layout from "@layouts/default.astro";
+import Headline from "@components/headline.astro";
+import { getLocaleUrl } from "@utils/i18n";
+import { themeConfig } from "~/theme.config";
+import { toSafeJsonScript } from "@utils/security";
+
+const locale = themeConfig.i18n.defaultLocale;
+
+/*
+  The AI Level Test.
+
+  Scoring runs entirely in the browser - nothing is sent anywhere until the
+  visitor chooses to apply or leave an email, which is what the page promises
+  in its third trust signal.
+
+  Level codes are 1 / 1-2 / 2 / 3 so the result drops straight into question 5
+  of the cohort intake form without translation.
+*/
+
+// The Tally URLs. Hidden fields 'level' and 'score' are auto-populated by the
+// results CTA which appends them as query params (?level=2&score=27, etc).
+const APPLY_URL = "https://tally.so/r/EkoP2r";
+// Waitlist form - when someone doesn't apply but wants to hear about Batch 02.
+const NOTIFY_URL = "https://tally.so/r/aQpBRb";
+
+const contactUrl = getLocaleUrl("contact", locale);
+const learnUrl = getLocaleUrl("learn-ai", locale);
+
+const title = "Take the AI Level Test — Find Your Actual AI Proficiency";
+const description = "12 scenario questions reveal where you actually are with AI. Most people score lower than they expect. 2 minutes.";
+
+const trustSignals = [
+  "Real scenario-based questions, not “rate your knowledge”",
+  "Your result is instantly personalised to your role",
+  "No signup until you see your results",
+];
+
+const faqs = [
+  { q: "How long does the test take?", a: "Two minutes. Seriously." },
+  { q: "What if I score lower than I expected?", a: "Most people do. That’s the test working. The gap is where the learning is." },
+  { q: "Can I retake it?", a: "Yes, as many times as you want. Your last result is what counts." },
+  { q: "What happens to my score?", a: "It’s stored locally in your browser. We don’t collect it unless you apply for a cohort." },
+  { q: "Which level should I start with?", a: "The test will tell you. Trust it — self-placement is consistently wrong, which is why the test exists." },
+  { q: "What if the test doesn’t match my experience?", a: "Message us. That feedback is how we improve this." },
+];
+
+const assessmentSchema = {
+  "@context": "https://schema.org",
+  "@type": "AssessmentTest",
+  name: "AI Level Test",
+  description: "Diagnostic test revealing AI proficiency across understanding, application, and systems thinking.",
+  url: "https://amoris.in/learn-ai/diagnostic",
+  educationalLevel: "Professional",
+  timeRequired: "PT2M",
+  isAccessibleForFree: true,
+  author: { "@type": "Organization", name: "Amoris", url: "https://amoris.in" },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<Layout {title} {description} noTitleSlug>
+  <script is:inline type="application/ld+json" set:html={toSafeJsonScript(assessmentSchema)} />
+  <script is:inline type="application/ld+json" set:html={toSafeJsonScript(faqSchema)} />
+
+  <Headline text="AI Level Test" />
+
+  <!-- ════ 1. Hero ════ -->
+  <section aria-labelledby="dx-h1" class="pb-14">
+    <div class="mx-auto flex max-w-3xl flex-col items-center gap-5 text-center">
+      <span class="text-primary dark:text-primary-light text-sm font-semibold tracking-[0.2em] uppercase">Amoris Learn</span>
+      <h1 id="dx-h1" class="m-0 text-4xl font-bold text-balance sm:text-5xl">Find your AI level.</h1>
+      <p class="m-0 max-w-2xl text-lg leading-relaxed text-stone-600 dark:text-stone-300">
+        Twelve scenario questions reveal your actual proficiency across understanding, application and systems thinking. Most people score differently than they expect. Two minutes.
+      </p>
+    </div>
+
+    <ul class="mx-auto mt-9 flex max-w-2xl list-none flex-col gap-0 p-0">
+      {
+        trustSignals.map((t) => (
+          <li class="m-0 border-t border-stone-200 py-3 text-sm text-stone-600 last:border-b dark:border-stone-800 dark:text-stone-300">{t}</li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- ════ 2. Why this matters ════ -->
+  <section aria-labelledby="dx-why" class="border-y border-stone-200 bg-stone-50/70 py-16 dark:border-stone-800 dark:bg-stone-900/40">
+    <div class="mx-auto max-w-3xl">
+      <h2 id="dx-why" class="m-0 text-3xl font-bold sm:text-4xl">Why this test exists</h2>
+      <div class="mt-6 flex flex-col gap-4 text-stone-600 dark:text-stone-300">
+        <p class="m-0 leading-relaxed">
+          Most people overestimate or underestimate their AI proficiency &mdash; the self-reported scores never match the ability. This test uses scenarios, not self-assessment.
+        </p>
+        <p class="m-0 leading-relaxed">
+          Your result will show you what&rsquo;s working and where the gap actually is. It will point you to exactly where in Amoris Learn you should start.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ 3. The form ════ -->
+  <section aria-labelledby="dx-form-h" class="py-16">
+    <h2 id="dx-form-h" class="sr-only">The test</h2>
+    <form id="dx-form" class="mx-auto flex max-w-3xl list-none flex-col gap-5" novalidate>
+      <!-- Questions are injected here so the array stays the single source of truth. -->
+    </form>
+
+    <noscript>
+      <div class="mx-auto max-w-3xl rounded-xl border border-stone-300 bg-stone-50 p-6 dark:border-stone-700 dark:bg-stone-900">
+        <p class="m-0 leading-relaxed text-stone-600 dark:text-stone-300">
+          The test scores itself in your browser, so it needs JavaScript enabled. Turn it on and reload, or <a href={learnUrl}>read the levels on the Amoris Learn page</a> and place yourself from the descriptions.
+        </p>
+      </div>
+    </noscript>
+
+    <div class="mx-auto mt-8 flex max-w-3xl flex-col items-center gap-3">
+      <p id="dx-progress" class="m-0 text-sm text-stone-500 tabular-nums dark:text-stone-400" aria-live="polite">0 of 12 answered</p>
+      <button id="dx-submit" type="button" class="btn-primary" hidden>See my result &rarr;</button>
+    </div>
+  </section>
+
+  <!-- ════ 4-5. Results ════ -->
+  <section id="dx-results" class="border-y border-stone-200 bg-stone-50/70 py-16 dark:border-stone-800 dark:bg-stone-900/40" hidden aria-labelledby="dx-results-h" tabindex="-1">
+    <div class="mx-auto max-w-3xl">
+      <h2 id="dx-results-h" class="sr-only">Your result</h2>
+
+      <div class="a-card dx-fade p-0">
+        <header class="flex flex-wrap items-center justify-between gap-3 border-b border-stone-300 px-6 py-4 dark:border-stone-700">
+          <span class="text-primary dark:text-primary-light font-mono text-xs font-bold tracking-[0.18em] uppercase">Your AI profile</span>
+          <span id="dx-score" class="font-mono text-sm text-stone-500 tabular-nums dark:text-stone-400"></span>
+        </header>
+
+        <div class="flex flex-col gap-5 px-6 py-6">
+          <div>
+            <div class="mb-2 flex items-baseline justify-between gap-4">
+              <span class="text-sm font-semibold">Understanding</span>
+              <span id="dx-pct-u" class="font-mono text-sm text-stone-500 tabular-nums dark:text-stone-400"></span>
+            </div>
+            <div class="dx-track"><span id="dx-bar-u" class="dx-bar"></span></div>
+          </div>
+          <div>
+            <div class="mb-2 flex items-baseline justify-between gap-4">
+              <span class="text-sm font-semibold">Application</span>
+              <span id="dx-pct-a" class="font-mono text-sm text-stone-500 tabular-nums dark:text-stone-400"></span>
+            </div>
+            <div class="dx-track"><span id="dx-bar-a" class="dx-bar"></span></div>
+          </div>
+          <div>
+            <div class="mb-2 flex items-baseline justify-between gap-4">
+              <span class="text-sm font-semibold">Systems thinking</span>
+              <span id="dx-pct-s" class="font-mono text-sm text-stone-500 tabular-nums dark:text-stone-400"></span>
+            </div>
+            <div class="dx-track"><span id="dx-bar-s" class="dx-bar"></span></div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4 border-t border-stone-300 bg-stone-100 px-6 py-5 dark:border-stone-700 dark:bg-stone-800">
+          <div>
+            <span class="text-xs font-bold tracking-widest text-stone-500 uppercase dark:text-stone-400">Finding</span>
+            <p id="dx-finding" class="m-0 mt-1.5 text-base font-semibold text-stone-800 dark:text-stone-100"></p>
+          </div>
+          <div>
+            <span class="text-xs font-bold tracking-widest text-stone-500 uppercase dark:text-stone-400">Recommended path</span>
+            <p id="dx-path" class="m-0 mt-1.5 text-base font-semibold text-stone-800 dark:text-stone-100"></p>
+          </div>
+        </div>
+
+        <footer class="flex flex-wrap items-center justify-between gap-4 border-t border-stone-300 px-6 py-4 dark:border-stone-700">
+          <button id="dx-retake" type="button" class="btn-subtle rounded px-4 py-[0.43rem]">&larr; Back to test</button>
+          <a id="dx-apply-top" href={APPLY_URL} class="btn-primary">Apply for Batch 01 &rarr;</a>
+        </footer>
+      </div>
+
+      <div class="dx-fade mt-8">
+        <span class="text-xs font-bold tracking-widest text-stone-500 uppercase dark:text-stone-400">What this means for you</span>
+        <p id="dx-interpretation" class="m-0 mt-2 leading-relaxed text-stone-600 dark:text-stone-300"></p>
+        <p class="m-0 mt-4 text-sm text-stone-500 dark:text-stone-400">
+          <strong>Not sure?</strong> Take the test again, or <a href="mailto:shahi@amoris.in?subject=AI%20Level%20Test%20result">message Praveen &rarr;</a>
+        </p>
+      </div>
+
+      <!-- Next steps -->
+      <div class="dx-fade mt-12">
+        <h3 class="m-0 text-2xl font-bold">What&rsquo;s next?</h3>
+        <div class="mt-5 grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div class="a-card flex flex-col gap-2">
+            <span class="text-primary dark:text-primary-light font-mono text-xs font-bold tracking-[0.18em] uppercase">The matching program</span>
+            <p id="dx-program" class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300"></p>
+          </div>
+          <div class="a-card flex flex-col gap-2">
+            <span class="text-primary dark:text-primary-light font-mono text-xs font-bold tracking-[0.18em] uppercase">Get started now</span>
+            <p class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+              Apply for Batch 01. Three cohorts by level. Applications close August 25.
+            </p>
+            <a id="dx-apply" href={APPLY_URL} class="btn-primary mt-auto w-fit">Apply &rarr;</a>
+          </div>
+          <div class="a-card flex flex-col gap-2">
+            <span class="text-primary dark:text-primary-light font-mono text-xs font-bold tracking-[0.18em] uppercase">Not ready yet?</span>
+            <p class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+              Join the waitlist for the next batch. We&rsquo;ll let you know when it launches.
+            </p>
+            <a href={NOTIFY_URL} class="btn-subtle mt-auto w-fit rounded px-4 py-[0.43rem]">Notify me &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════ 7. Email + context questions ════ -->
+      <div class="dx-fade a-card mt-8">
+        <p class="m-0 text-sm leading-relaxed text-stone-600 dark:text-stone-300">
+          Prefer to think about it? Join the waitlist — we&rsquo;ll let you know when the next batch is open.
+        </p>
+        <form id="dx-capture" class="mt-4 flex flex-col gap-4" novalidate>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <label class="grow">
+              <span class="sr-only">Email address</span>
+              <input id="dx-email" type="email" required placeholder="you@company.com" class="input-primary max-w-none!" />
+            </label>
+            <button type="submit" class="btn-primary shrink-0">Join waitlist &rarr;</button>
+          </div>
+
+          <!-- Context questions: unscored, and only ever asked after the result. -->
+          <details class="dx-context">
+            <summary class="cursor-pointer list-none text-sm text-stone-500 dark:text-stone-400">Help us tailor it (optional, 3 questions)</summary>
+            <div class="mt-4 flex flex-col gap-4">
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-semibold">What&rsquo;s your role / title?</span>
+                <input id="dx-c1" type="text" class="input-primary max-w-none!" />
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-semibold">Name one recurring task or workflow you&rsquo;d most want to redesign.</span>
+                <textarea id="dx-c2" rows="2" class="input-primary max-w-none!"></textarea>
+              </label>
+              <label class="flex flex-col gap-1.5">
+                <span class="text-sm font-semibold">How often do you use AI tools at work?</span>
+                <select id="dx-c3" class="select-primary max-w-none!">
+                  <option value="">Select&hellip;</option>
+                  <option>Daily</option>
+                  <option>Few times a week</option>
+                  <option>Occasionally</option>
+                  <option>Rarely</option>
+                </select>
+              </label>
+            </div>
+          </details>
+        </form>
+        <p id="dx-capture-msg" class="m-0 mt-3 text-sm font-semibold text-emerald-700 dark:text-emerald-400" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ 6. FAQ ════ -->
+  <section aria-labelledby="dx-faq" class="py-16">
+    <div class="mx-auto max-w-3xl">
+      <h2 id="dx-faq" class="m-0 mb-6 text-3xl font-bold sm:text-4xl">Questions.</h2>
+      <ul class="m-0 flex list-none flex-col gap-3 p-0">
+        {
+          faqs.map((f) => (
+            <li class="m-0">
+              <details class="dx-faq a-card p-0">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5">
+                  <span class="text-base font-semibold">{f.q}</span>
+                  <svg class="dx-faq-icon text-primary dark:text-primary-light h-5 w-5 shrink-0" viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M6 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </summary>
+                <p class="m-0 border-t border-stone-200 px-5 pt-4 pb-5 text-sm leading-relaxed text-stone-600 dark:border-stone-800 dark:text-stone-300">
+                  {f.q === "What if the test doesn’t match my experience?" ? (
+                    <Fragment>
+                      Message us. That feedback is how we improve this. <a href={contactUrl}>Contact &rarr;</a>
+                    </Fragment>
+                  ) : (
+                    f.a
+                  )}
+                </p>
+              </details>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-8 text-sm text-stone-500 dark:text-stone-400">
+        <a href={learnUrl}>&larr; Back to Amoris Learn</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  @reference "../../styles/tailwind.config.css";
+
+  .dx-track {
+    @apply h-2.5 w-full overflow-hidden bg-stone-200 dark:bg-stone-800;
+  }
+  /* Width is owned entirely by JS, so there is no cascade to fight. */
+  .dx-bar {
+    @apply bg-primary dark:bg-primary-light block h-full;
+    width: 0;
+    transition: width 0.6s ease-out;
+  }
+
+  .dx-fade {
+    animation: dxFadeIn 0.4s ease-in both;
+  }
+  @keyframes dxFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* The question cards and their options are created by JS, so Astro cannot stamp
+     them with this component's scope attribute. Scoped selectors would match
+     nothing and the form would render unstyled - these have to be :global.
+     The dx- prefix keeps them from colliding with anything else. */
+  :global(.dx-q) {
+    @apply border border-stone-300 bg-white p-5 dark:border-stone-700 dark:bg-stone-900;
+    transition: border-color 0.25s ease;
+  }
+  :global(.dx-q.is-answered) {
+    @apply border-primary/45 dark:border-primary-light/45;
+  }
+  :global(.dx-q.is-missing) {
+    @apply border-amber-500;
+  }
+  :global(.dx-opt) {
+    @apply flex min-h-11 cursor-pointer items-start gap-3 rounded px-2 py-2.5 text-sm leading-relaxed text-stone-700 dark:text-stone-200;
+    transition: background-color 0.2s ease;
+  }
+  :global(.dx-opt:hover) {
+    @apply bg-stone-100 dark:bg-stone-800;
+  }
+  :global(.dx-opt input) {
+    @apply mt-0.5 h-4 w-4 shrink-0 cursor-pointer;
+    accent-color: var(--color-primary);
+  }
+
+  .dx-faq summary::-webkit-details-marker,
+  .dx-context summary::-webkit-details-marker {
+    display: none;
+  }
+  .dx-faq[open] .dx-faq-icon {
+    transform: rotate(180deg);
+  }
+  .dx-faq-icon {
+    transition: transform 0.25s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dx-bar,
+    .dx-faq-icon {
+      transition: none;
+    }
+    :global(.dx-q),
+    :global(.dx-opt) {
+      transition: none;
+    }
+    .dx-fade {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // ── Part H, verbatim. Editing a question here is the only change needed. ──
+  const questions = [
+    {
+      text: "You ask an AI assistant for recent statistics on your industry. It gives you three specific figures with sources. What's your next move?",
+      options: [
+        "Use them — it cited sources",
+        "Skim the sources to check they exist",
+        "Verify each figure against the actual source, because citations can be generated rather than retrieved",
+        "Don't use AI for statistics at all",
+      ],
+      scores: [0, 1, 3, 2],
+      axis: "understanding",
+    },
+    {
+      text: "The same prompt gives you a good answer on Monday and a mediocre one on Wednesday. Why?",
+      options: [
+        "The model was updated",
+        "These systems are probabilistic — output varies run to run, and small context differences compound",
+        "I must have prompted it slightly differently",
+        "The servers were busy",
+      ],
+      scores: [1, 3, 2, 0],
+      axis: "understanding",
+    },
+    {
+      text: "Your manager hands you a 50-page vendor report and asks for a one-page decision memo. What do you do?",
+      options: [
+        "Paste it in and ask for a summary",
+        "Ask for a summary, then edit it",
+        "Define the decision being made and the criteria first, then extract only what bears on those criteria, then verify the extracted facts against the document",
+        "Chunk it into sections, summarize each, then synthesize",
+      ],
+      scores: [0, 1, 3, 2],
+      axis: "application",
+    },
+    {
+      text: "You've asked for a piece of writing three times and it's still generic. What's the most likely cause?",
+      options: [
+        "The model isn't good enough — try a different one",
+        "I need a longer, more detailed prompt",
+        "I haven't given it an example of what good looks like, or the specific constraints that make my context different",
+        "This task isn't suited to AI",
+      ],
+      scores: [1, 1, 3, 2],
+      axis: "application",
+    },
+    {
+      text: "You do a 10-step process every Monday morning. How do you decide whether AI should handle it?",
+      options: [
+        "Try AI on the whole thing and see",
+        "It's repetitive, so automate it",
+        "Break it into steps and assess each on time cost, judgment required, error tolerance and how verifiable the output is — then decide step by step",
+        "Ask AI how to automate it",
+      ],
+      scores: [0, 1, 3, 1],
+      axis: "application",
+    },
+    {
+      text: "Which of these is the strongest signal that a task needs an AI agent rather than a simpler solution?",
+      options: [
+        "It has many steps",
+        "It takes a long time",
+        "The path can't be determined in advance — the system must decide what to do next based on what it finds",
+        "It involves several different tools",
+      ],
+      scores: [1, 0, 3, 2],
+      axis: "systems",
+    },
+    {
+      text: "You've built an AI workflow that produces weekly reports. It works. What's the most important thing to add?",
+      options: [
+        "More automation, so it needs no input",
+        "A way to detect when the output is wrong, and a human checkpoint where being wrong would be costly",
+        "A better prompt",
+        "Integration with more data sources",
+      ],
+      scores: [1, 3, 0, 1],
+      axis: "application",
+    },
+    {
+      text: "Which of these should you be most cautious about giving an AI assistant?",
+      options: [
+        "A long document — it might lose context",
+        "Unreleased commercial information, on a consumer-tier tool where data handling isn't contractually defined",
+        "Anything creative — output will be generic",
+        "Numerical data — the maths may be wrong",
+      ],
+      scores: [1, 3, 0, 2],
+      axis: "understanding",
+    },
+    {
+      text: "Your team wants to adopt AI. What do you do first?",
+      options: [
+        "Pick the best tools and roll them out with training",
+        "Find where time and rework actually go today, then identify which of those are AI-suitable, then pilot the one with the clearest evidence",
+        "Run an AI literacy workshop for everyone",
+        "Hire someone who knows AI",
+      ],
+      scores: [1, 3, 2, 0],
+      axis: "systems",
+    },
+    {
+      text: "A vendor demos an AI tool that would automate a core process. What's the single most useful question to ask?",
+      options: [
+        "What does it cost?",
+        "Which models does it use?",
+        "What happens when it's wrong — how would we know, and what's the recovery path?",
+        "Which companies use it?",
+      ],
+      scores: [1, 0, 3, 1],
+      axis: "systems",
+    },
+    {
+      text: "Which of these should you probably NOT delegate to AI?",
+      options: [
+        "Summarizing a long meeting transcript",
+        "Drafting a difficult performance conversation with someone who reports to you",
+        "Generating twenty campaign concepts",
+        "Structuring a messy dataset",
+      ],
+      scores: [0, 3, 0, 0],
+      axis: "application",
+    },
+    {
+      text: "You've deployed an AI workflow. How do you know if it's working?",
+      options: [
+        "People are using it",
+        "It hasn't broken",
+        "I defined success criteria before deploying, I sample outputs for quality, and I know the condition under which I'd turn it off",
+        "It's saving time",
+      ],
+      scores: [1, 0, 3, 2],
+      axis: "systems",
+    },
+  ];
+
+  // The axes carry different numbers of questions (3 / 5 / 4), so each is scored
+  // against its own maximum. Derived rather than hard-coded so editing a
+  // question cannot silently skew a percentage.
+  const axisMax = questions.reduce((acc, q) => {
+    acc[q.axis] = (acc[q.axis] || 0) + Math.max(...q.scores);
+    return acc;
+  }, {} as Record<string, number>);
+
+  const BANDS = [
+    {
+      max: 12,
+      code: "1",
+      name: "AI Literate (Emerging)",
+      finding: "You're using AI. You're not yet predicting it.",
+      interpretation:
+        "You're getting productivity gains from AI but you're treating it like a search box. The gains plateau because you're optimizing prompts when you should be understanding how these systems actually work. Start with the mental models — understanding prediction rather than retrieval is where everything else connects.",
+      path: "Level 1 — AI Literate — 4 weeks",
+    },
+    {
+      max: 22,
+      code: "1-2",
+      name: "Capable User",
+      finding: "You're good at tasks. Your week hasn't changed.",
+      interpretation:
+        "You've got prompting down. You're fast. But you're still operating at the task level — faster emails, quicker rewrites. The leverage is in the level above: redesigning recurring workflows so AI handles the shape, not just the words. You're closer to Level 2 than Level 1, but you're missing the systems thinking that keeps workflows reliable.",
+      path: "Level 2 — AI Practitioner — 6 weeks",
+    },
+    {
+      max: 30,
+      code: "2",
+      name: "AI Practitioner",
+      finding: "You think in workflows. Time to build systems.",
+      interpretation:
+        "You know how to decompose work and apply AI to pieces of it. You understand automation and agents aren't the same thing. What's missing is scale and organization — you can design a workflow for yourself, but can you design one that someone else can run? Can you evaluate it honestly? Can you sequence multiple workflows? That's Level 3 territory.",
+      path: "Level 2 — AI Practitioner — 6 weeks (finish this first) · Then Level 3",
+    },
+    {
+      max: 36,
+      code: "3",
+      name: "AI Systems Thinker",
+      finding: "You're thinking at the right altitude. The gap is execution architecture.",
+      interpretation:
+        "You're already reasoning about systems, trade-offs, and where humans must stay in the loop. Your gap isn't judgment — it's the ability to move from “this could work” to “here's exactly how it works and here's the roadmap.” Level 3 is where you operationalize that thinking and learn to defend it.",
+      path: "Level 3 — AI Systems Architect — 8 weeks",
+    },
+  ];
+
+  function scoreTest(answers: number[]) {
+    let total = 0;
+    const axes: Record<string, number> = { understanding: 0, application: 0, systems: 0 };
+    answers.forEach((ans, i) => {
+      const q = questions[i];
+      const score = q.scores[ans];
+      total += score;
+      axes[q.axis] += score;
+    });
+    return { total, ...axes } as { total: number; understanding: number; application: number; systems: number };
+  }
+
+  function getBand(total: number) {
+    return BANDS.find((b) => total <= b.max) ?? BANDS[BANDS.length - 1];
+  }
+
+  const STORE_KEY = 'amoris-ai-level-test';
+
+  function setupDiagnostic() {
+    const form = document.getElementById('dx-form');
+    if (!form || form.dataset.ready) return;
+    form.dataset.ready = 'true';
+
+    const submit = document.getElementById('dx-submit') as HTMLButtonElement;
+    const progress = document.getElementById('dx-progress')!;
+    const results = document.getElementById('dx-results')!;
+    const answers: (number | null)[] = new Array(questions.length).fill(null);
+
+    // Build the questions from the array so markup and scoring cannot drift.
+    questions.forEach((q, qi) => {
+      const fieldset = document.createElement('fieldset');
+      fieldset.className = 'dx-q m-0';
+      fieldset.id = `dx-q-${qi}`;
+
+      const legend = document.createElement('legend');
+      legend.className = 'mb-3 flex gap-3 text-base font-semibold';
+      legend.innerHTML = `<span class="text-primary dark:text-primary-light font-mono text-sm tabular-nums">${String(qi + 1).padStart(2, '0')}</span><span>${q.text}</span>`;
+      fieldset.appendChild(legend);
+
+      const list = document.createElement('div');
+      list.className = 'flex flex-col gap-1';
+      q.options.forEach((opt, oi) => {
+        const label = document.createElement('label');
+        label.className = 'dx-opt';
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = `q${qi}`;
+        input.value = String(oi);
+        input.addEventListener('change', () => {
+          answers[qi] = oi;
+          fieldset.classList.add('is-answered');
+          fieldset.classList.remove('is-missing');
+          update();
+        });
+        const span = document.createElement('span');
+        span.textContent = opt;
+        label.appendChild(input);
+        label.appendChild(span);
+        list.appendChild(label);
+      });
+      fieldset.appendChild(list);
+      form.appendChild(fieldset);
+    });
+
+    function update() {
+      const done = answers.filter((a) => a !== null).length;
+      progress.textContent = `${done} of ${questions.length} answered`;
+      submit.hidden = done < questions.length;
+    }
+
+    function render(result: ReturnType<typeof scoreTest>, scroll = true) {
+      const band = getBand(result.total);
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const pct = (v: number, axis: string) => Math.round((v / axisMax[axis]) * 100);
+      const bars: [string, string, number][] = [
+        ['dx-bar-u', 'dx-pct-u', pct(result.understanding, 'understanding')],
+        ['dx-bar-a', 'dx-pct-a', pct(result.application, 'application')],
+        ['dx-bar-s', 'dx-pct-s', pct(result.systems, 'systems')],
+      ];
+
+      document.getElementById('dx-score')!.textContent = `${result.total} / 36 · ${band.name}`;
+      document.getElementById('dx-finding')!.textContent = band.finding;
+      document.getElementById('dx-path')!.textContent = band.path;
+      document.getElementById('dx-interpretation')!.textContent = band.interpretation;
+      document.getElementById('dx-program')!.textContent = band.path;
+
+      // Carry the result into the application form as query params.
+      const q = `?level=${encodeURIComponent(band.code)}&score=${result.total}`;
+      ['dx-apply', 'dx-apply-top'].forEach((id) => {
+        const a = document.getElementById(id) as HTMLAnchorElement | null;
+        if (a && !a.href.startsWith('mailto:')) a.href = a.href.split('?')[0] + q;
+      });
+
+      results.hidden = false;
+
+      bars.forEach(([barId, pctId, value]) => {
+        document.getElementById(pctId)!.textContent = `${value}%`;
+        const bar = document.getElementById(barId)!;
+        // Flush layout at the CSS start width (0) so the transition has something to
+        // animate from, then set the real value. No rAF - a backgrounded tab starves
+        // it and the bar would sit empty next to a correct percentage.
+        void bar.offsetWidth;
+        bar.style.width = `${value}%`;
+      });
+
+      if (scroll) results.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      // sessionStorage rather than localStorage: the brief asks for the result to
+      // survive a reload but not outlive the visit.
+      try {
+        sessionStorage.setItem(STORE_KEY, JSON.stringify({ answers, total: result.total, level: band.code }));
+      } catch {}
+    }
+
+    submit.addEventListener('click', () => {
+      const missing = answers.findIndex((a) => a === null);
+      if (missing !== -1) {
+        const el = document.getElementById(`dx-q-${missing}`);
+        el?.classList.add('is-missing');
+        el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      render(scoreTest(answers as number[]));
+    });
+
+    document.getElementById('dx-retake')?.addEventListener('click', () => {
+      results.hidden = true;
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Restore a result from earlier in the same visit.
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(STORE_KEY) || 'null');
+      if (saved && Array.isArray(saved.answers) && saved.answers.length === questions.length && !saved.answers.includes(null)) {
+        saved.answers.forEach((a: number, i: number) => {
+          answers[i] = a;
+          const input = form.querySelector<HTMLInputElement>(`input[name="q${i}"][value="${a}"]`);
+          if (input) input.checked = true;
+          document.getElementById(`dx-q-${i}`)?.classList.add('is-answered');
+        });
+        update();
+        // The result itself survives the reload, not just the answers - but the
+        // page must not yank the visitor down to it on load.
+        render(scoreTest(saved.answers as number[]), false);
+      }
+    } catch {}
+
+    // Email capture: redirect to the waitlist form with prefilled email and result.
+    document.getElementById('dx-capture')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = (document.getElementById('dx-email') as HTMLInputElement).value.trim();
+      if (!email || !email.includes('@')) return;
+      const stored = JSON.parse(sessionStorage.getItem(STORE_KEY) || 'null');
+      const level = stored?.level || '';
+      const score = stored?.total || '';
+      const waitlistForm = 'https://tally.so/r/aQpBRb';
+      const url = `${waitlistForm}?email=${encodeURIComponent(email)}&level=${encodeURIComponent(level)}&score=${encodeURIComponent(score)}`;
+      window.location.href = url;
+    });
+
+    update();
+  }
+
+  document.addEventListener('astro:page-load', setupDiagnostic);
+  if (document.readyState !== 'loading') setupDiagnostic();
+  else document.addEventListener('DOMContentLoaded', setupDiagnostic);
+</script>
